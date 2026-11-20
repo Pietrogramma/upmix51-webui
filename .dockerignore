@@ -1,0 +1,12 @@
+.git
+config
+data
+output
+docs
+*.md
+!README.md
+docker-compose*.yml
+compose.yml
+.env
+**/__pycache__
+**/*.upmixtmp

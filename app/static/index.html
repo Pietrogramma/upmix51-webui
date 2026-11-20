@@ -1,0 +1,1237 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Upmix 5.1</title>
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+PHRpdGxlPlVwbWl4NTE8L3RpdGxlPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iYmciIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmMGIyNGUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNkOThhMWYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjExMiIgZmlsbD0idXJsKCNiZykiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIC0yNikgdHJhbnNsYXRlKDI1NiAyNjIpIHNjYWxlKC45KSB0cmFuc2xhdGUoLTI1NiAtMjYyKSI+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMjYyIiByPSIxMzIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzE4MTQxMCIgc3Ryb2tlLW9wYWNpdHk9Ii4yOCIgc3Ryb2tlLXdpZHRoPSI2IiBzdHJva2UtZGFzaGFycmF5PSIxNCAxMiIvPjxnIGZpbGw9IiMxODE0MTAiIGZpbGwtb3BhY2l0eT0iLjE2Ij48cG9seWdvbiBwb2ludHM9IjI1NiwxMzAgMjM4LDI2MiAyNzQsMjYyIi8+PHBvbHlnb24gcG9pbnRzPSIxOTAsMTQ4IDI0MSwyNjggMjY2LDI1MCIvPjxwb2x5Z29uIHBvaW50cz0iMzIyLDE0OCAyNzEsMjY4IDI0NiwyNTAiLz48cG9seWdvbiBwb2ludHM9IjEzMiwzMDcgMjQ4LDI3OCAyNTgsMjUwIi8+PHBvbHlnb24gcG9pbnRzPSIzODAsMzA3IDI2NCwyNzggMjU0LDI1MCIvPjwvZz48ZyBmaWxsPSIjMTgxNDEwIj48cmVjdCB4PSIyMjYiIHk9IjExNiIgd2lkdGg9IjYwIiBoZWlnaHQ9IjI4IiByeD0iOCIvPjxyZWN0IHg9IjE3NSIgeT0iMTI2IiB3aWR0aD0iMzAiIGhlaWdodD0iNDQiIHJ4PSI3IiB0cmFuc2Zvcm09InJvdGF0ZSgtMzAgMTkwIDE0OCkiLz48cmVjdCB4PSIzMDciIHk9IjEyNiIgd2lkdGg9IjMwIiBoZWlnaHQ9IjQ0IiByeD0iNyIgdHJhbnNmb3JtPSJyb3RhdGUoMzAgMzIyIDE0OCkiLz48cmVjdCB4PSIxMTgiIHk9IjI4OSIgd2lkdGg9IjI4IiBoZWlnaHQ9IjM2IiByeD0iNyIgdHJhbnNmb3JtPSJyb3RhdGUoLTExMCAxMzIgMzA3KSIvPjxyZWN0IHg9IjM2NiIgeT0iMjg5IiB3aWR0aD0iMjgiIGhlaWdodD0iMzYiIHJ4PSI3IiB0cmFuc2Zvcm09InJvdGF0ZSgxMTAgMzgwIDMwNykiLz48Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNjIiIHI9IjIwIi8+PC9nPjxnIGZpbGw9IiNmMGIyNGUiPjxjaXJjbGUgY3g9IjI0MiIgY3k9IjEzMCIgcj0iNiIvPjxjaXJjbGUgY3g9IjI3MCIgY3k9IjEzMCIgcj0iNiIvPjxjaXJjbGUgY3g9IjE5MCIgY3k9IjE1MiIgcj0iNyIgdHJhbnNmb3JtPSJyb3RhdGUoLTMwIDE5MCAxNDgpIi8+PGNpcmNsZSBjeD0iMzIyIiBjeT0iMTUyIiByPSI3IiB0cmFuc2Zvcm09InJvdGF0ZSgzMCAzMjIgMTQ4KSIvPjxjaXJjbGUgY3g9IjEzMiIgY3k9IjMxMCIgcj0iNiIgdHJhbnNmb3JtPSJyb3RhdGUoLTExMCAxMzIgMzA3KSIvPjxjaXJjbGUgY3g9IjM4MCIgY3k9IjMxMCIgcj0iNiIgdHJhbnNmb3JtPSJyb3RhdGUoMTEwIDM4MCAzMDcpIi8+PC9nPjwvZz48dGV4dCB4PSIyNTYiIHk9IjQ1OCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iOTIiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiMxODE0MTAiIGxldHRlci1zcGFjaW5nPSIyIj41LjE8L3RleHQ+PC9zdmc+">
+<style>
+:root{
+  --bg:#f4f1ec; --panel:#ffffff; --panel2:#faf8f4; --ink:#1d1a16; --muted:#6f685e; --line:#e3ddd3;
+  --accent:#c47d12; --accent-ink:#ffffff; --accent-soft:#f6e7cf; --ok:#2f7d4f; --warn:#b4541b; --err:#b42d2d;
+  --meter-bg:#ece7de; --meter:#3d8a5b; --meter-hot:#d08a1a; --meter-clip:#c43b3b;
+  --shadow:0 1px 2px rgba(0,0,0,.05),0 4px 16px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15130f; --panel:#1e1b16; --panel2:#24201a; --ink:#efe9df; --muted:#a59c8e;
+    --line:#352f27; --accent:#e8a33d; --accent-ink:#181410; --accent-soft:#3a2d17; --ok:#5fbf85; --warn:#e58b4a; --err:#ef6b6b;
+    --meter-bg:#2c2720; --meter:#5fbf85; --meter-hot:#e8a33d; --meter-clip:#ef6b6b; --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15130f; --panel:#1e1b16; --panel2:#24201a; --ink:#efe9df; --muted:#a59c8e;
+  --line:#352f27; --accent:#e8a33d; --accent-ink:#181410; --accent-soft:#3a2d17; --ok:#5fbf85; --warn:#e58b4a; --err:#ef6b6b;
+  --meter-bg:#2c2720; --meter:#5fbf85; --meter-hot:#e8a33d; --meter-clip:#ef6b6b; --shadow:none;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,input,select{font:inherit;color:inherit}
+header{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--panel)}
+.logo{width:38px;height:38px;flex:none;display:block}
+header h1{font-size:18px;margin:0;font-weight:700}
+header .sub{color:var(--muted);font-size:13px}
+header .sp{flex:1}
+.icon-btn{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);display:grid;place-items:center;cursor:pointer;color:var(--ink)}
+.icon-btn:hover{border-color:var(--accent);color:var(--accent)}
+.icon-btn svg{width:20px;height:20px}
+main{display:grid;grid-template-columns:minmax(260px,340px) 1fr;gap:16px;padding:16px 20px;max-width:1400px;margin:0 auto}
+@media (max-width:900px){main{grid-template-columns:1fr;padding:12px 16px}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);margin-bottom:16px}
+.card>h2{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0;padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;min-height:47px}
+.card>h2 .sp{flex:1}
+.card>h2 .btn,.card>h2 select{text-transform:none;letter-spacing:0}
+.body{padding:14px 16px}
+.crumbs{display:flex;flex-wrap:wrap;gap:4px;padding:10px 12px;border-bottom:1px solid var(--line);font-size:13px}
+.crumbs a{color:var(--accent);cursor:pointer;text-decoration:none}
+.crumbs span{color:var(--muted)}
+.list{max-height:calc(100vh - 210px);overflow:auto}
+@media (max-width:900px){.list{max-height:340px}}
+.item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-bottom:1px solid var(--line);cursor:pointer;font-size:14px}
+.item:hover{background:var(--panel2)}
+.item.sel{background:var(--accent-soft)}
+.item .ic{width:20px;text-align:center;opacity:.8;flex:none}
+.item .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item .sz{color:var(--muted);font-size:12px;flex:none}
+.empty{padding:24px;text-align:center;color:var(--muted);font-size:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:1200px){.grid2{grid-template-columns:1fr}}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:14px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0;min-width:0;overflow-wrap:anywhere}
+label.f{display:block;font-size:13px;color:var(--muted);margin:10px 0 4px}
+select,input[type=text],input[type=search]{width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel2)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.row>input[type=text],.row>input[type=search]{flex:1;min-width:160px}
+.btn{border:1px solid var(--line);background:var(--panel2);padding:8px 14px;border-radius:8px;cursor:pointer;white-space:nowrap}
+.btn:hover{border-color:var(--accent)}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn.danger{background:var(--err);border-color:var(--err);color:#fff;font-weight:600}
+.btn.sm{padding:4px 10px;font-size:13px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.chk{display:flex;gap:8px;align-items:flex-start;font-size:14px;margin:8px 0;cursor:pointer}
+.chk input{margin-top:3px}
+.note{font-size:13px;color:var(--muted);margin:6px 0 0}
+.warn{color:var(--warn)} .err{color:var(--err)} .ok{color:var(--ok)}
+.box{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:10px;background:var(--panel2)}
+.box.warnbox{border-color:var(--warn)}
+/* stanza 5.1 */
+.room{position:relative;border:1px dashed var(--line);border-radius:14px;padding:14px;background:var(--panel2)}
+.stage{position:absolute;left:50%;top:6px;transform:translateX(-50%);font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;white-space:nowrap}
+.spk-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-areas:"fl fc fr" "sl lfe sr";gap:14px 10px;margin-top:14px}
+.spk{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 4px;border-radius:10px;background:var(--panel);border:1px solid var(--line)}
+.spk .tag{font-weight:700;font-size:13px}
+.spk .lbl{font-size:11px;color:var(--muted);text-align:center;line-height:1.2;min-height:26px}
+.spk .val{font-variant-numeric:tabular-nums;font-size:13px;font-weight:600}
+.vs{writing-mode:vertical-lr;direction:rtl;width:28px;height:150px;accent-color:var(--accent);cursor:pointer}
+@media (max-width:520px){.vs{height:110px}}
+.link{font-size:12px;color:var(--muted);display:flex;gap:10px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+.link label{display:flex;gap:4px;align-items:center;cursor:pointer}
+.adv{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:4px 18px}
+.hs label{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--muted);margin:10px 0 2px}
+.hs label b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.hs input{width:100%;accent-color:var(--accent)}
+/* meter */
+.meters{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:12px}
+.mt{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px}
+.bar{position:relative;width:18px;height:110px;background:var(--meter-bg);border-radius:4px;overflow:hidden}
+.bar .r{position:absolute;bottom:0;left:0;right:0;background:var(--meter)}
+.bar .p{position:absolute;left:0;right:0;height:2px;background:var(--meter-hot)}
+.mt .n{font-weight:700}
+.mt .d{color:var(--muted);font-variant-numeric:tabular-nums}
+audio{width:100%;margin-top:10px}
+/* pianta della stanza 5.1 */
+#prevCard{display:flex;flex-direction:column}
+#prevCard>.body{flex:1;display:flex;flex-direction:column}
+.room-viz{flex:1;display:flex;align-items:center;justify-content:center;margin-top:14px;min-height:300px}
+.room-viz svg{width:100%;max-width:520px;height:auto;display:block}
+.rv-floor{fill:var(--panel2);stroke:var(--line)}
+.rv-ring{fill:none;stroke:var(--line);stroke-width:1.2;stroke-dasharray:4 5}
+.rv-tv{fill:var(--ink);opacity:.8}
+.rv-beam{fill:var(--accent);transition:opacity .15s}
+.rv-body{fill:var(--panel);stroke:var(--muted);stroke-width:1.2}
+.rv-drv{fill:var(--muted)}
+.rv-drv.on{fill:var(--accent)}
+.rv-pill{fill:var(--panel);stroke:var(--accent);stroke-width:1.3}
+.rv-pill.low{stroke:var(--line)}
+.rv-tag{fill:var(--muted);font:700 11px system-ui,sans-serif;text-anchor:middle;dominant-baseline:central}
+.rv-val{fill:var(--ink);font:600 12.5px system-ui,sans-serif;text-anchor:middle;dominant-baseline:central;font-variant-numeric:tabular-nums}
+.rv-ang{fill:var(--muted);font:11px system-ui,sans-serif;text-anchor:middle}
+.rv-sofa{fill:var(--panel);stroke:var(--muted);stroke-width:1.2}
+.rv-head{fill:var(--accent)}
+.rv-lbl{fill:var(--muted);font:12px system-ui,sans-serif;text-anchor:middle}
+/* copertine */
+.cover-sel{display:flex;gap:14px;align-items:flex-start;margin-top:12px}
+.cover-sel img{width:120px;height:120px;object-fit:cover;border-radius:8px;border:1px solid var(--line);background:var(--meter-bg);flex:none}
+.covers{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:10px;margin-top:12px;max-height:430px;overflow:auto;padding:2px}
+.cv{border:2px solid transparent;border-radius:10px;background:var(--panel2);cursor:pointer;padding:6px;font-size:12px;line-height:1.25;text-align:left;color:inherit}
+.cv:hover{border-color:var(--line)}
+.cv.sel{border-color:var(--accent)}
+.cv img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;background:var(--meter-bg);display:block;margin-bottom:5px}
+.cv .ti{font-weight:600;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cv .ar{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cv .src{color:var(--muted);font-size:11px;margin-top:2px}
+/* lavori */
+.job{padding:12px 16px;border-bottom:1px solid var(--line)}
+.job:last-child{border-bottom:0}
+.job .t{display:flex;gap:8px;align-items:center;font-size:14px}
+.job .t .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.badge{font-size:12px;padding:2px 8px;border-radius:99px;background:var(--panel2);border:1px solid var(--line);white-space:nowrap}
+.badge.done{color:var(--ok)} .badge.error{color:var(--err)} .badge.running{color:var(--accent)}
+.pb{height:6px;background:var(--meter-bg);border-radius:4px;margin:8px 0 4px;overflow:hidden}
+.pb>div{height:100%;background:var(--accent);transition:width .4s}
+.job .m{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+/* dialoghi */
+dialog{border:1px solid var(--line);border-radius:12px;padding:0;background:var(--panel);color:var(--ink);width:min(560px,calc(100vw - 32px))}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+dialog .list{max-height:55vh}
+dialog .dh{font-size:16px;font-weight:700;padding:14px 16px;border-bottom:1px solid var(--line);margin:0;display:flex;align-items:center;gap:8px}
+dialog footer{display:flex;gap:8px;justify-content:flex-end;padding:12px 16px;border-top:1px solid var(--line)}
+.seg{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.seg button{flex:1;border:0;background:var(--panel2);padding:8px 10px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button.on{background:var(--accent);color:var(--accent-ink);font-weight:600}
+.switch{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.switch input{width:38px;height:22px;appearance:none;background:var(--meter-bg);border-radius:99px;position:relative;cursor:pointer;flex:none;margin-top:1px;border:1px solid var(--line)}
+.switch input::after{content:"";position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:2px;left:2px;transition:left .15s;box-shadow:0 1px 2px rgba(0,0,0,.3)}
+.switch input:checked{background:var(--warn);border-color:var(--warn)}
+.switch input:checked::after{left:18px}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;opacity:0;transition:opacity .25s;pointer-events:none;max-width:calc(100vw - 32px);z-index:10}
+.toast.on{opacity:1}
+.placeholder{padding:40px 20px;text-align:center;color:var(--muted)}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:sp 0.8s linear infinite;vertical-align:-2px}
+@keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<header>
+  <img class="logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+PHRpdGxlPlVwbWl4NTE8L3RpdGxlPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iYmciIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmMGIyNGUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNkOThhMWYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjExMiIgZmlsbD0idXJsKCNiZykiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIC0yNikgdHJhbnNsYXRlKDI1NiAyNjIpIHNjYWxlKC45KSB0cmFuc2xhdGUoLTI1NiAtMjYyKSI+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMjYyIiByPSIxMzIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzE4MTQxMCIgc3Ryb2tlLW9wYWNpdHk9Ii4yOCIgc3Ryb2tlLXdpZHRoPSI2IiBzdHJva2UtZGFzaGFycmF5PSIxNCAxMiIvPjxnIGZpbGw9IiMxODE0MTAiIGZpbGwtb3BhY2l0eT0iLjE2Ij48cG9seWdvbiBwb2ludHM9IjI1NiwxMzAgMjM4LDI2MiAyNzQsMjYyIi8+PHBvbHlnb24gcG9pbnRzPSIxOTAsMTQ4IDI0MSwyNjggMjY2LDI1MCIvPjxwb2x5Z29uIHBvaW50cz0iMzIyLDE0OCAyNzEsMjY4IDI0NiwyNTAiLz48cG9seWdvbiBwb2ludHM9IjEzMiwzMDcgMjQ4LDI3OCAyNTgsMjUwIi8+PHBvbHlnb24gcG9pbnRzPSIzODAsMzA3IDI2NCwyNzggMjU0LDI1MCIvPjwvZz48ZyBmaWxsPSIjMTgxNDEwIj48cmVjdCB4PSIyMjYiIHk9IjExNiIgd2lkdGg9IjYwIiBoZWlnaHQ9IjI4IiByeD0iOCIvPjxyZWN0IHg9IjE3NSIgeT0iMTI2IiB3aWR0aD0iMzAiIGhlaWdodD0iNDQiIHJ4PSI3IiB0cmFuc2Zvcm09InJvdGF0ZSgtMzAgMTkwIDE0OCkiLz48cmVjdCB4PSIzMDciIHk9IjEyNiIgd2lkdGg9IjMwIiBoZWlnaHQ9IjQ0IiByeD0iNyIgdHJhbnNmb3JtPSJyb3RhdGUoMzAgMzIyIDE0OCkiLz48cmVjdCB4PSIxMTgiIHk9IjI4OSIgd2lkdGg9IjI4IiBoZWlnaHQ9IjM2IiByeD0iNyIgdHJhbnNmb3JtPSJyb3RhdGUoLTExMCAxMzIgMzA3KSIvPjxyZWN0IHg9IjM2NiIgeT0iMjg5IiB3aWR0aD0iMjgiIGhlaWdodD0iMzYiIHJ4PSI3IiB0cmFuc2Zvcm09InJvdGF0ZSgxMTAgMzgwIDMwNykiLz48Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNjIiIHI9IjIwIi8+PC9nPjxnIGZpbGw9IiNmMGIyNGUiPjxjaXJjbGUgY3g9IjI0MiIgY3k9IjEzMCIgcj0iNiIvPjxjaXJjbGUgY3g9IjI3MCIgY3k9IjEzMCIgcj0iNiIvPjxjaXJjbGUgY3g9IjE5MCIgY3k9IjE1MiIgcj0iNyIgdHJhbnNmb3JtPSJyb3RhdGUoLTMwIDE5MCAxNDgpIi8+PGNpcmNsZSBjeD0iMzIyIiBjeT0iMTUyIiByPSI3IiB0cmFuc2Zvcm09InJvdGF0ZSgzMCAzMjIgMTQ4KSIvPjxjaXJjbGUgY3g9IjEzMiIgY3k9IjMxMCIgcj0iNiIgdHJhbnNmb3JtPSJyb3RhdGUoLTExMCAxMzIgMzA3KSIvPjxjaXJjbGUgY3g9IjM4MCIgY3k9IjMxMCIgcj0iNiIgdHJhbnNmb3JtPSJyb3RhdGUoMTEwIDM4MCAzMDcpIi8+PC9nPjwvZz48dGV4dCB4PSIyNTYiIHk9IjQ1OCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iOTIiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiMxODE0MTAiIGxldHRlci1zcGFjaW5nPSIyIj41LjE8L3RleHQ+PC9zdmc+" alt="Upmix51">
+  <div><h1>Upmix 5.1</h1><div class="sub" data-i18n="app.sub"></div></div>
+  <div class="sp"></div>
+  <button class="icon-btn" id="gearBtn" data-i18n-title="set.title" aria-label="Settings">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+  </button>
+</header>
+
+<main>
+  <section>
+    <div class="card">
+      <h2 data-i18n="sec.source"></h2>
+      <div class="crumbs" id="crumbs"></div>
+      <div class="list" id="list"></div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="card" id="noWritable" hidden><div class="body warn" data-i18n="warn.noWritable"></div></div>
+    <div class="card" id="noFile"><div class="placeholder" data-i18n="pick.file"></div></div>
+
+    <div id="panel" hidden>
+      <div class="card">
+        <h2 data-i18n="sec.file"></h2>
+        <div class="body">
+          <dl class="kv" id="info"></dl>
+          <label class="f" for="track" data-i18n="track.label"></label>
+          <select id="track"></select>
+          <p class="note" id="trackNote"></p>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h2><span data-i18n="sec.channels"></span><span class="sp"></span>
+            <select id="preset" style="width:auto;font-size:13px;padding:4px 8px"></select>
+          </h2>
+          <div class="body">
+            <div class="room">
+              <div class="stage">▲ <span data-i18n="stage"></span></div>
+              <div class="spk-grid" id="spk"></div>
+              <div class="link">
+                <label><input type="checkbox" id="linkF" checked> <span data-i18n="link.front"></span></label>
+                <label><input type="checkbox" id="linkS" checked> <span data-i18n="link.surr"></span></label>
+              </div>
+            </div>
+            <div class="row" style="margin-top:12px">
+              <button class="btn sm" id="resetBtn" data-i18n="btn.resetPreset"></button>
+              <button class="btn sm" id="savePresetBtn" data-i18n="btn.savePreset"></button>
+              <button class="btn sm" id="delPresetBtn" data-i18n="btn.delPreset" hidden></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" id="prevCard">
+          <h2 data-i18n="sec.preview"></h2>
+          <div class="body">
+            <div class="hs"><label><span data-i18n="prev.start"></span> <b id="startV">0:00</b></label>
+              <input type="range" id="start" min="0" max="0" step="1" value="0"></div>
+            <div class="row" style="margin-top:10px">
+              <button class="btn" id="prevBtn" data-i18n="prev.btn"></button>
+              <span class="note" id="prevNote"></span>
+            </div>
+            <audio id="player" controls preload="none" hidden></audio>
+            <p class="note" id="prevHint" hidden data-i18n="prev.hint"></p>
+            <div class="meters" id="meters"></div>
+            <div class="room-viz" id="roomViz"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 data-i18n="sec.advanced"></h2>
+        <div class="body adv" id="adv"></div>
+      </div>
+
+      <div class="card">
+        <h2 data-i18n="sec.cover"></h2>
+        <div class="body">
+          <div class="row">
+            <input type="search" id="coverQ" data-i18n-ph="cover.ph">
+            <button class="btn" id="coverSearch" data-i18n="cover.search"></button>
+            <button class="btn" id="coverUploadBtn" data-i18n="cover.upload"></button>
+            <input type="file" id="coverFile" accept="image/jpeg,image/png,image/webp" hidden>
+          </div>
+          <p class="note" id="coverNote" data-i18n="cover.note"></p>
+          <p class="note" data-i18n="cover.legal"></p>
+          <div class="cover-sel" id="coverSel" hidden>
+            <img id="coverImg" alt="">
+            <div>
+              <div><b data-i18n="cover.selected"></b></div>
+              <div class="note" id="coverDim"></div>
+              <div class="note" id="coverFmt"></div>
+              <button class="btn sm" id="coverRemove" style="margin-top:8px" data-i18n="cover.remove"></button>
+            </div>
+          </div>
+          <div class="note" id="coverStatus"></div>
+          <div class="covers" id="covers"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 data-i18n="sec.dest"></h2>
+        <div class="body">
+          <p class="note" id="roNote" hidden data-i18n="dest.roNote"></p>
+          <label class="f" data-i18n="dest.folder"></label>
+          <div class="row"><input type="text" id="outdir" readonly><button class="btn" id="pickDir" data-i18n="dest.browse"></button></div>
+          <label class="f" for="outname" data-i18n="dest.name"></label>
+          <div class="row"><input type="text" id="outname">
+            <button class="btn sm" id="nameOrig" data-i18n="dest.nameOrig"></button>
+            <button class="btn sm" id="nameSuffix">+ _DD-5_1</button></div>
+          <label class="chk"><input type="checkbox" id="keepOrig" checked><span data-i18n="dest.keepOrig"></span></label>
+          <div class="box warnbox" id="existsBox" hidden>
+            <div id="existsText"></div>
+            <label class="chk" id="backupRow"><input type="checkbox" id="backup" checked><span data-i18n="dest.backup"></span></label>
+          </div>
+          <div class="row" style="margin-top:14px">
+            <button class="btn pri" id="goBtn" data-i18n="dest.go"></button>
+            <span class="note" id="goNote"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span data-i18n="sec.jobs"></span><span class="sp"></span><button class="btn sm" id="clearJobs" data-i18n="jobs.clear"></button></h2>
+      <div id="jobs"></div>
+    </div>
+  </section>
+</main>
+
+<!-- selettore cartella -->
+<dialog id="dirDlg">
+  <p class="dh" data-i18n="dlg.dir.title"></p>
+  <div class="crumbs" id="dCrumbs"></div>
+  <div class="list" id="dList"></div>
+  <footer><button class="btn" id="dCancel" data-i18n="btn.cancel"></button><button class="btn pri" id="dOk" data-i18n="dlg.dir.ok"></button></footer>
+</dialog>
+
+<!-- conferma sovrascrittura -->
+<dialog id="owDlg">
+  <p class="dh"><span style="color:var(--warn)">⚠</span> <span data-i18n="ow.title"></span></p>
+  <div class="body">
+    <p id="owText" style="margin-top:0"></p>
+    <p id="owBackup" class="note"></p>
+  </div>
+  <footer><button class="btn" id="owCancel" data-i18n="btn.cancel"></button><button class="btn danger" id="owOk">OK</button></footer>
+</dialog>
+
+<!-- avviso all'attivazione della sovrascrittura -->
+<dialog id="owOnDlg">
+  <p class="dh"><span style="color:var(--err)">⚠</span> <span data-i18n="owon.title"></span></p>
+  <div class="body">
+    <p style="margin-top:0" data-i18n="owon.intro"></p>
+    <ul style="margin:0 0 10px;padding-left:20px;line-height:1.5">
+      <li data-i18n="owon.r1"></li>
+      <li data-i18n="owon.r2"></li>
+      <li data-i18n="owon.r3"></li>
+      <li data-i18n="owon.r4"></li>
+    </ul>
+    <p class="note" data-i18n="owon.safe"></p>
+    <p style="margin-bottom:0"><b data-i18n="owon.ask"></b></p>
+  </div>
+  <footer><button class="btn" id="owOnCancel" data-i18n="btn.cancel"></button><button class="btn danger" id="owOnOk">OK</button></footer>
+</dialog>
+
+<!-- impostazioni -->
+<dialog id="setDlg">
+  <p class="dh" data-i18n="set.title"></p>
+  <div class="body">
+    <label class="f" style="margin-top:0" data-i18n="set.theme"></label>
+    <div class="seg" id="themeSeg">
+      <button data-v="auto" data-i18n="set.theme.auto"></button>
+      <button data-v="light" data-i18n="set.theme.light"></button>
+      <button data-v="dark" data-i18n="set.theme.dark"></button>
+    </div>
+    <label class="f" for="langSel" data-i18n="set.lang"></label>
+    <select id="langSel">
+      <option value="it">Italiano</option><option value="en">English</option><option value="fr">Français</option>
+      <option value="es">Español</option><option value="de">Deutsch</option>
+    </select>
+    <label class="f" data-i18n="set.files"></label>
+    <label class="switch"><input type="checkbox" id="owSwitch"><span><span data-i18n="set.overwrite"></span>
+      <span class="note" style="display:block" data-i18n="set.overwriteNote"></span></span></label>
+    <p class="note" id="verNote" style="margin-top:16px"></p>
+    <p class="note" style="font-size:12px" data-i18n="set.legal"></p>
+  </div>
+  <footer><button class="btn pri" id="setClose" data-i18n="btn.close"></button></footer>
+</dialog>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===================================================== traduzioni */
+const I18N = {
+it: {
+ 'app.sub':'Da stereo a Dolby Digital 5.1','sec.source':'Sorgente','sec.file':'File','sec.channels':'Canali','sec.preview':'Anteprima',
+ 'sec.advanced':'Regolazioni avanzate','sec.cover':'Copertina','sec.dest':'Destinazione','sec.jobs':'Lavori',
+ 'pick.file':'Scegli un file a sinistra per iniziare.','crumb.root':'Cartelle','list.empty':'Nessun file audio o video qui.',
+ 'root.rw':'scrivibile','root.ro':'🔒 sola lettura','warn.noWritable':'Nessuna cartella scrivibile configurata: si possono fare anteprime ma non salvare conversioni.',
+ 'info.name':'Nome','info.duration':'Durata','info.video':'Video','info.subs':'Sottotitoli','info.none':'nessuno','info.cover':'Copertina',
+ 'info.yes':'presente','info.no':'assente','info.analyzing':'Analisi','info.error':'Errore',
+ 'track.label':'Traccia audio da convertire','track.channels':'{n} canali','track.notStereo':'non stereo',
+ 'track.warn':'Questa traccia non è stereo: l’upmix si fa solo da tracce a 2 canali.','track.noAudio':'Il file non contiene audio.',
+ 'stage':'palco','ch.fl':'Frontale sinistro','ch.fc':'Centrale','ch.fr':'Frontale destro','ch.sl':'Surround sinistro','ch.lfe':'Subwoofer','ch.sr':'Surround destro',
+ 'link.front':'frontali L/R uniti','link.surr':'surround L/R uniti',
+ 'btn.resetPreset':'Ripristina preset','btn.savePreset':'Salva come preset…','btn.delPreset':'Elimina preset','btn.cancel':'Annulla','btn.close':'Chiudi',
+ 'preset.builtin':'Preset','preset.user':'I miei preset','preset.stalls':'Platea (consigliato)','preset.front':'Palco frontale (surround discreti)',
+ 'preset.immersive':'Immersivo (in mezzo alla band)','preset.film':'Film (dialoghi al centro)',
+ 'prompt.presetName':'Nome del nuovo preset:','confirm.delPreset':'Eliminare il preset «{name}»?','toast.presetSaved':'Preset salvato',
+ 'toast.presetDeleted':'Preset eliminato','toast.presetReset':'Valori del preset ripristinati',
+ 'adv.master':'Volume generale','adv.delay':'Ritardo surround','adv.shelf':'Brillantezza surround (sopra 5 kHz)','adv.lfe_cut':'Taglio subwoofer',
+ 'adv.smooth':'Stabilità dell’immagine','adv.limiter':'Protezione dalla distorsione (limiter a −1 dB)','adv.bitrate':'Bitrate Dolby Digital','adv.max':'massimo',
+ 'prev.start':'Inizio anteprima','prev.btn':'Genera anteprima (30 s)','prev.working':'elaborazione…',
+ 'prev.hint':'Il browser riproduce il 5.1 solo se la scheda audio del PC è configurata come 5.1; altrimenti lo riduce in stereo. I livelli qui sotto sono quelli reali di ogni canale.',
+ 'prev.legend':'Barra: livello medio (RMS, dBFS). Linea: picco massimo.',
+ 'cover.ph':'Titolo, artista…','cover.search':'Cerca in rete','cover.upload':'Carica dal PC…','cover.searching':'Ricerca in corso…',
+ 'cover.none':'Nessuna copertina trovata. Prova con meno parole (es. solo l’artista).','cover.results':'{n} risultati: clicca per sceglierne uno.',
+ 'cover.downloading':'Scarico la copertina…','cover.selected':'Copertina scelta','cover.remove':'Non applicare',
+ 'cover.note':'Fonti: iTunes, Deezer, MusicBrainz. La copertina viene inserita nel file (allegato cover.jpg per MKV, immagine di copertina per MP4).',
+ 'cover.fmtOk':'Verrà inserita nel file.','cover.fmtNo':'Il formato .{ext} non supporta le copertine: usa .mkv o .mp4.',
+ 'cover.replaces':'Sostituirà la copertina già presente nel file.',
+ 'dest.roNote':'🔒 Il file sorgente si trova in una cartella protetta (sola lettura): non può essere modificato. Il risultato verrà salvato in una cartella scrivibile.',
+ 'dest.folder':'Cartella','dest.browse':'Sfoglia…','dest.name':'Nome del file','dest.nameOrig':'Nome originale',
+ 'dest.keepOrig':'Conserva anche la traccia audio originale (come seconda traccia)',
+ 'dest.replace':'<b>Il file originale verrà sovrascritto</b> (stesso nome e stessa cartella).','dest.exists':'<b>Esiste già un file con questo nome</b>: verrà sovrascritto.',
+ 'dest.owOff':'La sovrascrittura è disattivata. Attivala nelle impostazioni ⚙ oppure scegli un altro nome o un’altra cartella.',
+ 'dest.backup':'Sposta prima il file esistente nella cartella di backup <code>upmix_originali</code> (consigliato)','dest.go':'Avvia conversione',
+ 'dlg.dir.title':'Scegli la cartella di destinazione','dlg.dir.ok':'Usa questa cartella','dlg.dir.empty':'Nessuna sottocartella.','toast.pickDir':'Scegli una cartella',
+ 'ow.title':'Sovrascrittura del file','ow.replace':'Stai sovrascrivendo il file originale «{name}» con la versione convertita.',
+ 'ow.other':'Stai sovrascrivendo il file esistente «{name}».','ow.bkOn':'Il file attuale verrà prima spostato nella cartella di backup upmix_originali.',
+ 'ow.bkOff':'Nessuna copia di backup: l’operazione non potrà essere annullata.',
+ 'jobs.empty':'Nessun lavoro.','jobs.clear':'Pulisci completati','job.cancel':'Annulla','job.remove':'Togli dall’elenco','job.speed':'velocità {v}',
+ 'job.backup':'File precedente salvato in {p}','job.cover':'con copertina','toast.queued':'Conversione aggiunta alla coda',
+ 'state.queued':'in coda','state.running':'in corso','state.done':'completato','state.error':'errore','state.cancelled':'annullato',
+ 'msg.subs_srt':'sottotitoli convertiti in SRT','msg.subs_dropped':'sottotitoli non compatibili con il formato: omessi','msg.cover_skipped':'copertina non supportata da questo formato: non inserita',
+ 'set.title':'Impostazioni','set.theme':'Tema','set.theme.auto':'Automatico','set.theme.light':'Chiaro','set.theme.dark':'Scuro','set.lang':'Lingua','set.files':'File',
+ 'set.overwrite':'Consenti la sovrascrittura dei file esistenti',
+ 'set.overwriteNote':'Vale solo per le cartelle scrivibili: quelle protette (🔒) restano intoccabili. A ogni sovrascrittura verrà chiesta conferma.',
+ 'set.version':'Versione {v}','toast.owOn':'Sovrascrittura attivata','toast.owOff':'Sovrascrittura disattivata',
+ 'err.path_missing':'Percorso mancante.','err.path_not_found':'Il percorso non esiste.','err.path_forbidden':'Percorso non consentito.',
+ 'err.readonly':'Cartella in sola lettura: scegli una destinazione scrivibile.','err.probe_failed':'Impossibile leggere il file.',
+ 'err.preview_failed':'Anteprima non riuscita.','err.cover_query':'Scrivi almeno due caratteri.','err.cover_not_image':'Il file non è un’immagine valida.',
+ 'err.cover_not_found':'Copertina non più disponibile: ripeti la ricerca.','err.cover_download':'Download della copertina non riuscito.',
+ 'err.cover_too_big':'Immagine troppo grande (massimo 20 MB).','err.bad_track':'Traccia audio non valida.','err.not_stereo':'La traccia scelta non è stereo.',
+ 'err.bad_dir':'Cartella di destinazione non valida.','err.bad_name':'Nome del file non valido.','err.bad_ext':'Estensione non supportata. Usa: {exts}.',
+ 'err.audio_only_ext':'Per un file solo audio usa l’estensione .mka o .ac3.','err.dest_exists':'Esiste già un file con questo nome.',
+ 'err.overwrite_disabled':'La sovrascrittura è disattivata nelle impostazioni.','err.job_running':'C’è già un lavoro in corso su questo file.',
+ 'err.job_not_found':'Lavoro non trovato.','err.preset_name':'Nome del preset mancante.','err.not_found':'Non trovato.','err.bad_request':'Richiesta non valida.',
+ 'err.ffmpeg':'Errore di ffmpeg: {detail}','err.verify':'Verifica non superata ({reason}): nessun file modificato.','err.internal':'Errore interno: {detail}',
+ 'reason.unreadable':'file illeggibile','reason.no_51':'traccia 5.1 assente','reason.no_video':'video assente','reason.duration':'durata diversa',
+ 'owon.title':'Attivare la sovrascrittura?','owon.intro':'Stai autorizzando il programma a sostituire file già esistenti. I rischi possibili sono:',
+ 'owon.r1':'un file sostituito senza backup <b>non può più essere recuperato</b>;',
+ 'owon.r2':'se la versione convertita non ti soddisfa (audio, sincronizzazione, tracce), l’originale andrà ripristinato a mano dalla cartella <code>upmix_originali</code>;',
+ 'owon.r3':'con il backup attivo, ogni file sostituito occupa temporaneamente il doppio dello spazio su disco;',
+ 'owon.r4':'Emby/Plex rileggeranno i file modificati e potrebbero aggiornarne i dati.',
+ 'owon.safe':'Le cartelle protette (🔒) restano comunque in sola lettura: questa impostazione non può modificarle. A ogni sovrascrittura ti verrà chiesta conferma.',
+ 'owon.ask':'Vuoi davvero consentire la sovrascrittura dei file?',
+ 'room.listener':'Posizione d’ascolto',
+ 'cover.legal':'Le copertine sono protette dal diritto d’autore dei rispettivi titolari: usale solo per la tua collezione personale e non ridistribuirle.',
+ 'set.legal':'Software libero con licenza MIT, fornito «così com’è», senza alcuna garanzia: tieni sempre una copia dei tuoi file. Dolby e Dolby Digital sono marchi di Dolby Laboratories; questo progetto non è affiliato a Dolby, Apple, Deezer, MetaBrainz o TMDB.'
+},
+en: {
+ 'app.sub':'From stereo to Dolby Digital 5.1','sec.source':'Source','sec.file':'File','sec.channels':'Channels','sec.preview':'Preview',
+ 'sec.advanced':'Advanced settings','sec.cover':'Cover art','sec.dest':'Destination','sec.jobs':'Jobs',
+ 'pick.file':'Pick a file on the left to start.','crumb.root':'Folders','list.empty':'No audio or video files here.',
+ 'root.rw':'writable','root.ro':'🔒 read-only','warn.noWritable':'No writable folder configured: previews work, but conversions cannot be saved.',
+ 'info.name':'Name','info.duration':'Duration','info.video':'Video','info.subs':'Subtitles','info.none':'none','info.cover':'Cover',
+ 'info.yes':'present','info.no':'none','info.analyzing':'Analysing','info.error':'Error',
+ 'track.label':'Audio track to convert','track.channels':'{n} channels','track.notStereo':'not stereo',
+ 'track.warn':'This track is not stereo: upmixing works only from 2-channel tracks.','track.noAudio':'The file has no audio.',
+ 'stage':'stage','ch.fl':'Front left','ch.fc':'Centre','ch.fr':'Front right','ch.sl':'Surround left','ch.lfe':'Subwoofer','ch.sr':'Surround right',
+ 'link.front':'link front L/R','link.surr':'link surround L/R',
+ 'btn.resetPreset':'Reset preset','btn.savePreset':'Save as preset…','btn.delPreset':'Delete preset','btn.cancel':'Cancel','btn.close':'Close',
+ 'preset.builtin':'Presets','preset.user':'My presets','preset.stalls':'Stalls (recommended)','preset.front':'Front stage (subtle surround)',
+ 'preset.immersive':'Immersive (inside the band)','preset.film':'Film (dialogue in the centre)',
+ 'prompt.presetName':'Name of the new preset:','confirm.delPreset':'Delete the preset “{name}”?','toast.presetSaved':'Preset saved',
+ 'toast.presetDeleted':'Preset deleted','toast.presetReset':'Preset values restored',
+ 'adv.master':'Master volume','adv.delay':'Surround delay','adv.shelf':'Surround brightness (above 5 kHz)','adv.lfe_cut':'Subwoofer crossover',
+ 'adv.smooth':'Image stability','adv.limiter':'Distortion protection (limiter at −1 dB)','adv.bitrate':'Dolby Digital bitrate','adv.max':'maximum',
+ 'prev.start':'Preview start','prev.btn':'Create preview (30 s)','prev.working':'processing…',
+ 'prev.hint':'The browser plays 5.1 only if the computer’s sound card is set to 5.1; otherwise it downmixes to stereo. The levels below are the real per-channel levels.',
+ 'prev.legend':'Bar: average level (RMS, dBFS). Line: maximum peak.',
+ 'cover.ph':'Title, artist…','cover.search':'Search online','cover.upload':'Upload from computer…','cover.searching':'Searching…',
+ 'cover.none':'No cover found. Try fewer words (e.g. just the artist).','cover.results':'{n} results: click one to choose it.',
+ 'cover.downloading':'Downloading cover…','cover.selected':'Selected cover','cover.remove':'Don’t apply',
+ 'cover.note':'Sources: iTunes, Deezer, MusicBrainz. The cover is embedded in the file (cover.jpg attachment for MKV, cover image for MP4).',
+ 'cover.fmtOk':'It will be embedded in the file.','cover.fmtNo':'The .{ext} format does not support covers: use .mkv or .mp4.',
+ 'cover.replaces':'It will replace the cover already in the file.',
+ 'dest.roNote':'🔒 The source file is in a protected (read-only) folder and cannot be modified. The result will be saved to a writable folder.',
+ 'dest.folder':'Folder','dest.browse':'Browse…','dest.name':'File name','dest.nameOrig':'Original name',
+ 'dest.keepOrig':'Also keep the original audio track (as second track)',
+ 'dest.replace':'<b>The original file will be overwritten</b> (same name, same folder).','dest.exists':'<b>A file with this name already exists</b>: it will be overwritten.',
+ 'dest.owOff':'Overwriting is disabled. Enable it in settings ⚙ or choose another name or folder.',
+ 'dest.backup':'First move the existing file to the backup folder <code>upmix_originali</code> (recommended)','dest.go':'Start conversion',
+ 'dlg.dir.title':'Choose the destination folder','dlg.dir.ok':'Use this folder','dlg.dir.empty':'No subfolders.','toast.pickDir':'Choose a folder',
+ 'ow.title':'Overwrite file','ow.replace':'You are overwriting the original file “{name}” with the converted version.',
+ 'ow.other':'You are overwriting the existing file “{name}”.','ow.bkOn':'The current file will first be moved to the upmix_originali backup folder.',
+ 'ow.bkOff':'No backup copy: this cannot be undone.',
+ 'jobs.empty':'No jobs.','jobs.clear':'Clear finished','job.cancel':'Cancel','job.remove':'Remove from list','job.speed':'speed {v}',
+ 'job.backup':'Previous file saved to {p}','job.cover':'with cover','toast.queued':'Conversion added to the queue',
+ 'state.queued':'queued','state.running':'running','state.done':'done','state.error':'error','state.cancelled':'cancelled',
+ 'msg.subs_srt':'subtitles converted to SRT','msg.subs_dropped':'subtitles not supported by the format: omitted','msg.cover_skipped':'cover not supported by this format: not embedded',
+ 'set.title':'Settings','set.theme':'Theme','set.theme.auto':'Automatic','set.theme.light':'Light','set.theme.dark':'Dark','set.lang':'Language','set.files':'Files',
+ 'set.overwrite':'Allow overwriting existing files',
+ 'set.overwriteNote':'Applies only to writable folders: protected ones (🔒) stay untouchable. Every overwrite asks for confirmation.',
+ 'set.version':'Version {v}','toast.owOn':'Overwriting enabled','toast.owOff':'Overwriting disabled',
+ 'err.path_missing':'Missing path.','err.path_not_found':'The path does not exist.','err.path_forbidden':'Path not allowed.',
+ 'err.readonly':'Read-only folder: choose a writable destination.','err.probe_failed':'Cannot read the file.',
+ 'err.preview_failed':'Preview failed.','err.cover_query':'Type at least two characters.','err.cover_not_image':'The file is not a valid image.',
+ 'err.cover_not_found':'Cover no longer available: search again.','err.cover_download':'Cover download failed.',
+ 'err.cover_too_big':'Image too large (20 MB maximum).','err.bad_track':'Invalid audio track.','err.not_stereo':'The selected track is not stereo.',
+ 'err.bad_dir':'Invalid destination folder.','err.bad_name':'Invalid file name.','err.bad_ext':'Unsupported extension. Use: {exts}.',
+ 'err.audio_only_ext':'For an audio-only file use the .mka or .ac3 extension.','err.dest_exists':'A file with this name already exists.',
+ 'err.overwrite_disabled':'Overwriting is disabled in settings.','err.job_running':'A job is already running on this file.',
+ 'err.job_not_found':'Job not found.','err.preset_name':'Preset name missing.','err.not_found':'Not found.','err.bad_request':'Invalid request.',
+ 'err.ffmpeg':'ffmpeg error: {detail}','err.verify':'Check failed ({reason}): no file was modified.','err.internal':'Internal error: {detail}',
+ 'reason.unreadable':'unreadable file','reason.no_51':'5.1 track missing','reason.no_video':'video missing','reason.duration':'different duration',
+ 'owon.title':'Enable overwriting?','owon.intro':'You are allowing the program to replace existing files. The possible risks are:',
+ 'owon.r1':'a file replaced without a backup <b>cannot be recovered</b>;',
+ 'owon.r2':'if the converted version is not right (audio, sync, tracks), the original must be restored by hand from the <code>upmix_originali</code> folder;',
+ 'owon.r3':'with backup enabled, each replaced file temporarily takes up twice the disk space;',
+ 'owon.r4':'Emby/Plex will re-read the modified files and may update their data.',
+ 'owon.safe':'Protected folders (🔒) stay read-only regardless: this setting cannot change them. Every overwrite will still ask for confirmation.',
+ 'owon.ask':'Do you really want to allow files to be overwritten?',
+ 'room.listener':'Listening position',
+ 'cover.legal':'Cover art is protected by the copyright of its respective owners: use it only for your personal collection and do not redistribute it.',
+ 'set.legal':'Free software under the MIT licence, provided “as is”, without any warranty: always keep a copy of your files. Dolby and Dolby Digital are trademarks of Dolby Laboratories; this project is not affiliated with Dolby, Apple, Deezer, MetaBrainz or TMDB.'
+},
+fr: {
+ 'app.sub':'Du stéréo au Dolby Digital 5.1','sec.source':'Source','sec.file':'Fichier','sec.channels':'Canaux','sec.preview':'Aperçu',
+ 'sec.advanced':'Réglages avancés','sec.cover':'Pochette','sec.dest':'Destination','sec.jobs':'Tâches',
+ 'pick.file':'Choisissez un fichier à gauche pour commencer.','crumb.root':'Dossiers','list.empty':'Aucun fichier audio ou vidéo ici.',
+ 'root.rw':'modifiable','root.ro':'🔒 lecture seule','warn.noWritable':'Aucun dossier modifiable configuré : les aperçus fonctionnent, mais les conversions ne peuvent pas être enregistrées.',
+ 'info.name':'Nom','info.duration':'Durée','info.video':'Vidéo','info.subs':'Sous-titres','info.none':'aucun','info.cover':'Pochette',
+ 'info.yes':'présente','info.no':'absente','info.analyzing':'Analyse','info.error':'Erreur',
+ 'track.label':'Piste audio à convertir','track.channels':'{n} canaux','track.notStereo':'non stéréo',
+ 'track.warn':'Cette piste n’est pas stéréo : l’upmix ne fonctionne qu’à partir de pistes à 2 canaux.','track.noAudio':'Le fichier ne contient pas d’audio.',
+ 'stage':'scène','ch.fl':'Avant gauche','ch.fc':'Centre','ch.fr':'Avant droit','ch.sl':'Surround gauche','ch.lfe':'Caisson de basses','ch.sr':'Surround droit',
+ 'link.front':'avant G/D liés','link.surr':'surround G/D liés',
+ 'btn.resetPreset':'Rétablir le préréglage','btn.savePreset':'Enregistrer comme préréglage…','btn.delPreset':'Supprimer le préréglage','btn.cancel':'Annuler','btn.close':'Fermer',
+ 'preset.builtin':'Préréglages','preset.user':'Mes préréglages','preset.stalls':'Parterre (recommandé)','preset.front':'Scène frontale (surround discret)',
+ 'preset.immersive':'Immersif (au milieu du groupe)','preset.film':'Film (dialogues au centre)',
+ 'prompt.presetName':'Nom du nouveau préréglage :','confirm.delPreset':'Supprimer le préréglage « {name} » ?','toast.presetSaved':'Préréglage enregistré',
+ 'toast.presetDeleted':'Préréglage supprimé','toast.presetReset':'Valeurs du préréglage rétablies',
+ 'adv.master':'Volume général','adv.delay':'Retard surround','adv.shelf':'Brillance surround (au-dessus de 5 kHz)','adv.lfe_cut':'Coupure du caisson',
+ 'adv.smooth':'Stabilité de l’image','adv.limiter':'Protection contre la distorsion (limiteur à −1 dB)','adv.bitrate':'Débit Dolby Digital','adv.max':'maximum',
+ 'prev.start':'Début de l’aperçu','prev.btn':'Créer un aperçu (30 s)','prev.working':'traitement…',
+ 'prev.hint':'Le navigateur ne lit le 5.1 que si la carte son de l’ordinateur est réglée en 5.1 ; sinon il le réduit en stéréo. Les niveaux ci-dessous sont les niveaux réels de chaque canal.',
+ 'prev.legend':'Barre : niveau moyen (RMS, dBFS). Ligne : crête maximale.',
+ 'cover.ph':'Titre, artiste…','cover.search':'Rechercher en ligne','cover.upload':'Importer depuis l’ordinateur…','cover.searching':'Recherche…',
+ 'cover.none':'Aucune pochette trouvée. Essayez avec moins de mots (p. ex. seulement l’artiste).','cover.results':'{n} résultats : cliquez pour en choisir un.',
+ 'cover.downloading':'Téléchargement de la pochette…','cover.selected':'Pochette choisie','cover.remove':'Ne pas appliquer',
+ 'cover.note':'Sources : iTunes, Deezer, MusicBrainz. La pochette est intégrée au fichier (pièce jointe cover.jpg pour MKV, image de couverture pour MP4).',
+ 'cover.fmtOk':'Elle sera intégrée au fichier.','cover.fmtNo':'Le format .{ext} ne prend pas en charge les pochettes : utilisez .mkv ou .mp4.',
+ 'cover.replaces':'Elle remplacera la pochette déjà présente dans le fichier.',
+ 'dest.roNote':'🔒 Le fichier source se trouve dans un dossier protégé (lecture seule) et ne peut pas être modifié. Le résultat sera enregistré dans un dossier modifiable.',
+ 'dest.folder':'Dossier','dest.browse':'Parcourir…','dest.name':'Nom du fichier','dest.nameOrig':'Nom d’origine',
+ 'dest.keepOrig':'Conserver aussi la piste audio d’origine (en deuxième piste)',
+ 'dest.replace':'<b>Le fichier d’origine sera écrasé</b> (même nom, même dossier).','dest.exists':'<b>Un fichier portant ce nom existe déjà</b> : il sera écrasé.',
+ 'dest.owOff':'L’écrasement est désactivé. Activez-le dans les paramètres ⚙ ou choisissez un autre nom ou dossier.',
+ 'dest.backup':'Déplacer d’abord le fichier existant dans le dossier de sauvegarde <code>upmix_originali</code> (recommandé)','dest.go':'Lancer la conversion',
+ 'dlg.dir.title':'Choisir le dossier de destination','dlg.dir.ok':'Utiliser ce dossier','dlg.dir.empty':'Aucun sous-dossier.','toast.pickDir':'Choisissez un dossier',
+ 'ow.title':'Écraser le fichier','ow.replace':'Vous allez écraser le fichier d’origine « {name} » avec la version convertie.',
+ 'ow.other':'Vous allez écraser le fichier existant « {name} ».','ow.bkOn':'Le fichier actuel sera d’abord déplacé dans le dossier de sauvegarde upmix_originali.',
+ 'ow.bkOff':'Aucune copie de sauvegarde : l’opération sera irréversible.',
+ 'jobs.empty':'Aucune tâche.','jobs.clear':'Effacer les terminées','job.cancel':'Annuler','job.remove':'Retirer de la liste','job.speed':'vitesse {v}',
+ 'job.backup':'Fichier précédent enregistré dans {p}','job.cover':'avec pochette','toast.queued':'Conversion ajoutée à la file',
+ 'state.queued':'en attente','state.running':'en cours','state.done':'terminé','state.error':'erreur','state.cancelled':'annulé',
+ 'msg.subs_srt':'sous-titres convertis en SRT','msg.subs_dropped':'sous-titres non pris en charge par le format : omis','msg.cover_skipped':'pochette non prise en charge par ce format : non intégrée',
+ 'set.title':'Paramètres','set.theme':'Thème','set.theme.auto':'Automatique','set.theme.light':'Clair','set.theme.dark':'Sombre','set.lang':'Langue','set.files':'Fichiers',
+ 'set.overwrite':'Autoriser l’écrasement des fichiers existants',
+ 'set.overwriteNote':'Concerne uniquement les dossiers modifiables : les dossiers protégés (🔒) restent intouchables. Chaque écrasement demande une confirmation.',
+ 'set.version':'Version {v}','toast.owOn':'Écrasement activé','toast.owOff':'Écrasement désactivé',
+ 'err.path_missing':'Chemin manquant.','err.path_not_found':'Le chemin n’existe pas.','err.path_forbidden':'Chemin non autorisé.',
+ 'err.readonly':'Dossier en lecture seule : choisissez une destination modifiable.','err.probe_failed':'Impossible de lire le fichier.',
+ 'err.preview_failed':'Échec de l’aperçu.','err.cover_query':'Saisissez au moins deux caractères.','err.cover_not_image':'Le fichier n’est pas une image valide.',
+ 'err.cover_not_found':'Pochette plus disponible : relancez la recherche.','err.cover_download':'Échec du téléchargement de la pochette.',
+ 'err.cover_too_big':'Image trop grande (20 Mo maximum).','err.bad_track':'Piste audio non valide.','err.not_stereo':'La piste choisie n’est pas stéréo.',
+ 'err.bad_dir':'Dossier de destination non valide.','err.bad_name':'Nom de fichier non valide.','err.bad_ext':'Extension non prise en charge. Utilisez : {exts}.',
+ 'err.audio_only_ext':'Pour un fichier audio seul, utilisez l’extension .mka ou .ac3.','err.dest_exists':'Un fichier portant ce nom existe déjà.',
+ 'err.overwrite_disabled':'L’écrasement est désactivé dans les paramètres.','err.job_running':'Une tâche est déjà en cours sur ce fichier.',
+ 'err.job_not_found':'Tâche introuvable.','err.preset_name':'Nom du préréglage manquant.','err.not_found':'Introuvable.','err.bad_request':'Requête non valide.',
+ 'err.ffmpeg':'Erreur ffmpeg : {detail}','err.verify':'Vérification échouée ({reason}) : aucun fichier modifié.','err.internal':'Erreur interne : {detail}',
+ 'reason.unreadable':'fichier illisible','reason.no_51':'piste 5.1 absente','reason.no_video':'vidéo absente','reason.duration':'durée différente',
+ 'owon.title':'Activer l’écrasement ?','owon.intro':'Vous autorisez le programme à remplacer des fichiers existants. Les risques possibles sont :',
+ 'owon.r1':'un fichier remplacé sans sauvegarde <b>ne peut plus être récupéré</b> ;',
+ 'owon.r2':'si la version convertie ne vous convient pas (audio, synchronisation, pistes), l’original devra être restauré à la main depuis le dossier <code>upmix_originali</code> ;',
+ 'owon.r3':'avec la sauvegarde activée, chaque fichier remplacé occupe temporairement le double d’espace disque ;',
+ 'owon.r4':'Emby/Plex reliront les fichiers modifiés et pourront mettre à jour leurs données.',
+ 'owon.safe':'Les dossiers protégés (🔒) restent en lecture seule dans tous les cas : ce paramètre ne peut pas les modifier. Chaque écrasement demandera toujours une confirmation.',
+ 'owon.ask':'Voulez-vous vraiment autoriser l’écrasement des fichiers ?',
+ 'room.listener':'Position d’écoute',
+ 'cover.legal':'Les pochettes sont protégées par le droit d’auteur de leurs titulaires : utilisez-les uniquement pour votre collection personnelle et ne les redistribuez pas.',
+ 'set.legal':'Logiciel libre sous licence MIT, fourni « tel quel », sans aucune garantie : conservez toujours une copie de vos fichiers. Dolby et Dolby Digital sont des marques de Dolby Laboratories ; ce projet n’est pas affilié à Dolby, Apple, Deezer, MetaBrainz ou TMDB.'
+},
+es: {
+ 'app.sub':'De estéreo a Dolby Digital 5.1','sec.source':'Origen','sec.file':'Archivo','sec.channels':'Canales','sec.preview':'Vista previa',
+ 'sec.advanced':'Ajustes avanzados','sec.cover':'Carátula','sec.dest':'Destino','sec.jobs':'Tareas',
+ 'pick.file':'Elige un archivo a la izquierda para empezar.','crumb.root':'Carpetas','list.empty':'No hay archivos de audio ni vídeo aquí.',
+ 'root.rw':'escribible','root.ro':'🔒 solo lectura','warn.noWritable':'No hay ninguna carpeta escribible configurada: se pueden crear vistas previas, pero no guardar conversiones.',
+ 'info.name':'Nombre','info.duration':'Duración','info.video':'Vídeo','info.subs':'Subtítulos','info.none':'ninguno','info.cover':'Carátula',
+ 'info.yes':'presente','info.no':'ausente','info.analyzing':'Analizando','info.error':'Error',
+ 'track.label':'Pista de audio a convertir','track.channels':'{n} canales','track.notStereo':'no estéreo',
+ 'track.warn':'Esta pista no es estéreo: el upmix solo funciona con pistas de 2 canales.','track.noAudio':'El archivo no contiene audio.',
+ 'stage':'escenario','ch.fl':'Frontal izquierdo','ch.fc':'Central','ch.fr':'Frontal derecho','ch.sl':'Surround izquierdo','ch.lfe':'Subwoofer','ch.sr':'Surround derecho',
+ 'link.front':'frontales I/D unidos','link.surr':'surround I/D unidos',
+ 'btn.resetPreset':'Restablecer preajuste','btn.savePreset':'Guardar como preajuste…','btn.delPreset':'Eliminar preajuste','btn.cancel':'Cancelar','btn.close':'Cerrar',
+ 'preset.builtin':'Preajustes','preset.user':'Mis preajustes','preset.stalls':'Platea (recomendado)','preset.front':'Escenario frontal (surround discreto)',
+ 'preset.immersive':'Inmersivo (en medio de la banda)','preset.film':'Película (diálogos al centro)',
+ 'prompt.presetName':'Nombre del nuevo preajuste:','confirm.delPreset':'¿Eliminar el preajuste «{name}»?','toast.presetSaved':'Preajuste guardado',
+ 'toast.presetDeleted':'Preajuste eliminado','toast.presetReset':'Valores del preajuste restablecidos',
+ 'adv.master':'Volumen general','adv.delay':'Retardo surround','adv.shelf':'Brillo surround (por encima de 5 kHz)','adv.lfe_cut':'Corte del subwoofer',
+ 'adv.smooth':'Estabilidad de la imagen','adv.limiter':'Protección contra la distorsión (limitador a −1 dB)','adv.bitrate':'Tasa de bits Dolby Digital','adv.max':'máximo',
+ 'prev.start':'Inicio de la vista previa','prev.btn':'Crear vista previa (30 s)','prev.working':'procesando…',
+ 'prev.hint':'El navegador solo reproduce 5.1 si la tarjeta de sonido del ordenador está configurada en 5.1; si no, lo reduce a estéreo. Los niveles de abajo son los reales de cada canal.',
+ 'prev.legend':'Barra: nivel medio (RMS, dBFS). Línea: pico máximo.',
+ 'cover.ph':'Título, artista…','cover.search':'Buscar en internet','cover.upload':'Subir desde el ordenador…','cover.searching':'Buscando…',
+ 'cover.none':'No se ha encontrado ninguna carátula. Prueba con menos palabras (p. ej. solo el artista).','cover.results':'{n} resultados: haz clic en uno para elegirlo.',
+ 'cover.downloading':'Descargando la carátula…','cover.selected':'Carátula elegida','cover.remove':'No aplicar',
+ 'cover.note':'Fuentes: iTunes, Deezer, MusicBrainz. La carátula se incrusta en el archivo (adjunto cover.jpg en MKV, imagen de portada en MP4).',
+ 'cover.fmtOk':'Se incrustará en el archivo.','cover.fmtNo':'El formato .{ext} no admite carátulas: usa .mkv o .mp4.',
+ 'cover.replaces':'Sustituirá la carátula que ya tiene el archivo.',
+ 'dest.roNote':'🔒 El archivo de origen está en una carpeta protegida (solo lectura) y no se puede modificar. El resultado se guardará en una carpeta escribible.',
+ 'dest.folder':'Carpeta','dest.browse':'Examinar…','dest.name':'Nombre del archivo','dest.nameOrig':'Nombre original',
+ 'dest.keepOrig':'Conservar también la pista de audio original (como segunda pista)',
+ 'dest.replace':'<b>El archivo original se sobrescribirá</b> (mismo nombre y misma carpeta).','dest.exists':'<b>Ya existe un archivo con este nombre</b>: se sobrescribirá.',
+ 'dest.owOff':'La sobrescritura está desactivada. Actívala en los ajustes ⚙ o elige otro nombre u otra carpeta.',
+ 'dest.backup':'Mover antes el archivo existente a la carpeta de copia de seguridad <code>upmix_originali</code> (recomendado)','dest.go':'Iniciar conversión',
+ 'dlg.dir.title':'Elige la carpeta de destino','dlg.dir.ok':'Usar esta carpeta','dlg.dir.empty':'No hay subcarpetas.','toast.pickDir':'Elige una carpeta',
+ 'ow.title':'Sobrescribir archivo','ow.replace':'Vas a sobrescribir el archivo original «{name}» con la versión convertida.',
+ 'ow.other':'Vas a sobrescribir el archivo existente «{name}».','ow.bkOn':'Antes, el archivo actual se moverá a la carpeta de copia de seguridad upmix_originali.',
+ 'ow.bkOff':'Sin copia de seguridad: la operación no se podrá deshacer.',
+ 'jobs.empty':'No hay tareas.','jobs.clear':'Limpiar terminadas','job.cancel':'Cancelar','job.remove':'Quitar de la lista','job.speed':'velocidad {v}',
+ 'job.backup':'Archivo anterior guardado en {p}','job.cover':'con carátula','toast.queued':'Conversión añadida a la cola',
+ 'state.queued':'en cola','state.running':'en curso','state.done':'completado','state.error':'error','state.cancelled':'cancelado',
+ 'msg.subs_srt':'subtítulos convertidos a SRT','msg.subs_dropped':'subtítulos no compatibles con el formato: omitidos','msg.cover_skipped':'carátula no compatible con este formato: no incrustada',
+ 'set.title':'Ajustes','set.theme':'Tema','set.theme.auto':'Automático','set.theme.light':'Claro','set.theme.dark':'Oscuro','set.lang':'Idioma','set.files':'Archivos',
+ 'set.overwrite':'Permitir sobrescribir archivos existentes',
+ 'set.overwriteNote':'Solo afecta a las carpetas escribibles: las protegidas (🔒) siguen intocables. Cada sobrescritura pedirá confirmación.',
+ 'set.version':'Versión {v}','toast.owOn':'Sobrescritura activada','toast.owOff':'Sobrescritura desactivada',
+ 'err.path_missing':'Falta la ruta.','err.path_not_found':'La ruta no existe.','err.path_forbidden':'Ruta no permitida.',
+ 'err.readonly':'Carpeta de solo lectura: elige un destino escribible.','err.probe_failed':'No se puede leer el archivo.',
+ 'err.preview_failed':'No se pudo crear la vista previa.','err.cover_query':'Escribe al menos dos caracteres.','err.cover_not_image':'El archivo no es una imagen válida.',
+ 'err.cover_not_found':'Carátula ya no disponible: repite la búsqueda.','err.cover_download':'No se pudo descargar la carátula.',
+ 'err.cover_too_big':'Imagen demasiado grande (máximo 20 MB).','err.bad_track':'Pista de audio no válida.','err.not_stereo':'La pista elegida no es estéreo.',
+ 'err.bad_dir':'Carpeta de destino no válida.','err.bad_name':'Nombre de archivo no válido.','err.bad_ext':'Extensión no compatible. Usa: {exts}.',
+ 'err.audio_only_ext':'Para un archivo solo de audio usa la extensión .mka o .ac3.','err.dest_exists':'Ya existe un archivo con este nombre.',
+ 'err.overwrite_disabled':'La sobrescritura está desactivada en los ajustes.','err.job_running':'Ya hay una tarea en curso con este archivo.',
+ 'err.job_not_found':'Tarea no encontrada.','err.preset_name':'Falta el nombre del preajuste.','err.not_found':'No encontrado.','err.bad_request':'Solicitud no válida.',
+ 'err.ffmpeg':'Error de ffmpeg: {detail}','err.verify':'Comprobación fallida ({reason}): no se ha modificado ningún archivo.','err.internal':'Error interno: {detail}',
+ 'reason.unreadable':'archivo ilegible','reason.no_51':'falta la pista 5.1','reason.no_video':'falta el vídeo','reason.duration':'duración distinta',
+ 'owon.title':'¿Activar la sobrescritura?','owon.intro':'Estás autorizando al programa a sustituir archivos existentes. Los posibles riesgos son:',
+ 'owon.r1':'un archivo sustituido sin copia de seguridad <b>no se podrá recuperar</b>;',
+ 'owon.r2':'si la versión convertida no te convence (audio, sincronización, pistas), tendrás que restaurar el original a mano desde la carpeta <code>upmix_originali</code>;',
+ 'owon.r3':'con la copia de seguridad activada, cada archivo sustituido ocupa temporalmente el doble de espacio en disco;',
+ 'owon.r4':'Emby/Plex volverán a leer los archivos modificados y podrían actualizar sus datos.',
+ 'owon.safe':'Las carpetas protegidas (🔒) siguen siendo de solo lectura en cualquier caso: este ajuste no puede modificarlas. Cada sobrescritura seguirá pidiendo confirmación.',
+ 'owon.ask':'¿De verdad quieres permitir que se sobrescriban archivos?',
+ 'room.listener':'Posición de escucha',
+ 'cover.legal':'Las carátulas están protegidas por los derechos de autor de sus titulares: úsalas solo para tu colección personal y no las redistribuyas.',
+ 'set.legal':'Software libre con licencia MIT, proporcionado «tal cual», sin ninguna garantía: guarda siempre una copia de tus archivos. Dolby y Dolby Digital son marcas de Dolby Laboratories; este proyecto no está afiliado a Dolby, Apple, Deezer, MetaBrainz ni TMDB.'
+},
+de: {
+ 'app.sub':'Von Stereo zu Dolby Digital 5.1','sec.source':'Quelle','sec.file':'Datei','sec.channels':'Kanäle','sec.preview':'Vorschau',
+ 'sec.advanced':'Erweiterte Einstellungen','sec.cover':'Cover','sec.dest':'Ziel','sec.jobs':'Aufträge',
+ 'pick.file':'Wähle links eine Datei aus, um zu beginnen.','crumb.root':'Ordner','list.empty':'Keine Audio- oder Videodateien hier.',
+ 'root.rw':'beschreibbar','root.ro':'🔒 schreibgeschützt','warn.noWritable':'Kein beschreibbarer Ordner konfiguriert: Vorschauen sind möglich, Konvertierungen können aber nicht gespeichert werden.',
+ 'info.name':'Name','info.duration':'Dauer','info.video':'Video','info.subs':'Untertitel','info.none':'keine','info.cover':'Cover',
+ 'info.yes':'vorhanden','info.no':'keines','info.analyzing':'Analyse','info.error':'Fehler',
+ 'track.label':'Zu konvertierende Audiospur','track.channels':'{n} Kanäle','track.notStereo':'nicht Stereo',
+ 'track.warn':'Diese Spur ist nicht Stereo: Das Upmix funktioniert nur mit 2-Kanal-Spuren.','track.noAudio':'Die Datei enthält kein Audio.',
+ 'stage':'Bühne','ch.fl':'Vorne links','ch.fc':'Center','ch.fr':'Vorne rechts','ch.sl':'Surround links','ch.lfe':'Subwoofer','ch.sr':'Surround rechts',
+ 'link.front':'Front L/R gekoppelt','link.surr':'Surround L/R gekoppelt',
+ 'btn.resetPreset':'Voreinstellung zurücksetzen','btn.savePreset':'Als Voreinstellung speichern…','btn.delPreset':'Voreinstellung löschen','btn.cancel':'Abbrechen','btn.close':'Schließen',
+ 'preset.builtin':'Voreinstellungen','preset.user':'Meine Voreinstellungen','preset.stalls':'Parkett (empfohlen)','preset.front':'Frontbühne (dezenter Surround)',
+ 'preset.immersive':'Immersiv (mitten in der Band)','preset.film':'Film (Dialoge im Center)',
+ 'prompt.presetName':'Name der neuen Voreinstellung:','confirm.delPreset':'Voreinstellung „{name}“ löschen?','toast.presetSaved':'Voreinstellung gespeichert',
+ 'toast.presetDeleted':'Voreinstellung gelöscht','toast.presetReset':'Werte der Voreinstellung wiederhergestellt',
+ 'adv.master':'Gesamtlautstärke','adv.delay':'Surround-Verzögerung','adv.shelf':'Surround-Brillanz (über 5 kHz)','adv.lfe_cut':'Subwoofer-Trennfrequenz',
+ 'adv.smooth':'Stabilität des Klangbilds','adv.limiter':'Verzerrungsschutz (Limiter bei −1 dB)','adv.bitrate':'Dolby-Digital-Bitrate','adv.max':'maximal',
+ 'prev.start':'Beginn der Vorschau','prev.btn':'Vorschau erstellen (30 s)','prev.working':'wird verarbeitet…',
+ 'prev.hint':'Der Browser spielt 5.1 nur ab, wenn die Soundkarte des Computers auf 5.1 eingestellt ist; sonst wird auf Stereo heruntergemischt. Die Pegel unten sind die echten Pegel jedes Kanals.',
+ 'prev.legend':'Balken: mittlerer Pegel (RMS, dBFS). Linie: Spitzenpegel.',
+ 'cover.ph':'Titel, Künstler…','cover.search':'Online suchen','cover.upload':'Vom Computer hochladen…','cover.searching':'Suche läuft…',
+ 'cover.none':'Kein Cover gefunden. Versuche es mit weniger Wörtern (z. B. nur dem Künstler).','cover.results':'{n} Ergebnisse: klicke eines an, um es auszuwählen.',
+ 'cover.downloading':'Cover wird heruntergeladen…','cover.selected':'Ausgewähltes Cover','cover.remove':'Nicht verwenden',
+ 'cover.note':'Quellen: iTunes, Deezer, MusicBrainz. Das Cover wird in die Datei eingebettet (Anhang cover.jpg bei MKV, Coverbild bei MP4).',
+ 'cover.fmtOk':'Es wird in die Datei eingebettet.','cover.fmtNo':'Das Format .{ext} unterstützt keine Cover: verwende .mkv oder .mp4.',
+ 'cover.replaces':'Es ersetzt das bereits vorhandene Cover der Datei.',
+ 'dest.roNote':'🔒 Die Quelldatei liegt in einem geschützten (schreibgeschützten) Ordner und kann nicht verändert werden. Das Ergebnis wird in einem beschreibbaren Ordner gespeichert.',
+ 'dest.folder':'Ordner','dest.browse':'Durchsuchen…','dest.name':'Dateiname','dest.nameOrig':'Ursprünglicher Name',
+ 'dest.keepOrig':'Auch die ursprüngliche Audiospur behalten (als zweite Spur)',
+ 'dest.replace':'<b>Die Originaldatei wird überschrieben</b> (gleicher Name, gleicher Ordner).','dest.exists':'<b>Eine Datei mit diesem Namen existiert bereits</b>: sie wird überschrieben.',
+ 'dest.owOff':'Überschreiben ist deaktiviert. Aktiviere es in den Einstellungen ⚙ oder wähle einen anderen Namen oder Ordner.',
+ 'dest.backup':'Vorhandene Datei zuerst in den Sicherungsordner <code>upmix_originali</code> verschieben (empfohlen)','dest.go':'Konvertierung starten',
+ 'dlg.dir.title':'Zielordner wählen','dlg.dir.ok':'Diesen Ordner verwenden','dlg.dir.empty':'Keine Unterordner.','toast.pickDir':'Wähle einen Ordner',
+ 'ow.title':'Datei überschreiben','ow.replace':'Du überschreibst die Originaldatei „{name}“ mit der konvertierten Version.',
+ 'ow.other':'Du überschreibst die vorhandene Datei „{name}“.','ow.bkOn':'Die aktuelle Datei wird zuerst in den Sicherungsordner upmix_originali verschoben.',
+ 'ow.bkOff':'Keine Sicherungskopie: Der Vorgang kann nicht rückgängig gemacht werden.',
+ 'jobs.empty':'Keine Aufträge.','jobs.clear':'Abgeschlossene entfernen','job.cancel':'Abbrechen','job.remove':'Aus der Liste entfernen','job.speed':'Geschwindigkeit {v}',
+ 'job.backup':'Vorherige Datei gespeichert unter {p}','job.cover':'mit Cover','toast.queued':'Konvertierung zur Warteschlange hinzugefügt',
+ 'state.queued':'wartend','state.running':'läuft','state.done':'fertig','state.error':'Fehler','state.cancelled':'abgebrochen',
+ 'msg.subs_srt':'Untertitel in SRT umgewandelt','msg.subs_dropped':'Untertitel vom Format nicht unterstützt: weggelassen','msg.cover_skipped':'Cover von diesem Format nicht unterstützt: nicht eingebettet',
+ 'set.title':'Einstellungen','set.theme':'Design','set.theme.auto':'Automatisch','set.theme.light':'Hell','set.theme.dark':'Dunkel','set.lang':'Sprache','set.files':'Dateien',
+ 'set.overwrite':'Überschreiben vorhandener Dateien erlauben',
+ 'set.overwriteNote':'Gilt nur für beschreibbare Ordner: geschützte Ordner (🔒) bleiben unantastbar. Jedes Überschreiben muss bestätigt werden.',
+ 'set.version':'Version {v}','toast.owOn':'Überschreiben aktiviert','toast.owOff':'Überschreiben deaktiviert',
+ 'err.path_missing':'Pfad fehlt.','err.path_not_found':'Der Pfad existiert nicht.','err.path_forbidden':'Pfad nicht erlaubt.',
+ 'err.readonly':'Schreibgeschützter Ordner: wähle ein beschreibbares Ziel.','err.probe_failed':'Die Datei kann nicht gelesen werden.',
+ 'err.preview_failed':'Vorschau fehlgeschlagen.','err.cover_query':'Gib mindestens zwei Zeichen ein.','err.cover_not_image':'Die Datei ist kein gültiges Bild.',
+ 'err.cover_not_found':'Cover nicht mehr verfügbar: suche erneut.','err.cover_download':'Download des Covers fehlgeschlagen.',
+ 'err.cover_too_big':'Bild zu groß (maximal 20 MB).','err.bad_track':'Ungültige Audiospur.','err.not_stereo':'Die gewählte Spur ist nicht Stereo.',
+ 'err.bad_dir':'Ungültiger Zielordner.','err.bad_name':'Ungültiger Dateiname.','err.bad_ext':'Nicht unterstützte Erweiterung. Verwende: {exts}.',
+ 'err.audio_only_ext':'Für eine reine Audiodatei verwende die Erweiterung .mka oder .ac3.','err.dest_exists':'Eine Datei mit diesem Namen existiert bereits.',
+ 'err.overwrite_disabled':'Überschreiben ist in den Einstellungen deaktiviert.','err.job_running':'Für diese Datei läuft bereits ein Auftrag.',
+ 'err.job_not_found':'Auftrag nicht gefunden.','err.preset_name':'Name der Voreinstellung fehlt.','err.not_found':'Nicht gefunden.','err.bad_request':'Ungültige Anfrage.',
+ 'err.ffmpeg':'ffmpeg-Fehler: {detail}','err.verify':'Prüfung fehlgeschlagen ({reason}): keine Datei verändert.','err.internal':'Interner Fehler: {detail}',
+ 'reason.unreadable':'Datei unlesbar','reason.no_51':'5.1-Spur fehlt','reason.no_video':'Video fehlt','reason.duration':'abweichende Dauer',
+ 'owon.title':'Überschreiben aktivieren?','owon.intro':'Du erlaubst dem Programm, vorhandene Dateien zu ersetzen. Mögliche Risiken:',
+ 'owon.r1':'eine ohne Sicherung ersetzte Datei <b>kann nicht wiederhergestellt werden</b>;',
+ 'owon.r2':'wenn die konvertierte Fassung nicht passt (Ton, Synchronität, Spuren), muss das Original von Hand aus dem Ordner <code>upmix_originali</code> zurückgeholt werden;',
+ 'owon.r3':'mit aktivierter Sicherung belegt jede ersetzte Datei vorübergehend den doppelten Speicherplatz;',
+ 'owon.r4':'Emby/Plex lesen die geänderten Dateien neu ein und können ihre Daten aktualisieren.',
+ 'owon.safe':'Geschützte Ordner (🔒) bleiben in jedem Fall schreibgeschützt: diese Einstellung kann sie nicht ändern. Jedes Überschreiben muss weiterhin bestätigt werden.',
+ 'owon.ask':'Möchtest du das Überschreiben von Dateien wirklich erlauben?',
+ 'room.listener':'Hörposition',
+ 'cover.legal':'Cover sind urheberrechtlich geschützt (Rechteinhaber): verwende sie nur für deine private Sammlung und verbreite sie nicht weiter.',
+ 'set.legal':'Freie Software unter MIT-Lizenz, bereitgestellt „wie besehen“, ohne jede Gewährleistung: bewahre immer eine Kopie deiner Dateien auf. Dolby und Dolby Digital sind Marken von Dolby Laboratories; dieses Projekt ist nicht mit Dolby, Apple, Deezer, MetaBrainz oder TMDB verbunden.'
+}};
+
+const $ = s => document.querySelector(s);
+const store = { get(k, d){ try { const v = localStorage.getItem('upmix.'+k); return v ? JSON.parse(v) : d; } catch(e){ return d; } },
+                set(k, v){ try { localStorage.setItem('upmix.'+k, JSON.stringify(v)); } catch(e){} } };
+let LANG = store.get('lang', (navigator.language || 'it').slice(0,2));
+if (!I18N[LANG]) LANG = 'it';
+const t = (k, p) => { let s = (I18N[LANG] && I18N[LANG][k]) ?? I18N.it[k] ?? k; if (p) for (const [a,b] of Object.entries(p)) s = s.split('{'+a+'}').join(b); return s; };
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function errText(j){
+  if (!j || !j.error) return t('err.internal', {detail:'?'});
+  const p = {...(j.params || {})};
+  if (p.reason) p.reason = t('reason.'+p.reason);
+  return t('err.'+j.error, p);
+}
+function applyI18n(){
+  document.documentElement.lang = LANG;
+  document.querySelectorAll('[data-i18n]').forEach(el => el.innerHTML = t(el.dataset.i18n));
+  document.querySelectorAll('[data-i18n-title]').forEach(el => el.title = t(el.dataset.i18nTitle));
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => el.placeholder = t(el.dataset.i18nPh));
+}
+
+/* ===================================================== utilità */
+class ApiErr extends Error { constructor(j){ super(errText(j)); this.code = j && j.error; } }
+const api = async (url, opt) => {
+  const init = opt && opt.body !== undefined ? {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(opt.body)} : opt;
+  const r = await fetch(url, init);
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new ApiErr(j);
+  return j;
+};
+const toast = (m) => { const el = $('#toast'); el.textContent = m; el.classList.add('on'); clearTimeout(el._h); el._h = setTimeout(() => el.classList.remove('on'), 3500); };
+const fmtSize = b => b > 1e9 ? (b/1e9).toFixed(2)+' GB' : b > 1e6 ? (b/1e6).toFixed(0)+' MB' : (b/1e3).toFixed(0)+' KB';
+const fmtTime = s => { s = Math.round(s); const h = Math.floor(s/3600), m = Math.floor(s%3600/60), x = s%60; return (h ? h+':'+String(m).padStart(2,'0') : m)+':'+String(x).padStart(2,'0'); };
+const fmtDb = v => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(1) + ' dB';
+
+/* ===================================================== tema */
+function applyTheme(){
+  const th = store.get('theme', 'auto');
+  if (th === 'auto') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = th;
+  document.querySelectorAll('#themeSeg button').forEach(b => b.classList.toggle('on', b.dataset.v === th));
+}
+applyTheme();
+
+/* ===================================================== stato */
+const S = { dir:'', file:null, info:null, params:null, presets:null, settings:{allow_overwrite:false}, cover:null, exists:false, same:false };
+const CH = [ {k:'fl',tag:'L',area:'fl'}, {k:'fc',tag:'C',area:'fc'}, {k:'fr',tag:'R',area:'fr'},
+             {k:'sl',tag:'SL',area:'sl'}, {k:'lfe',tag:'LFE',area:'lfe'}, {k:'sr',tag:'SR',area:'sr'} ];
+const ADV = [
+  {k:'master', min:-12, max:12, step:0.5, u:'dB'}, {k:'delay', min:0, max:40, step:1, u:' ms'},
+  {k:'shelf', min:-10, max:4, step:0.5, u:'dB'}, {k:'lfe_cut', min:60, max:200, step:5, u:' Hz'}, {k:'smooth', min:0, max:1, step:0.05, u:'%'} ];
+let ROOTS = [];
+
+/* ===================================================== impostazioni */
+$('#gearBtn').onclick = () => {
+  $('#langSel').value = LANG; $('#owSwitch').checked = !!S.settings.allow_overwrite; applyTheme();
+  $('#verNote').textContent = 'Upmix 5.1 · ' + t('set.version', {v: S.settings.version || ''});
+  $('#setDlg').showModal();
+};
+$('#setClose').onclick = () => $('#setDlg').close();
+document.querySelectorAll('#themeSeg button').forEach(b => b.onclick = () => { store.set('theme', b.dataset.v); applyTheme(); });
+$('#langSel').onchange = () => { LANG = $('#langSel').value; store.set('lang', LANG); rerender(); };
+function confirmEnableOverwrite(){
+  return new Promise(res => {
+    const dlg = $('#owOnDlg');
+    const done = v => { dlg.close(); $('#owOnOk').onclick = $('#owOnCancel').onclick = null; dlg.oncancel = null; res(v); };
+    $('#owOnOk').onclick = () => done(true); $('#owOnCancel').onclick = () => done(false);
+    dlg.oncancel = e => { e.preventDefault(); done(false); };
+    dlg.showModal(); $('#owOnCancel').focus();
+  });
+}
+$('#owSwitch').onchange = async () => {
+  // attivazione: prima l'avviso; con "Annulla" l'interruttore torna spento
+  if ($('#owSwitch').checked && !(await confirmEnableOverwrite())){ $('#owSwitch').checked = false; return; }
+  try { S.settings = await api('/api/settings', {body:{allow_overwrite: $('#owSwitch').checked}});
+        toast(t(S.settings.allow_overwrite ? 'toast.owOn' : 'toast.owOff')); checkDest(); }
+  catch(e){ toast(e.message); $('#owSwitch').checked = !!S.settings.allow_overwrite; }
+};
+function rerender(){
+  applyI18n(); buildSpeakers(); buildRoom(); paint(); renderPresetSelect($('#preset').value);
+  loadDir(S.dir); refreshJobs();
+  if (S.file && S.info){ renderInfo(); renderTracks(+$('#track').value); checkDest(); renderCoverSel(); }
+  $('#verNote').textContent = 'Upmix 5.1 · ' + t('set.version', {v: S.settings.version || ''});
+}
+
+/* ===================================================== browser file */
+async function loadDir(path){
+  let d;
+  try { d = await api('/api/list?path='+encodeURIComponent(path)); } catch(e){ if (path) return loadDir(''); toast(e.message); return; }
+  S.dir = d.path; store.set('dir', d.path);
+  renderCrumbs($('#crumbs'), d.path, loadDir);
+  const L = $('#list'); L.innerHTML = '';
+  if (d.path) L.append(row('dir', '..', '', () => loadDir(d.parent)));
+  if (!d.entries.length) L.insertAdjacentHTML('beforeend', `<div class="empty">${t('list.empty')}</div>`);
+  for (const e of d.entries){
+    const tag = !d.path ? t(e.writable ? 'root.rw' : 'root.ro') : (e.size ? fmtSize(e.size) : '');
+    const r = row(e.type, e.name, tag, () => e.type === 'dir' ? loadDir(e.path) : selectFile(e, r));
+    if (S.file && S.file.path === e.path) r.classList.add('sel');
+    L.append(r);
+  }
+}
+function row(type, name, size, onclick){
+  const r = document.createElement('div'); r.className = 'item';
+  r.innerHTML = `<span class="ic">${type==='dir'?'📁':type==='video'?'🎬':'🎵'}</span><span class="nm" title="${esc(name)}">${esc(name)}</span><span class="sz">${esc(size)}</span>`;
+  r.onclick = onclick; return r;
+}
+function renderCrumbs(el, path, go){
+  el.innerHTML = '';
+  const a = (txt, p) => { const x = document.createElement('a'); x.textContent = txt; x.onclick = () => go(p); return x; };
+  el.append(a(t('crumb.root'), ''));
+  if (!path) return;
+  const root = ROOTS.filter(r => path === r.path || path.startsWith(r.path + '/')).sort((x,y)=>y.path.length-x.path.length)[0];
+  if (!root) return;
+  el.append(sep(), a(root.name, root.path));
+  let cur = root.path;
+  for (const part of path.slice(root.path.length).split('/').filter(Boolean)){ cur += '/' + part; el.append(sep(), a(part, cur)); }
+}
+const sep = () => { const s = document.createElement('span'); s.textContent = '›'; return s; };
+const writableRoots = () => ROOTS.filter(r => r.writable);
+const inWritable = p => writableRoots().some(r => p === r.path || p.startsWith(r.path + '/'));
+
+/* ===================================================== file scelto */
+async function selectFile(e, rowEl){
+  document.querySelectorAll('#list .item.sel').forEach(x => x.classList.remove('sel'));
+  rowEl && rowEl.classList.add('sel');
+  $('#noFile').hidden = true; $('#panel').hidden = false;
+  $('#info').innerHTML = `<dt>${t('info.analyzing')}</dt><dd><span class="spin"></span></dd>`;
+  let info;
+  try { info = await api('/api/info?path='+encodeURIComponent(e.path)); }
+  catch(err){ $('#info').innerHTML = `<dt>${t('info.error')}</dt><dd class="err">${esc(err.message)}</dd>`; return; }
+  S.file = e; S.info = info;
+  renderInfo();
+  const first = info.audio.findIndex(a => a.channels === 2);
+  renderTracks(first >= 0 ? first : 0);
+  const st = $('#start'); st.max = Math.max(0, Math.floor(info.duration - 30)); st.value = Math.floor(st.max/3); $('#startV').textContent = fmtTime(st.value);
+  $('#player').hidden = true; $('#prevHint').hidden = true; $('#meters').innerHTML = ''; $('#prevNote').textContent = '';
+  updateFrame();
+  // destinazione predefinita
+  const srcDir = e.path.slice(0, e.path.lastIndexOf('/'));
+  const last = store.get('outdir', '');
+  const wr = writableRoots();
+  $('#outdir').value = inWritable(srcDir) ? srcDir : (inWritable(last) ? last : (wr[0] ? wr[0].path : ''));
+  $('#roNote').hidden = inWritable(srcDir);
+  // copertina: azzera e prepara la ricerca
+  S.cover = null; $('#covers').innerHTML = ''; $('#coverStatus').textContent = '';
+  $('#coverQ').value = guessQuery(e.name, info.title);
+  renderCoverSel();
+  setName(store.get('nameMode','suffix'));
+}
+function renderInfo(){
+  const info = S.info, v = info.video[0];
+  $('#info').innerHTML = `
+    <dt>${t('info.name')}</dt><dd>${esc(S.file.name)}</dd>
+    <dt>${t('info.duration')}</dt><dd>${fmtTime(info.duration)} · ${fmtSize(info.size)}</dd>
+    <dt>${t('info.video')}</dt><dd>${v ? `${esc(v.codec)} ${v.width}×${v.height}` : '—'}</dd>
+    <dt>${t('info.subs')}</dt><dd>${info.subtitles || t('info.none')}</dd>
+    <dt>${t('info.cover')}</dt><dd>${t(info.has_cover ? 'info.yes' : 'info.no')}</dd>`;
+}
+function renderTracks(sel){
+  const T = $('#track'); T.innerHTML = '';
+  for (const a of S.info.audio){
+    const o = document.createElement('option'); o.value = a.index;
+    o.textContent = `#${a.index+1} · ${a.codec} · ${t('track.channels',{n:a.channels})}${a.layout?' ('+a.layout+')':''}${a.lang?' · '+a.lang:''}${a.title?' · '+a.title:''}${a.channels!==2?' — '+t('track.notStereo'):''}`;
+    T.append(o);
+  }
+  T.value = sel; onTrack();
+}
+function onTrack(){
+  if (!S.info.audio.length){ $('#trackNote').innerHTML = `<span class="err">${t('track.noAudio')}</span>`; $('#goBtn').disabled = $('#prevBtn').disabled = true; return; }
+  const a = S.info.audio[+$('#track').value], ok = a && a.channels === 2;
+  $('#trackNote').innerHTML = ok ? '' : `<span class="warn">${t('track.warn')}</span>`;
+  $('#prevBtn').disabled = !ok; checkDest();
+}
+$('#track').onchange = onTrack;
+$('#start').oninput = e => { $('#startV').textContent = fmtTime(e.target.value); updateFrame(); };
+
+function setName(mode){
+  if (!S.file) return;
+  store.set('nameMode', mode);
+  const n = S.file.name, dot = n.lastIndexOf('.'), base = dot > 0 ? n.slice(0, dot) : n;
+  const srcExt = dot > 0 ? n.slice(dot+1).toLowerCase() : '';
+  let ext = srcExt || 'mkv';
+  if (!S.info.video.length) ext = 'mka';
+  else if (['wmv','webm'].includes(ext)) ext = 'mkv';
+  $('#outname').value = (mode === 'orig' && ext === srcExt) ? n : (mode === 'orig' ? `${base}.${ext}` : `${base}_DD-5_1.${ext}`);
+  checkDest();
+}
+$('#nameOrig').onclick = () => setName('orig');
+$('#nameSuffix').onclick = () => setName('suffix');
+$('#outname').oninput = () => { checkDest(); renderCoverSel(); };
+
+let existsTimer;
+function checkDest(){
+  if (!S.file) return;
+  const name = $('#outname').value.trim(), dir = $('#outdir').value, full = dir + '/' + name;
+  S.same = full === S.file.path;
+  clearTimeout(existsTimer);
+  existsTimer = setTimeout(async () => {
+    let exists = S.same;
+    if (!exists && dir){
+      try { const d = await api('/api/list?path='+encodeURIComponent(dir)); exists = d.entries.some(x => x.path === full); } catch(e){}
+    }
+    S.exists = exists;
+    const box = $('#existsBox');
+    box.hidden = !exists;
+    if (exists){
+      if (S.settings.allow_overwrite){
+        $('#existsText').innerHTML = t(S.same ? 'dest.replace' : 'dest.exists');
+        $('#backupRow').hidden = false;
+      } else {
+        $('#existsText').innerHTML = `<span class="err">${t('dest.owOff')}</span>`;
+        $('#backupRow').hidden = true;
+      }
+    }
+    const a = S.info.audio[+$('#track').value];
+    $('#goBtn').disabled = !(a && a.channels === 2) || !dir || (exists && !S.settings.allow_overwrite);
+    renderCoverSel();
+  }, 200);
+}
+
+/* ===================================================== canali */
+function buildSpeakers(){
+  const g = $('#spk'); g.innerHTML = '';
+  for (const c of CH){
+    const d = document.createElement('div'); d.className = 'spk'; d.style.gridArea = c.area;
+    d.innerHTML = `<div class="tag">${c.tag}</div><div class="val" id="v_${c.k}"></div>
+      <input class="vs" type="range" min="-24" max="6" step="0.5" id="s_${c.k}" aria-label="${esc(t('ch.'+c.k))}">
+      <div class="lbl">${t('ch.'+c.k)}</div>`;
+    g.append(d);
+    d.querySelector('input').oninput = ev => {
+      const v = +ev.target.value; S.params[c.k] = v;
+      const pair = {fl:'fr', fr:'fl', sl:'sr', sr:'sl'}[c.k];
+      if (pair && ((c.k[0]==='f' && $('#linkF').checked) || (c.k[0]==='s' && $('#linkS').checked))) S.params[pair] = v;
+      paint(); saveParams();
+    };
+  }
+  const a = $('#adv'); a.innerHTML = '';
+  for (const x of ADV)
+    a.insertAdjacentHTML('beforeend', `<div class="hs"><label>${t('adv.'+x.k)} <b id="v_${x.k}"></b></label><input type="range" id="s_${x.k}" min="${x.min}" max="${x.max}" step="${x.step}"></div>`);
+  a.insertAdjacentHTML('beforeend', `<div><label class="chk" style="margin-top:22px"><input type="checkbox" id="s_limiter"><span>${t('adv.limiter')}</span></label>
+    <label class="f" for="s_bitrate">${t('adv.bitrate')}</label><select id="s_bitrate"><option value="448">448 kbit/s</option><option value="640">640 kbit/s (${t('adv.max')})</option></select></div>`);
+  for (const x of ADV) $('#s_'+x.k).oninput = ev => { S.params[x.k] = +ev.target.value; paint(); saveParams(); };
+  $('#s_limiter').onchange = ev => { S.params.limiter = ev.target.checked; saveParams(); };
+  $('#s_bitrate').onchange = ev => { S.params.bitrate = +ev.target.value; saveParams(); };
+}
+function paint(){
+  if (!S.params) return;
+  for (const c of CH){ $('#s_'+c.k).value = S.params[c.k]; $('#v_'+c.k).textContent = fmtDb(S.params[c.k]); }
+  for (const x of ADV){
+    $('#s_'+x.k).value = S.params[x.k];
+    $('#v_'+x.k).textContent = x.u === 'dB' ? fmtDb(S.params[x.k]) : x.u === '%' ? Math.round(S.params[x.k]*100)+'%' : S.params[x.k] + x.u;
+  }
+  $('#s_limiter').checked = !!S.params.limiter; $('#s_bitrate').value = S.params.bitrate;
+  updateRoom();
+}
+const saveParams = () => store.set('params', S.params);
+
+/* ===================================================== pianta della stanza 5.1 */
+// vista dall'alto: posizioni standard ITU-R BS.775 (frontali ±30°, surround ±110°)
+const ROOM = (() => {
+  const L = {x:220, y:300}, R = 170, rad = a => a * Math.PI / 180;
+  const at = a => ({x: L.x + R * Math.sin(rad(a)), y: L.y - R * Math.cos(rad(a))});
+  return { L, R, spk: {
+    fc: {...at(0),   w:56, h:18, kind:'center'},
+    fl: {...at(-30), w:24, h:40, kind:'tower', ang:'30°',  angDx:-34},
+    fr: {...at(30),  w:24, h:40, kind:'tower', ang:'30°',  angDx:34},
+    sl: {...at(-110),w:20, h:30, kind:'sat',   ang:'110°', angDx:0},
+    sr: {...at(110), w:20, h:30, kind:'sat',   ang:'110°', angDx:0},
+    lfe:{x:392, y:214, w:34, h:34, kind:'sub'} } };
+})();
+const svgNS = 'http://www.w3.org/2000/svg';
+function sv(tag, attrs, parent){ const e = document.createElementNS(svgNS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.append(e); return e; }
+function buildRoom(){
+  const box = $('#roomViz'); box.innerHTML = '';
+  const svg = sv('svg', {viewBox:'0 0 440 446', role:'img', 'aria-label':'5.1'}, box);
+  sv('rect', {x:4, y:4, width:432, height:438, rx:18, class:'rv-floor'}, svg);
+  sv('circle', {cx:ROOM.L.x, cy:ROOM.L.y, r:ROOM.R, class:'rv-ring'}, svg);
+  // fasci sonori (sotto le casse)
+  const beams = sv('g', {}, svg);
+  for (const [k, s] of Object.entries(ROOM.spk)){
+    const dx = ROOM.L.x - s.x, dy = ROOM.L.y - s.y, len = Math.hypot(dx, dy), ux = dx/len, uy = dy/len, px = -uy, py = ux, w = 24;
+    const pts = [[s.x, s.y], [ROOM.L.x + px*w - ux*6, ROOM.L.y + py*w - uy*6], [ROOM.L.x - px*w - ux*6, ROOM.L.y - py*w - uy*6]];
+    sv('polygon', {points: pts.map(p => p.join(',')).join(' '), class:'rv-beam', id:'rvb_'+k}, beams);
+  }
+  // TV vista di fronte (16:9) con un fotogramma del file
+  const tv = {x:144, y:16, w:152, h:86};
+  sv('rect', {x:tv.x-5, y:tv.y-5, width:tv.w+10, height:tv.h+10, rx:6, class:'rv-tv'}, svg);
+  sv('rect', {x:tv.x, y:tv.y, width:tv.w, height:tv.h, fill:'#000'}, svg);
+  const clip = sv('clipPath', {id:'rvTvClip'}, sv('defs', {}, svg));
+  sv('rect', {x:tv.x, y:tv.y, width:tv.w, height:tv.h}, clip);
+  sv('image', {id:'rvFrame', x:tv.x, y:tv.y, width:tv.w, height:tv.h, preserveAspectRatio:'xMidYMid meet', 'clip-path':'url(#rvTvClip)'}, svg);
+  sv('rect', {x:tv.x+tv.w/2-14, y:tv.y+tv.h+5, width:28, height:4, rx:2, class:'rv-tv'}, svg);
+  // divano e posizione d'ascolto
+  sv('rect', {x:162, y:314, width:116, height:16, rx:7, class:'rv-sofa'}, svg);
+  sv('rect', {x:168, y:300, width:104, height:22, rx:8, class:'rv-sofa'}, svg);
+  sv('circle', {cx:ROOM.L.x, cy:ROOM.L.y, r:8, class:'rv-head'}, svg);
+  sv('text', {x:ROOM.L.x, y:350, class:'rv-lbl'}, svg).textContent = t('room.listener');
+  updateFrame();
+  // casse
+  for (const [k, s] of Object.entries(ROOM.spk)){
+    const g = sv('g', {transform:`translate(${s.x.toFixed(1)},${s.y.toFixed(1)})`}, svg);
+    sv('title', {}, g).textContent = t('ch.'+k);
+    sv('rect', {x:-s.w/2, y:-s.h/2, width:s.w, height:s.h, rx: s.kind === 'sub' ? 6 : 4, class:'rv-body'}, g);
+    const drv = { tower:[[0,-10,4.5],[0,7,7]], center:[[-17,0,5.5],[0,0,3],[17,0,5.5]], sat:[[0,-6,3.5],[0,6,5]], sub:[[0,0,11]] }[s.kind];
+    for (const [cx, cy, r] of drv) sv('circle', {cx, cy, r, class:'rv-drv', 'data-k':k}, g);
+    // etichetta con il valore
+    const py = s.h/2 + 17;
+    sv('rect', {x:-40, y:py-12, width:80, height:24, rx:12, class:'rv-pill', id:'rvp_'+k}, g);
+    sv('text', {x:-24, y:py, class:'rv-tag'}, g).textContent = CH.find(c => c.k === k).tag;
+    sv('text', {x:10, y:py, class:'rv-val', id:'rvv_'+k}, g);
+    if (s.ang) sv('text', {x:s.angDx, y:-s.h/2 - 8, class:'rv-ang'}, g).textContent = s.ang;
+  }
+  updateRoom();
+}
+// fotogramma sulla TV: stesso punto scelto per l'anteprima
+let frameTimer;
+function updateFrame(){
+  const img = $('#rvFrame'); if (!img) return;
+  clearTimeout(frameTimer);
+  if (!S.file){ img.removeAttribute('href'); return; }
+  frameTimer = setTimeout(() => {
+    const url = `/api/thumb?path=${encodeURIComponent(S.file.path)}&t=${Math.floor(+$('#start').value || 0)}`;
+    const pre = new Image();
+    pre.onload = () => img.setAttribute('href', url);
+    pre.onerror = () => img.removeAttribute('href');
+    pre.src = url;
+  }, 250);
+}
+function updateRoom(){
+  if (!S.params || !$('#rvv_fl')) return;
+  for (const k of Object.keys(ROOM.spk)){
+    const db = +S.params[k], lvl = Math.max(0, Math.min(1, (db + 24) / 30)), on = db > -23.5;
+    $('#rvv_'+k).textContent = fmtDb(db);
+    $('#rvb_'+k).style.opacity = on ? (0.05 + 0.42 * lvl * (k === 'lfe' ? 0.6 : 1)).toFixed(3) : 0;
+    $('#rvp_'+k).classList.toggle('low', !on);
+    document.querySelectorAll(`.rv-drv[data-k="${k}"]`).forEach(c => c.classList.toggle('on', on));
+  }
+}
+
+/* ===================================================== preset */
+async function loadPresets(selected){ S.presets = await api('/api/presets'); renderPresetSelect(selected); }
+function renderPresetSelect(selected){
+  const P = $('#preset'); P.innerHTML = '';
+  const add = (label, obj, prefix, nameOf) => { const og = document.createElement('optgroup'); og.label = label;
+    for (const n of Object.keys(obj)){ const o = document.createElement('option'); o.value = prefix+n; o.textContent = nameOf(n); og.append(o); }
+    if (og.children.length) P.append(og); };
+  add(t('preset.builtin'), S.presets.builtin, 'b:', n => t('preset.'+n));
+  add(t('preset.user'), S.presets.user, 'u:', n => n);
+  P.value = selected || store.get('preset', 'b:stalls');
+  if (!P.value) P.value = 'b:stalls';
+  $('#delPresetBtn').hidden = !P.value.startsWith('u:');
+}
+const presetParams = id => { const i = id.indexOf(':'), ty = id.slice(0,i), name = id.slice(i+1);
+  return {...S.presets.defaults, ...((ty==='b' ? S.presets.builtin : S.presets.user)[name] || {})}; };
+$('#preset').onchange = () => { store.set('preset', $('#preset').value); S.params = presetParams($('#preset').value); paint(); saveParams(); $('#delPresetBtn').hidden = !$('#preset').value.startsWith('u:'); };
+$('#resetBtn').onclick = () => { S.params = presetParams($('#preset').value); paint(); saveParams(); toast(t('toast.presetReset')); };
+$('#savePresetBtn').onclick = async () => {
+  const n = prompt(t('prompt.presetName')); if (!n || !n.trim()) return;
+  try { await api('/api/presets', {body:{name:n, params:S.params}}); await loadPresets('u:'+n.trim().slice(0,60)); store.set('preset', $('#preset').value); toast(t('toast.presetSaved')); }
+  catch(e){ toast(e.message); }
+};
+$('#delPresetBtn').onclick = async () => {
+  const id = $('#preset').value; if (!id.startsWith('u:') || !confirm(t('confirm.delPreset', {name:id.slice(2)}))) return;
+  try { await api('/api/presets', {body:{name:id.slice(2), params:null}}); await loadPresets('b:stalls'); store.set('preset', $('#preset').value); toast(t('toast.presetDeleted')); }
+  catch(e){ toast(e.message); }
+};
+
+/* ===================================================== anteprima */
+$('#prevBtn').onclick = async () => {
+  const b = $('#prevBtn'); b.disabled = true; $('#prevNote').innerHTML = `<span class="spin"></span> ${t('prev.working')}`;
+  try {
+    const r = await api('/api/preview', {body:{path:S.file.path, track:+$('#track').value, params:S.params, start:+$('#start').value}});
+    const p = $('#player'); p.src = r.url; p.hidden = false; $('#prevHint').hidden = false; p.play().catch(()=>{});
+    drawMeters(r.levels); $('#prevNote').textContent = '';
+  } catch(e){ $('#prevNote').innerHTML = `<span class="err">${esc(e.message)}</span>`; }
+  b.disabled = false;
+};
+function drawMeters(levels){
+  const M = $('#meters'); M.innerHTML = '';
+  const h = v => Math.max(0, Math.min(100, (v + 60) / 60 * 100));
+  const short = {FL:'L', FR:'R', FC:'C'};
+  for (const l of levels){
+    const pk = l.peak ?? -120, rm = l.rms ?? -120;
+    M.insertAdjacentHTML('beforeend', `<div class="mt"><div class="bar" title="RMS ${rm} dB · peak ${pk} dB">
+      <div class="r" style="height:${h(rm)}%;${pk > -1 ? 'background:var(--meter-clip)' : ''}"></div>
+      <div class="p" style="bottom:${h(pk)}%"></div></div>
+      <div class="n">${short[l.ch] || l.ch}</div><div class="d">${rm <= -119 ? '—' : rm.toFixed(0)}</div></div>`);
+  }
+  M.insertAdjacentHTML('beforeend', `<p class="note" style="grid-column:1/-1;margin:0">${t('prev.legend')}</p>`);
+}
+
+/* ===================================================== copertina */
+function guessQuery(name, title){
+  let s = (title && title.length > 2) ? title : name.replace(/\.[^.]+$/, '');
+  s = s.replace(/_DD-5_1/gi, ' ').replace(/\[[^\]]*\]/g, ' ').replace(/\((?:\d{4}|[^)]*(?:1080|720|480|dvd|bd|bluray|rip)[^)]*)\)/gi, ' ')
+       .replace(/\b(1080p|720p|480p|x264|x265|h264|hevc|dvdrip|bdrip|bluray|web-?dl|ac3|dts|aac|5\.1|2\.0)\b/gi, ' ')
+       .replace(/[._]+/g, ' ').replace(/\s+-\s+/g, ' ').replace(/\s+/g, ' ').trim();
+  return s;
+}
+const coverExtOk = () => ['mkv','mka','mp4','m4v','mov'].includes(($('#outname').value.split('.').pop() || '').toLowerCase());
+function renderCoverSel(){
+  const has = !!S.cover;
+  $('#coverSel').hidden = !has;
+  if (!has) return;
+  $('#coverImg').src = S.cover.url;
+  $('#coverDim').textContent = S.cover.width ? `${S.cover.width}×${S.cover.height} px` : '';
+  const ext = ($('#outname').value.split('.').pop() || '').toLowerCase();
+  $('#coverFmt').innerHTML = coverExtOk() ? `<span class="ok">${t('cover.fmtOk')}</span>${S.info && S.info.has_cover ? ' '+t('cover.replaces') : ''}`
+                                          : `<span class="warn">${t('cover.fmtNo', {ext})}</span>`;
+}
+$('#coverSearch').onclick = searchCovers;
+$('#coverQ').onkeydown = e => { if (e.key === 'Enter') searchCovers(); };
+async function searchCovers(){
+  const q = $('#coverQ').value.trim();
+  $('#coverStatus').innerHTML = `<span class="spin"></span> ${t('cover.searching')}`; $('#covers').innerHTML = '';
+  let res;
+  try { res = await api('/api/cover/search?q='+encodeURIComponent(q)); } catch(e){ $('#coverStatus').innerHTML = `<span class="err">${esc(e.message)}</span>`; return; }
+  $('#coverStatus').textContent = res.length ? t('cover.results', {n: res.length}) : t('cover.none');
+  const C = $('#covers');
+  for (const r of res){
+    const b = document.createElement('button'); b.className = 'cv'; b.type = 'button';
+    b.innerHTML = `<img loading="lazy" alt="" referrerpolicy="no-referrer"><div class="ti"></div><div class="ar"></div><div class="src"></div>`;
+    const img = b.querySelector('img'); img.src = r.thumb; img.onerror = () => b.remove();
+    b.querySelector('.ti').textContent = r.title;
+    b.querySelector('.ar').textContent = [r.artist, r.year].filter(Boolean).join(' · ');
+    b.querySelector('.src').textContent = r.source + (r.size ? ' · ' + r.size : '');
+    b.onclick = () => pickCover(r, b);
+    C.append(b);
+  }
+}
+async function pickCover(r, el){
+  document.querySelectorAll('.cv.sel').forEach(x => x.classList.remove('sel')); el.classList.add('sel');
+  $('#coverStatus').innerHTML = `<span class="spin"></span> ${t('cover.downloading')}`;
+  try { S.cover = await api('/api/cover/select', {body:{id:r.id}}); $('#coverStatus').textContent = ''; renderCoverSel(); }
+  catch(e){ el.classList.remove('sel'); $('#coverStatus').innerHTML = `<span class="err">${esc(e.message)}</span>`; }
+}
+$('#coverUploadBtn').onclick = () => $('#coverFile').click();
+$('#coverFile').onchange = async () => {
+  const f = $('#coverFile').files[0]; if (!f) return;
+  $('#coverStatus').innerHTML = `<span class="spin"></span>`;
+  try {
+    const r = await fetch('/api/cover/upload', {method:'POST', headers:{'Content-Type': f.type || 'application/octet-stream'}, body: f});
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new ApiErr(j);
+    S.cover = j; document.querySelectorAll('.cv.sel').forEach(x => x.classList.remove('sel'));
+    $('#coverStatus').textContent = ''; renderCoverSel();
+  } catch(e){ $('#coverStatus').innerHTML = `<span class="err">${esc(e.message)}</span>`; }
+  $('#coverFile').value = '';
+};
+$('#coverRemove').onclick = () => { S.cover = null; document.querySelectorAll('.cv.sel').forEach(x => x.classList.remove('sel')); renderCoverSel(); };
+
+/* ===================================================== destinazione */
+let dSel = '';
+$('#pickDir').onclick = () => { dSel = $('#outdir').value; loadDDir(dSel); $('#dirDlg').showModal(); };
+$('#dCancel').onclick = () => $('#dirDlg').close();
+$('#dOk').onclick = () => { if (!dSel){ toast(t('toast.pickDir')); return; } $('#outdir').value = dSel; store.set('outdir', dSel); $('#dirDlg').close(); checkDest(); };
+async function loadDDir(path){
+  let d; try { d = await api('/api/list?dirs=1&path='+encodeURIComponent(path)); } catch(e){ if (path) return loadDDir(''); toast(e.message); return; }
+  dSel = d.path; renderCrumbs($('#dCrumbs'), d.path, loadDDir);
+  const L = $('#dList'); L.innerHTML = '';
+  if (d.path) L.append(row('dir', '..', '', () => loadDDir(d.parent)));
+  for (const e of d.entries) L.append(row('dir', e.name, '', () => loadDDir(e.path)));
+  if (!d.entries.length) L.insertAdjacentHTML('beforeend', `<div class="empty">${t('dlg.dir.empty')}</div>`);
+}
+
+/* ===================================================== avvio conversione */
+function confirmOverwrite(name, same, backup){
+  return new Promise(res => {
+    $('#owText').textContent = t(same ? 'ow.replace' : 'ow.other', {name});
+    $('#owBackup').innerHTML = backup ? t('ow.bkOn') : `<span class="err">${t('ow.bkOff')}</span>`;
+    const dlg = $('#owDlg');
+    const done = v => { dlg.close(); $('#owOk').onclick = $('#owCancel').onclick = null; dlg.oncancel = null; res(v); };
+    $('#owOk').onclick = () => done(true); $('#owCancel').onclick = () => done(false); dlg.oncancel = e => { e.preventDefault(); done(false); };
+    dlg.showModal(); $('#owCancel').focus();
+  });
+}
+$('#goBtn').onclick = async () => {
+  const body = { path:S.file.path, track:+$('#track').value, params:S.params, outdir:$('#outdir').value,
+    outname:$('#outname').value.trim(), keep_original:$('#keepOrig').checked, backup:$('#backup').checked,
+    cover_id: S.cover ? S.cover.cover_id : null, overwrite:false };
+  if (S.exists){
+    if (!S.settings.allow_overwrite) return;
+    if (!await confirmOverwrite(body.outname, S.same, body.backup)) return;
+    body.overwrite = true;
+  }
+  try { await api('/api/jobs', {body}); toast(t('toast.queued')); refreshJobs(); }
+  catch(e){ $('#goNote').innerHTML = `<span class="err">${esc(e.message)}</span>`; setTimeout(()=>$('#goNote').textContent='', 7000); }
+};
+
+/* ===================================================== lavori */
+async function refreshJobs(){
+  let jobs; try { jobs = await api('/api/jobs'); } catch(e){ return; }
+  const J = $('#jobs');
+  if (!jobs.length){ J.innerHTML = `<div class="empty">${t('jobs.empty')}</div>`; return; }
+  J.innerHTML = jobs.map(j => {
+    const active = j.state === 'running' || j.state === 'queued';
+    const extra = [];
+    if (j.speed && j.state === 'running') extra.push(t('job.speed', {v: esc(j.speed)}));
+    if (j.has_cover && j.state === 'done' && !(j.msgs||[]).includes('cover_skipped')) extra.push(t('job.cover'));
+    const lines = [];
+    if (j.backup_path) lines.push(t('job.backup', {p: esc(j.backup_path)}));
+    for (const m of (j.msgs || [])) lines.push(t('msg.'+m));
+    if (j.error) lines.push(`<span class="err">${esc(errText({error:j.error.code, params:j.error.params}))}</span>`);
+    return `<div class="job"><div class="t"><span class="nm" title="${esc(j.src)}">${esc(j.name)}</span>
+      <span class="badge ${j.state}">${t('state.'+j.state)}${j.state==='running'?' · '+j.progress.toFixed(0)+'%':''}</span>
+      ${active ? `<button class="btn sm" data-c="${j.id}">${t('job.cancel')}</button>` : `<button class="btn sm" data-r="${j.id}" title="${esc(t('job.remove'))}">✕</button>`}</div>
+      <div class="pb"><div style="width:${j.state==='done'?100:j.progress}%"></div></div>
+      <div class="m">→ ${esc(j.dst)}${extra.length ? ' · '+extra.join(' · ') : ''}${lines.length ? '<br>'+lines.join('<br>') : ''}</div></div>`;
+  }).join('');
+  J.querySelectorAll('[data-c]').forEach(b => b.onclick = async () => { await api(`/api/jobs/${b.dataset.c}/cancel`, {body:{}}); refreshJobs(); });
+  J.querySelectorAll('[data-r]').forEach(b => b.onclick = async () => { await api(`/api/jobs/${b.dataset.r}/remove`, {body:{}}); refreshJobs(); });
+}
+$('#clearJobs').onclick = async () => {
+  const jobs = await api('/api/jobs');
+  for (const j of jobs) if (!['running','queued'].includes(j.state)) await api(`/api/jobs/${j.id}/remove`, {body:{}});
+  refreshJobs();
+};
+let lastActive = false;
+setInterval(async () => {
+  const jobs = await api('/api/jobs').catch(() => []);
+  const active = jobs.some(j => j.state === 'running' || j.state === 'queued');
+  if (active || lastActive){ refreshJobs(); if (!active && S.dir) loadDir(S.dir); if (!active) checkDest(); }
+  lastActive = active;
+}, 2000);
+
+/* ===================================================== avvio pagina */
+(async () => {
+  applyI18n();
+  ROOTS = await api('/api/roots');
+  $('#noWritable').hidden = writableRoots().length > 0;
+  S.settings = await api('/api/settings').catch(() => S.settings);
+  buildSpeakers();
+  await loadPresets();
+  S.params = {...presetParams($('#preset').value), ...store.get('params', {})};
+  buildRoom();
+  paint();
+  await loadDir(store.get('dir', ''));
+  refreshJobs();
+})();
+</script>
+</body>
+</html>

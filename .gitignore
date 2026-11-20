@@ -1,0 +1,43 @@
+# Upmix51 runtime data (settings, presets, log, previews, downloaded covers, frames)
+config/
+data/
+output/
+convertiti/
+upmix_originali/
+
+# your personal compose file (may contain your paths and passwords)
+docker-compose.yml
+compose.yml
+.env
+
+# temporary files
+*.upmixtmp
+__pycache__/
+*.pyc
+
+# never commit media or cover art
+*.mkv
+*.mka
+*.mp4
+*.m4v
+*.avi
+*.mov
+*.ts
+*.m2ts
+*.vob
+*.iso
+*.flac
+*.wav
+*.mp3
+*.ac3
+*.jpg
+*.jpeg
+*.png
+*.webp
+!docs/*.png
+!docs/*.jpg
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini

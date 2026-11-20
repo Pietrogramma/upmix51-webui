@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>Upmix51</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f0b24e"/>
+      <stop offset="1" stop-color="#d98a1f"/>
+    </linearGradient>
+  </defs>
+  <!-- fondo -->
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <g transform="translate(0 -26) translate(256 262) scale(.9) translate(-256 -262)">
+  <!-- cerchio d'ascolto (posizioni ITU 5.1) -->
+  <circle cx="256" cy="262" r="132" fill="none" stroke="#181410" stroke-opacity=".28" stroke-width="6" stroke-dasharray="14 12"/>
+  <!-- fasci sonori verso l'ascoltatore -->
+  <g fill="#181410" fill-opacity=".16">
+    <polygon points="256,130 238,262 274,262"/>
+    <polygon points="190,148 241,268 266,250"/>
+    <polygon points="322,148 271,268 246,250"/>
+    <polygon points="132,307 248,278 258,250"/>
+    <polygon points="380,307 264,278 254,250"/>
+  </g>
+  <!-- casse: centrale, frontali (±30°), surround (±110°) -->
+  <g fill="#181410">
+    <rect x="226" y="116" width="60" height="28" rx="8"/>
+    <rect x="175" y="126" width="30" height="44" rx="7" transform="rotate(-30 190 148)"/>
+    <rect x="307" y="126" width="30" height="44" rx="7" transform="rotate(30 322 148)"/>
+    <rect x="118" y="289" width="28" height="36" rx="7" transform="rotate(-110 132 307)"/>
+    <rect x="366" y="289" width="28" height="36" rx="7" transform="rotate(110 380 307)"/>
+    <!-- ascoltatore -->
+    <circle cx="256" cy="262" r="20"/>
+  </g>
+  <!-- coni degli altoparlanti -->
+  <g fill="#f0b24e">
+    <circle cx="242" cy="130" r="6"/><circle cx="270" cy="130" r="6"/>
+    <circle cx="190" cy="152" r="7" transform="rotate(-30 190 148)"/>
+    <circle cx="322" cy="152" r="7" transform="rotate(30 322 148)"/>
+    <circle cx="132" cy="310" r="6" transform="rotate(-110 132 307)"/>
+    <circle cx="380" cy="310" r="6" transform="rotate(110 380 307)"/>
+  </g>
+  </g>
+  <!-- scritta -->
+  <text x="256" y="458" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="700" fill="#181410" letter-spacing="2">5.1</text>
+</svg>

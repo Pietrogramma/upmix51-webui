@@ -1,0 +1,35 @@
+# Upmix51 - example Docker Compose file
+# Copy it to docker-compose.yml and replace every /path/to/... with your own folders.
+# Then: docker compose up -d --build   ->   open http://<your-server>:8765
+
+services:
+  upmix51:
+    build: .
+    image: upmix51:local
+    container_name: upmix51
+    ports:
+      - 8765:8765
+    environment:
+      - TZ=Europe/Rome
+      # Folders shown in the web interface: Name=/path/inside/container[:ro];...
+      # ":ro" also makes the folder read-only for the program.
+      - ROOTS=LIBRARY=/mnt/library:ro;OUTPUT=/mnt/output
+      # ffmpeg threads used by conversions
+      - THREADS=2
+      # Optional password for the web interface (any user name). STRONGLY recommended
+      # if other people use your network. Never expose Upmix51 directly to the internet.
+      - PASSWORD=
+      # Optional: your project URL or e-mail, sent to MusicBrainz in the User-Agent
+      - UA_CONTACT=
+      # Optional: your free themoviedb.org API key, to also search film posters
+      - TMDB_API_KEY=
+    volumes:
+      # Your media library, READ-ONLY: the kernel prevents any write to it.
+      - /path/to/your/media:/mnt/library:ro
+      # The only writable folder: converted files are saved here.
+      - /path/to/upmix51/output:/mnt/output
+      # Settings, presets, log and temporary files
+      - /path/to/upmix51/config:/config
+    # lower CPU priority than media servers (Plex, Emby, Jellyfin...)
+    cpu_shares: 256
+    restart: unless-stopped
