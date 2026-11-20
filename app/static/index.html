@@ -163,6 +163,13 @@ dialog footer{display:flex;gap:8px;justify-content:flex-end;padding:12px 16px;bo
 .switch input::after{content:"";position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:2px;left:2px;transition:left .15s;box-shadow:0 1px 2px rgba(0,0,0,.3)}
 .switch input:checked{background:var(--warn);border-color:var(--warn)}
 .switch input:checked::after{left:18px}
+.rootrow{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:14px}
+.rootrow+.rootrow{border-top:1px solid var(--line)}
+.rootrow b{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.rootrow span{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
+.rootrow.rw span{color:var(--ok)}
+#setDlg{max-height:calc(100vh - 32px)}
+#setDlg .body{max-height:calc(100vh - 170px);overflow:auto}
 .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;opacity:0;transition:opacity .25s;pointer-events:none;max-width:calc(100vw - 32px);z-index:10}
 .toast.on{opacity:1}
 .placeholder{padding:40px 20px;text-align:center;color:var(--muted)}
@@ -383,6 +390,9 @@ dialog footer{display:flex;gap:8px;justify-content:flex-end;padding:12px 16px;bo
     <label class="f" data-i18n="set.files"></label>
     <label class="switch"><input type="checkbox" id="owSwitch"><span><span data-i18n="set.overwrite"></span>
       <span class="note" style="display:block" data-i18n="set.overwriteNote"></span></span></label>
+    <label class="f" style="margin-top:18px" data-i18n="set.folders"></label>
+    <div class="box" id="rootList" style="margin-top:0;padding:6px 12px"></div>
+    <p class="note" data-i18n="set.foldersNote"></p>
     <p class="note" id="verNote" style="margin-top:16px"></p>
     <p class="note" style="font-size:12px" data-i18n="set.legal"></p>
   </div>
@@ -435,8 +445,8 @@ it: {
  'state.queued':'in coda','state.running':'in corso','state.done':'completato','state.error':'errore','state.cancelled':'annullato',
  'msg.subs_srt':'sottotitoli convertiti in SRT','msg.subs_dropped':'sottotitoli non compatibili con il formato: omessi','msg.cover_skipped':'copertina non supportata da questo formato: non inserita',
  'set.title':'Impostazioni','set.theme':'Tema','set.theme.auto':'Automatico','set.theme.light':'Chiaro','set.theme.dark':'Scuro','set.lang':'Lingua','set.files':'File',
- 'set.overwrite':'Consenti la sovrascrittura dei file esistenti',
- 'set.overwriteNote':'Vale solo per le cartelle scrivibili: quelle protette (🔒) restano intoccabili. A ogni sovrascrittura verrà chiesta conferma.',
+ 'set.overwrite':'Consenti di sostituire file già esistenti (solo nelle cartelle scrivibili)',
+ 'set.overwriteNote':'Permette di scrivere sopra un file con lo stesso nome, per esempio rifacendo una conversione in CONVERTITI. Non sblocca le cartelle protette (🔒). A ogni sostituzione verrà chiesta conferma.',
  'set.version':'Versione {v}','toast.owOn':'Sovrascrittura attivata','toast.owOff':'Sovrascrittura disattivata',
  'err.path_missing':'Percorso mancante.','err.path_not_found':'Il percorso non esiste.','err.path_forbidden':'Percorso non consentito.',
  'err.readonly':'Cartella in sola lettura: scegli una destinazione scrivibile.','err.probe_failed':'Impossibile leggere il file.',
@@ -476,7 +486,9 @@ it: {
  'err.busy':'Il file è usato da un lavoro in corso.',
  'reason.size':'dimensione diversa',
  'cover.legal':'Le copertine sono protette dal diritto d’autore dei rispettivi titolari: usale solo per la tua collezione personale e non ridistribuirle.',
- 'set.legal':'Software libero con licenza MIT, fornito «così com’è», senza alcuna garanzia: tieni sempre una copia dei tuoi file. Dolby e Dolby Digital sono marchi di Dolby Laboratories; questo progetto non è affiliato a Dolby, Apple, Deezer, MetaBrainz o TMDB.'
+ 'set.legal':'Software libero con licenza MIT, fornito «così com’è», senza alcuna garanzia: tieni sempre una copia dei tuoi file. Dolby e Dolby Digital sono marchi di Dolby Laboratories; questo progetto non è affiliato a Dolby, Apple, Deezer, MetaBrainz o TMDB.',
+ 'set.folders':'Cartelle','set.rootRo':'sola lettura (protetta dal sistema)','set.rootRw':'scrivibile',
+ 'set.foldersNote':'Per rendere scrivibile una cartella protetta modifica il compose di Docker: aggiungila senza «:ro» (vedi il README).'
 },
 en: {
  'app.sub':'From stereo to Dolby Digital 5.1','sec.source':'Source','sec.file':'File','sec.channels':'Channels','sec.preview':'Preview',
@@ -520,8 +532,8 @@ en: {
  'state.queued':'queued','state.running':'running','state.done':'done','state.error':'error','state.cancelled':'cancelled',
  'msg.subs_srt':'subtitles converted to SRT','msg.subs_dropped':'subtitles not supported by the format: omitted','msg.cover_skipped':'cover not supported by this format: not embedded',
  'set.title':'Settings','set.theme':'Theme','set.theme.auto':'Automatic','set.theme.light':'Light','set.theme.dark':'Dark','set.lang':'Language','set.files':'Files',
- 'set.overwrite':'Allow overwriting existing files',
- 'set.overwriteNote':'Applies only to writable folders: protected ones (🔒) stay untouchable. Every overwrite asks for confirmation.',
+ 'set.overwrite':'Allow replacing existing files (writable folders only)',
+ 'set.overwriteNote':'Lets the program write over a file with the same name, for example when you redo a conversion in the output folder. It does not unlock protected folders (🔒). Every replacement asks for confirmation.',
  'set.version':'Version {v}','toast.owOn':'Overwriting enabled','toast.owOff':'Overwriting disabled',
  'err.path_missing':'Missing path.','err.path_not_found':'The path does not exist.','err.path_forbidden':'Path not allowed.',
  'err.readonly':'Read-only folder: choose a writable destination.','err.probe_failed':'Cannot read the file.',
@@ -561,7 +573,9 @@ en: {
  'err.busy':'The file is used by a running job.',
  'reason.size':'different size',
  'cover.legal':'Cover art is protected by the copyright of its respective owners: use it only for your personal collection and do not redistribute it.',
- 'set.legal':'Free software under the MIT licence, provided “as is”, without any warranty: always keep a copy of your files. Dolby and Dolby Digital are trademarks of Dolby Laboratories; this project is not affiliated with Dolby, Apple, Deezer, MetaBrainz or TMDB.'
+ 'set.legal':'Free software under the MIT licence, provided “as is”, without any warranty: always keep a copy of your files. Dolby and Dolby Digital are trademarks of Dolby Laboratories; this project is not affiliated with Dolby, Apple, Deezer, MetaBrainz or TMDB.',
+ 'set.folders':'Folders','set.rootRo':'read-only (protected by the system)','set.rootRw':'writable',
+ 'set.foldersNote':'To make a protected folder writable, edit the Docker compose file: add it without “:ro” (see the README).'
 },
 fr: {
  'app.sub':'Du stéréo au Dolby Digital 5.1','sec.source':'Source','sec.file':'Fichier','sec.channels':'Canaux','sec.preview':'Aperçu',
@@ -605,8 +619,8 @@ fr: {
  'state.queued':'en attente','state.running':'en cours','state.done':'terminé','state.error':'erreur','state.cancelled':'annulé',
  'msg.subs_srt':'sous-titres convertis en SRT','msg.subs_dropped':'sous-titres non pris en charge par le format : omis','msg.cover_skipped':'pochette non prise en charge par ce format : non intégrée',
  'set.title':'Paramètres','set.theme':'Thème','set.theme.auto':'Automatique','set.theme.light':'Clair','set.theme.dark':'Sombre','set.lang':'Langue','set.files':'Fichiers',
- 'set.overwrite':'Autoriser l’écrasement des fichiers existants',
- 'set.overwriteNote':'Concerne uniquement les dossiers modifiables : les dossiers protégés (🔒) restent intouchables. Chaque écrasement demande une confirmation.',
+ 'set.overwrite':'Autoriser le remplacement de fichiers existants (dossiers modifiables uniquement)',
+ 'set.overwriteNote':'Permet d’écrire par-dessus un fichier portant le même nom, par exemple en refaisant une conversion dans le dossier de sortie. Ne déverrouille pas les dossiers protégés (🔒). Chaque remplacement demande une confirmation.',
  'set.version':'Version {v}','toast.owOn':'Écrasement activé','toast.owOff':'Écrasement désactivé',
  'err.path_missing':'Chemin manquant.','err.path_not_found':'Le chemin n’existe pas.','err.path_forbidden':'Chemin non autorisé.',
  'err.readonly':'Dossier en lecture seule : choisissez une destination modifiable.','err.probe_failed':'Impossible de lire le fichier.',
@@ -646,7 +660,9 @@ fr: {
  'err.busy':'Le fichier est utilisé par une tâche en cours.',
  'reason.size':'taille différente',
  'cover.legal':'Les pochettes sont protégées par le droit d’auteur de leurs titulaires : utilisez-les uniquement pour votre collection personnelle et ne les redistribuez pas.',
- 'set.legal':'Logiciel libre sous licence MIT, fourni « tel quel », sans aucune garantie : conservez toujours une copie de vos fichiers. Dolby et Dolby Digital sont des marques de Dolby Laboratories ; ce projet n’est pas affilié à Dolby, Apple, Deezer, MetaBrainz ou TMDB.'
+ 'set.legal':'Logiciel libre sous licence MIT, fourni « tel quel », sans aucune garantie : conservez toujours une copie de vos fichiers. Dolby et Dolby Digital sont des marques de Dolby Laboratories ; ce projet n’est pas affilié à Dolby, Apple, Deezer, MetaBrainz ou TMDB.',
+ 'set.folders':'Dossiers','set.rootRo':'lecture seule (protégé par le système)','set.rootRw':'modifiable',
+ 'set.foldersNote':'Pour rendre un dossier protégé modifiable, modifiez le fichier compose de Docker : ajoutez-le sans « :ro » (voir le README).'
 },
 es: {
  'app.sub':'De estéreo a Dolby Digital 5.1','sec.source':'Origen','sec.file':'Archivo','sec.channels':'Canales','sec.preview':'Vista previa',
@@ -690,8 +706,8 @@ es: {
  'state.queued':'en cola','state.running':'en curso','state.done':'completado','state.error':'error','state.cancelled':'cancelado',
  'msg.subs_srt':'subtítulos convertidos a SRT','msg.subs_dropped':'subtítulos no compatibles con el formato: omitidos','msg.cover_skipped':'carátula no compatible con este formato: no incrustada',
  'set.title':'Ajustes','set.theme':'Tema','set.theme.auto':'Automático','set.theme.light':'Claro','set.theme.dark':'Oscuro','set.lang':'Idioma','set.files':'Archivos',
- 'set.overwrite':'Permitir sobrescribir archivos existentes',
- 'set.overwriteNote':'Solo afecta a las carpetas escribibles: las protegidas (🔒) siguen intocables. Cada sobrescritura pedirá confirmación.',
+ 'set.overwrite':'Permitir sustituir archivos existentes (solo en carpetas escribibles)',
+ 'set.overwriteNote':'Permite escribir encima de un archivo con el mismo nombre, por ejemplo al rehacer una conversión en la carpeta de salida. No desbloquea las carpetas protegidas (🔒). Cada sustitución pedirá confirmación.',
  'set.version':'Versión {v}','toast.owOn':'Sobrescritura activada','toast.owOff':'Sobrescritura desactivada',
  'err.path_missing':'Falta la ruta.','err.path_not_found':'La ruta no existe.','err.path_forbidden':'Ruta no permitida.',
  'err.readonly':'Carpeta de solo lectura: elige un destino escribible.','err.probe_failed':'No se puede leer el archivo.',
@@ -731,7 +747,9 @@ es: {
  'err.busy':'El archivo lo está usando una tarea en curso.',
  'reason.size':'tamaño distinto',
  'cover.legal':'Las carátulas están protegidas por los derechos de autor de sus titulares: úsalas solo para tu colección personal y no las redistribuyas.',
- 'set.legal':'Software libre con licencia MIT, proporcionado «tal cual», sin ninguna garantía: guarda siempre una copia de tus archivos. Dolby y Dolby Digital son marcas de Dolby Laboratories; este proyecto no está afiliado a Dolby, Apple, Deezer, MetaBrainz ni TMDB.'
+ 'set.legal':'Software libre con licencia MIT, proporcionado «tal cual», sin ninguna garantía: guarda siempre una copia de tus archivos. Dolby y Dolby Digital son marcas de Dolby Laboratories; este proyecto no está afiliado a Dolby, Apple, Deezer, MetaBrainz ni TMDB.',
+ 'set.folders':'Carpetas','set.rootRo':'solo lectura (protegida por el sistema)','set.rootRw':'escribible',
+ 'set.foldersNote':'Para que una carpeta protegida sea escribible, edita el archivo compose de Docker: añádela sin «:ro» (consulta el README).'
 },
 de: {
  'app.sub':'Von Stereo zu Dolby Digital 5.1','sec.source':'Quelle','sec.file':'Datei','sec.channels':'Kanäle','sec.preview':'Vorschau',
@@ -775,8 +793,8 @@ de: {
  'state.queued':'wartend','state.running':'läuft','state.done':'fertig','state.error':'Fehler','state.cancelled':'abgebrochen',
  'msg.subs_srt':'Untertitel in SRT umgewandelt','msg.subs_dropped':'Untertitel vom Format nicht unterstützt: weggelassen','msg.cover_skipped':'Cover von diesem Format nicht unterstützt: nicht eingebettet',
  'set.title':'Einstellungen','set.theme':'Design','set.theme.auto':'Automatisch','set.theme.light':'Hell','set.theme.dark':'Dunkel','set.lang':'Sprache','set.files':'Dateien',
- 'set.overwrite':'Überschreiben vorhandener Dateien erlauben',
- 'set.overwriteNote':'Gilt nur für beschreibbare Ordner: geschützte Ordner (🔒) bleiben unantastbar. Jedes Überschreiben muss bestätigt werden.',
+ 'set.overwrite':'Ersetzen vorhandener Dateien erlauben (nur in beschreibbaren Ordnern)',
+ 'set.overwriteNote':'Erlaubt das Überschreiben einer Datei mit gleichem Namen, z. B. wenn du eine Konvertierung im Ausgabeordner wiederholst. Geschützte Ordner (🔒) werden dadurch nicht entsperrt. Jedes Ersetzen muss bestätigt werden.',
  'set.version':'Version {v}','toast.owOn':'Überschreiben aktiviert','toast.owOff':'Überschreiben deaktiviert',
  'err.path_missing':'Pfad fehlt.','err.path_not_found':'Der Pfad existiert nicht.','err.path_forbidden':'Pfad nicht erlaubt.',
  'err.readonly':'Schreibgeschützter Ordner: wähle ein beschreibbares Ziel.','err.probe_failed':'Die Datei kann nicht gelesen werden.',
@@ -816,7 +834,9 @@ de: {
  'err.busy':'Die Datei wird von einem laufenden Auftrag verwendet.',
  'reason.size':'abweichende Größe',
  'cover.legal':'Cover sind urheberrechtlich geschützt (Rechteinhaber): verwende sie nur für deine private Sammlung und verbreite sie nicht weiter.',
- 'set.legal':'Freie Software unter MIT-Lizenz, bereitgestellt „wie besehen“, ohne jede Gewährleistung: bewahre immer eine Kopie deiner Dateien auf. Dolby und Dolby Digital sind Marken von Dolby Laboratories; dieses Projekt ist nicht mit Dolby, Apple, Deezer, MetaBrainz oder TMDB verbunden.'
+ 'set.legal':'Freie Software unter MIT-Lizenz, bereitgestellt „wie besehen“, ohne jede Gewährleistung: bewahre immer eine Kopie deiner Dateien auf. Dolby und Dolby Digital sind Marken von Dolby Laboratories; dieses Projekt ist nicht mit Dolby, Apple, Deezer, MetaBrainz oder TMDB verbunden.',
+ 'set.folders':'Ordner','set.rootRo':'schreibgeschützt (vom System geschützt)','set.rootRw':'beschreibbar',
+ 'set.foldersNote':'Um einen geschützten Ordner beschreibbar zu machen, bearbeite die Docker-Compose-Datei: füge ihn ohne „:ro“ hinzu (siehe README).'
 }};
 
 const $ = s => document.querySelector(s);
@@ -872,11 +892,16 @@ let ROOTS = [];
 
 /* ===================================================== impostazioni */
 $('#gearBtn').onclick = () => {
-  $('#langSel').value = LANG; $('#owSwitch').checked = !!S.settings.allow_overwrite; applyTheme();
+  $('#langSel').value = LANG; $('#owSwitch').checked = !!S.settings.allow_overwrite; applyTheme(); renderRootList();
   $('#verNote').textContent = 'Upmix 5.1 · ' + t('set.version', {v: S.settings.version || ''});
   $('#setDlg').showModal();
 };
 $('#setClose').onclick = () => $('#setDlg').close();
+function renderRootList(){
+  const L = $('#rootList'); if (!L) return;
+  L.innerHTML = ROOTS.map(r => `<div class="rootrow ${r.writable ? 'rw' : 'ro'}">${r.writable ? '\u270F\uFE0F' : '\uD83D\uDD12'}
+    <b title="${esc(r.name)}">${esc(r.name)}</b><span>${esc(t(r.writable ? 'set.rootRw' : 'set.rootRo'))}</span></div>`).join('');
+}
 document.querySelectorAll('#themeSeg button').forEach(b => b.onclick = () => { store.set('theme', b.dataset.v); applyTheme(); });
 $('#langSel').onchange = () => { LANG = $('#langSel').value; store.set('lang', LANG); rerender(); };
 function confirmEnableOverwrite(){
@@ -900,6 +925,7 @@ function rerender(){
   loadDir(S.dir); refreshJobs();
   if (S.file && S.info){ renderInfo(); renderTracks(+$('#track').value); checkDest(); renderCoverSel(); }
   $('#verNote').textContent = 'Upmix 5.1 · ' + t('set.version', {v: S.settings.version || ''});
+  renderRootList();
 }
 
 /* ===================================================== browser file */

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.1
+- Settings: clearer wording for the "replace existing files" switch (it never unlocks protected folders).
+- Settings: list of folders with their real status (read-only / writable) and how to make a folder writable.
+
 ## 1.3
 - File actions menu (⋮) in writable folders: rename, copy, move, delete.
 - Copy and move run in the background with progress in the job list; nothing is ever overwritten.
