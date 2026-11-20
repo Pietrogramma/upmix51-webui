@@ -25,7 +25,7 @@ Built for concert videos, DVD rips and music collections on a home server (NAS, 
 - 30-second preview with real per-channel level meters.
 - File actions (rename, copy, move, delete) in writable folders.
 - Cover art search (iTunes, Deezer, MusicBrainz, optional TMDB) or upload; embedded in MKV/MP4.
-- Safe by design: read-only library, every result verified, overwriting off by default with confirmation and backup.
+- Safe by design: library folders locked by default and unlockable one by one, every result verified, overwriting off by default with confirmation and backup.
 - 5 languages, light and dark theme. Only Python standard library + FFmpeg.
 
 ### Requirements
@@ -44,7 +44,7 @@ Built for concert videos, DVD rips and music collections on a home server (NAS, 
    cp docker-compose.example.yml docker-compose.yml
    ```
 3. Edit `docker-compose.yml` and replace the three `/path/to/...` with your folders:
-   - `/path/to/your/media` → your media library (mounted **read-only**);
+   - `/path/to/your/movies`, `/path/to/your/concerts` → your library folders (add or remove lines as needed);
    - `/path/to/upmix51/output` → where converted files are saved;
    - `/path/to/upmix51/config` → settings, presets and log.
 4. Build and start:
@@ -66,7 +66,7 @@ Built for concert videos, DVD rips and music collections on a home server (NAS, 
 
 | Variable | Default | Description |
 |---|---|---|
-| `ROOTS` | `LIBRARY=/mnt/library:ro;OUTPUT=/mnt/output` | Folders shown in the UI: `Name=/path[:ro]`, separated by `;`. `:ro` = read-only for the program too. |
+| `ROOTS` | `LIBRARY=/mnt/library;OUTPUT=/mnt/output:out` | Folders shown in the UI: `Name=/path[:ro\|:out]`, separated by `;`. No suffix = library folder, locked until unlocked in the settings; `:ro` = always read-only; `:out` = output folder (the only one with rename/copy/move/delete). |
 | `THREADS` | `2` | FFmpeg threads per conversion. |
 | `PASSWORD` | *(empty)* | If set, the UI asks for it (any user name). Recommended. |
 | `UA_CONTACT` | *(project URL)* | URL or e-mail sent to MusicBrainz to identify the application, as its API rules require. |
@@ -75,7 +75,12 @@ Built for concert videos, DVD rips and music collections on a home server (NAS, 
 | `PORT` | `8765` | HTTP port. |
 
 ### Keeping your library safe
-Mount the library with `:ro` and let Upmix51 write only to the output folder: the operating system then blocks any write to the library. For in-place overwriting, mount **only the folder you need** read-write as a separate root and enable *Allow overwriting* in the settings (⚙). **Do not expose Upmix51 to the internet**; set `PASSWORD` if others use your network.
+- Every library folder is **locked by default**. In the settings (⚙) each folder has its own switch: unlocking one asks for confirmation and lets it **receive** files (conversions, files copied or moved from the output folder). You can lock it again at any time.
+- **Rename, copy, move and delete (⋮ menu) exist only in the output folder**: files in your library can never be renamed or deleted from Upmix51.
+- For the strongest protection, enforced by the operating system, mount a folder with `:ro` (both in `volumes` and in `ROOTS`): it can then never be unlocked.
+- Replacing existing files is a separate switch, off by default, with confirmation and backup to `upmix_originali`.
+
+**Do not expose Upmix51 to the internet**; set `PASSWORD` if others use your network.
 
 ### Legal
 Licence [MIT](LICENSE) · trademarks, cover art, online services: [LEGAL.md](LEGAL.md) · third-party software (FFmpeg is GPL in the built image): [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Use Upmix51 only on media you are entitled to process; use cover art for your personal collection only.
@@ -97,7 +102,7 @@ Pensata per video di concerti, rip di DVD e collezioni musicali su un server dom
 - Anteprima di 30 secondi con indicatori di livello reali per ogni canale.
 - Azioni sui file (rinomina, copia, sposta, cancella) nelle cartelle scrivibili.
 - Ricerca copertine (iTunes, Deezer, MusicBrainz, TMDB facoltativo) o caricamento dal PC; inserite nei file MKV/MP4.
-- Sicuro per costruzione: libreria in sola lettura, verifica di ogni risultato, sovrascrittura disattivata di default, con conferma e backup.
+- Sicuro per costruzione: cartelle della libreria bloccate di default e sbloccabili una per una, verifica di ogni risultato, sovrascrittura disattivata di default, con conferma e backup.
 - 5 lingue, tema chiaro e scuro. Solo libreria standard di Python e FFmpeg.
 
 ### Requisiti
@@ -116,7 +121,7 @@ Pensata per video di concerti, rip di DVD e collezioni musicali su un server dom
    cp docker-compose.example.yml docker-compose.yml
    ```
 3. Modifica `docker-compose.yml` sostituendo i tre `/path/to/...` con le tue cartelle:
-   - `/path/to/your/media` → la tua libreria (montata in **sola lettura**);
+   - `/path/to/your/movies`, `/path/to/your/concerts` → le cartelle della tua libreria (aggiungi o togli righe secondo le tue esigenze);
    - `/path/to/upmix51/output` → dove vengono salvati i file convertiti;
    - `/path/to/upmix51/config` → impostazioni, preset e registro.
 4. Costruisci e avvia:
@@ -138,7 +143,7 @@ Pensata per video di concerti, rip di DVD e collezioni musicali su un server dom
 
 | Variabile | Predefinito | Descrizione |
 |---|---|---|
-| `ROOTS` | `LIBRARY=/mnt/library:ro;OUTPUT=/mnt/output` | Cartelle mostrate nell'interfaccia: `Nome=/percorso[:ro]`, separate da `;`. `:ro` = sola lettura anche per il programma. |
+| `ROOTS` | `LIBRARY=/mnt/library;OUTPUT=/mnt/output:out` | Cartelle mostrate nell'interfaccia: `Nome=/percorso[:ro\|:out]`, separate da `;`. Senza suffisso = cartella della libreria, bloccata finché non la sblocchi nelle impostazioni; `:ro` = sempre in sola lettura; `:out` = cartella di uscita (l'unica con rinomina/copia/sposta/cancella). |
 | `THREADS` | `2` | Thread di FFmpeg per conversione. |
 | `PASSWORD` | *(vuoto)* | Se impostata, l'interfaccia la richiede (utente qualsiasi). Consigliata. |
 | `UA_CONTACT` | *(URL del progetto)* | URL o e-mail inviati a MusicBrainz per identificare l'applicazione, come richiesto dalle sue regole. |
@@ -147,7 +152,12 @@ Pensata per video di concerti, rip di DVD e collezioni musicali su un server dom
 | `PORT` | `8765` | Porta HTTP. |
 
 ### Proteggere la libreria
-Monta la libreria con `:ro` e lascia scrivere Upmix51 solo nella cartella di uscita: il sistema operativo impedisce qualsiasi scrittura sulla libreria. Per la sovrascrittura "sul posto" monta in scrittura **solo la cartella che ti serve**, come radice separata, e attiva *Consenti la sovrascrittura* nelle impostazioni (⚙). **Non esporre Upmix51 su internet**; imposta `PASSWORD` se altri usano la tua rete.
+- Ogni cartella della libreria è **bloccata di default**. Nelle impostazioni (⚙) ogni cartella ha il suo interruttore: sbloccarla chiede conferma e le permette di **ricevere** file (conversioni, file copiati o spostati dalla cartella di uscita). Puoi bloccarla di nuovo quando vuoi.
+- **Rinomina, copia, sposta e cancella (menu ⋮) esistono solo nella cartella di uscita**: i file della libreria non possono mai essere rinominati o cancellati da Upmix51.
+- Per la protezione più forte, garantita dal sistema operativo, monta una cartella con `:ro` (sia nei `volumes` sia in `ROOTS`): così non potrà mai essere sbloccata.
+- La sostituzione di file esistenti è un interruttore separato, spento di default, con conferma e backup in `upmix_originali`.
+
+**Non esporre Upmix51 su internet**; imposta `PASSWORD` se altri usano la tua rete.
 
 ### Note legali
 Licenza [MIT](LICENSE) · marchi, copertine, servizi online: [LEGAL.md](LEGAL.md) · software di terze parti (FFmpeg è GPL nell'immagine costruita): [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Usa Upmix51 solo su contenuti che hai il diritto di elaborare; usa le copertine solo per la tua collezione personale.
@@ -169,7 +179,7 @@ Conçue pour les vidéos de concerts, les rips de DVD et les collections musical
 - Aperçu de 30 secondes avec de vrais indicateurs de niveau par canal.
 - Actions sur les fichiers (renommer, copier, déplacer, supprimer) dans les dossiers modifiables.
 - Recherche de pochettes (iTunes, Deezer, MusicBrainz, TMDB en option) ou import ; intégrées aux fichiers MKV/MP4.
-- Sûr par conception : bibliothèque en lecture seule, vérification de chaque résultat, écrasement désactivé par défaut, avec confirmation et sauvegarde.
+- Sûr par conception : dossiers de la bibliothèque verrouillés par défaut et déverrouillables un par un, vérification de chaque résultat, écrasement désactivé par défaut, avec confirmation et sauvegarde.
 - 5 langues, thème clair et sombre. Uniquement la bibliothèque standard de Python et FFmpeg.
 
 ### Prérequis
@@ -188,7 +198,7 @@ Conçue pour les vidéos de concerts, les rips de DVD et les collections musical
    cp docker-compose.example.yml docker-compose.yml
    ```
 3. Modifiez `docker-compose.yml` en remplaçant les trois `/path/to/...` par vos dossiers :
-   - `/path/to/your/media` → votre bibliothèque (montée en **lecture seule**) ;
+   - `/path/to/your/movies`, `/path/to/your/concerts` → les dossiers de votre bibliothèque (ajoutez ou retirez des lignes selon vos besoins) ;
    - `/path/to/upmix51/output` → où sont enregistrés les fichiers convertis ;
    - `/path/to/upmix51/config` → paramètres, préréglages et journal.
 4. Construisez et démarrez :
@@ -210,7 +220,7 @@ Conçue pour les vidéos de concerts, les rips de DVD et les collections musical
 
 | Variable | Défaut | Description |
 |---|---|---|
-| `ROOTS` | `LIBRARY=/mnt/library:ro;OUTPUT=/mnt/output` | Dossiers affichés : `Nom=/chemin[:ro]`, séparés par `;`. `:ro` = lecture seule aussi pour le programme. |
+| `ROOTS` | `LIBRARY=/mnt/library;OUTPUT=/mnt/output:out` | Dossiers affichés : `Nom=/chemin[:ro\|:out]`, séparés par `;`. Sans suffixe = dossier de la bibliothèque, verrouillé tant qu'il n'est pas déverrouillé dans les paramètres ; `:ro` = toujours en lecture seule ; `:out` = dossier de sortie (le seul avec renommer/copier/déplacer/supprimer). |
 | `THREADS` | `2` | Threads FFmpeg par conversion. |
 | `PASSWORD` | *(vide)* | Si défini, l'interface le demande (nom d'utilisateur quelconque). Recommandé. |
 | `UA_CONTACT` | *(URL du projet)* | URL ou e-mail envoyé à MusicBrainz pour identifier l'application, comme l'exigent ses règles. |
@@ -219,7 +229,12 @@ Conçue pour les vidéos de concerts, les rips de DVD et les collections musical
 | `PORT` | `8765` | Port HTTP. |
 
 ### Protéger votre bibliothèque
-Montez la bibliothèque avec `:ro` et laissez Upmix51 écrire uniquement dans le dossier de sortie : le système d'exploitation bloque alors toute écriture dans la bibliothèque. Pour l'écrasement sur place, montez en écriture **uniquement le dossier nécessaire**, comme racine séparée, et activez *Autoriser l'écrasement* dans les paramètres (⚙). **N'exposez pas Upmix51 sur Internet** ; définissez `PASSWORD` si d'autres personnes utilisent votre réseau.
+- Chaque dossier de la bibliothèque est **verrouillé par défaut**. Dans les paramètres (⚙), chaque dossier a son interrupteur : le déverrouiller demande une confirmation et lui permet de **recevoir** des fichiers (conversions, fichiers copiés ou déplacés depuis le dossier de sortie). Vous pouvez le reverrouiller à tout moment.
+- **Renommer, copier, déplacer et supprimer (menu ⋮) n'existent que dans le dossier de sortie** : les fichiers de la bibliothèque ne peuvent jamais être renommés ni supprimés depuis Upmix51.
+- Pour la protection la plus forte, assurée par le système d'exploitation, montez un dossier avec `:ro` (dans `volumes` et dans `ROOTS`) : il ne pourra alors jamais être déverrouillé.
+- Le remplacement de fichiers existants est un interrupteur séparé, désactivé par défaut, avec confirmation et sauvegarde dans `upmix_originali`.
+
+**N'exposez pas Upmix51 sur Internet** ; définissez `PASSWORD` si d'autres personnes utilisent votre réseau.
 
 ### Mentions légales
 Licence [MIT](LICENSE) · marques, pochettes, services en ligne : [LEGAL.md](LEGAL.md) · logiciels tiers (FFmpeg est sous GPL dans l'image construite) : [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). N'utilisez Upmix51 que sur des contenus que vous avez le droit de traiter ; utilisez les pochettes uniquement pour votre collection personnelle.
@@ -241,7 +256,7 @@ Pensada para vídeos de conciertos, copias de DVD y colecciones musicales en un 
 - Vista previa de 30 segundos con medidores de nivel reales por canal.
 - Acciones de archivo (renombrar, copiar, mover, eliminar) en las carpetas escribibles.
 - Búsqueda de carátulas (iTunes, Deezer, MusicBrainz, TMDB opcional) o subida desde el ordenador; incrustadas en archivos MKV/MP4.
-- Seguro por diseño: biblioteca de solo lectura, cada resultado se verifica, sobrescritura desactivada por defecto, con confirmación y copia de seguridad.
+- Seguro por diseño: carpetas de la biblioteca bloqueadas por defecto y desbloqueables una a una, cada resultado se verifica, sobrescritura desactivada por defecto, con confirmación y copia de seguridad.
 - 5 idiomas, tema claro y oscuro. Solo la biblioteca estándar de Python y FFmpeg.
 
 ### Requisitos
@@ -260,7 +275,7 @@ Pensada para vídeos de conciertos, copias de DVD y colecciones musicales en un 
    cp docker-compose.example.yml docker-compose.yml
    ```
 3. Edita `docker-compose.yml` y sustituye los tres `/path/to/...` por tus carpetas:
-   - `/path/to/your/media` → tu biblioteca (montada en **solo lectura**);
+   - `/path/to/your/movies`, `/path/to/your/concerts` → las carpetas de tu biblioteca (añade o quita líneas según lo que necesites);
    - `/path/to/upmix51/output` → dónde se guardan los archivos convertidos;
    - `/path/to/upmix51/config` → ajustes, preajustes y registro.
 4. Construye e inicia:
@@ -282,7 +297,7 @@ Pensada para vídeos de conciertos, copias de DVD y colecciones musicales en un 
 
 | Variable | Por defecto | Descripción |
 |---|---|---|
-| `ROOTS` | `LIBRARY=/mnt/library:ro;OUTPUT=/mnt/output` | Carpetas mostradas: `Nombre=/ruta[:ro]`, separadas por `;`. `:ro` = solo lectura también para el programa. |
+| `ROOTS` | `LIBRARY=/mnt/library;OUTPUT=/mnt/output:out` | Carpetas mostradas: `Nombre=/ruta[:ro\|:out]`, separadas por `;`. Sin sufijo = carpeta de la biblioteca, bloqueada hasta que la desbloquees en los ajustes; `:ro` = siempre de solo lectura; `:out` = carpeta de salida (la única con renombrar/copiar/mover/eliminar). |
 | `THREADS` | `2` | Hilos de FFmpeg por conversión. |
 | `PASSWORD` | *(vacío)* | Si se define, la interfaz la pide (cualquier nombre de usuario). Recomendado. |
 | `UA_CONTACT` | *(URL del proyecto)* | URL o e-mail enviado a MusicBrainz para identificar la aplicación, como exigen sus normas. |
@@ -291,7 +306,12 @@ Pensada para vídeos de conciertos, copias de DVD y colecciones musicales en un 
 | `PORT` | `8765` | Puerto HTTP. |
 
 ### Proteger tu biblioteca
-Monta la biblioteca con `:ro` y deja que Upmix51 escriba solo en la carpeta de salida: así el sistema operativo bloquea cualquier escritura en la biblioteca. Para sobrescribir en el sitio, monta con escritura **solo la carpeta que necesites**, como raíz separada, y activa *Permitir sobrescribir* en los ajustes (⚙). **No expongas Upmix51 a internet**; define `PASSWORD` si otras personas usan tu red.
+- Cada carpeta de la biblioteca está **bloqueada por defecto**. En los ajustes (⚙) cada carpeta tiene su interruptor: desbloquearla pide confirmación y le permite **recibir** archivos (conversiones, archivos copiados o movidos desde la carpeta de salida). Puedes volver a bloquearla cuando quieras.
+- **Renombrar, copiar, mover y eliminar (menú ⋮) solo existen en la carpeta de salida**: los archivos de la biblioteca nunca se pueden renombrar ni eliminar desde Upmix51.
+- Para la protección más fuerte, garantizada por el sistema operativo, monta una carpeta con `:ro` (en `volumes` y en `ROOTS`): así nunca se podrá desbloquear.
+- La sustitución de archivos existentes es un interruptor aparte, desactivado por defecto, con confirmación y copia de seguridad en `upmix_originali`.
+
+**No expongas Upmix51 a internet**; define `PASSWORD` si otras personas usan tu red.
 
 ### Aviso legal
 Licencia [MIT](LICENSE) · marcas, carátulas, servicios en línea: [LEGAL.md](LEGAL.md) · software de terceros (FFmpeg es GPL en la imagen construida): [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Usa Upmix51 solo con contenidos que tengas derecho a procesar; usa las carátulas solo para tu colección personal.
@@ -313,7 +333,7 @@ Gedacht für Konzertvideos, DVD-Rips und Musiksammlungen auf einem Heimserver (N
 - 30-Sekunden-Vorschau mit echten Pegelanzeigen pro Kanal.
 - Dateiaktionen (umbenennen, kopieren, verschieben, löschen) in beschreibbaren Ordnern.
 - Cover-Suche (iTunes, Deezer, MusicBrainz, optional TMDB) oder eigenes Bild hochladen; eingebettet in MKV/MP4.
-- Sicher durch Konzept: schreibgeschützte Bibliothek, jedes Ergebnis wird geprüft, Überschreiben standardmäßig aus, mit Bestätigung und Sicherung.
+- Sicher durch Konzept: Bibliotheksordner standardmäßig gesperrt und einzeln entsperrbar, jedes Ergebnis wird geprüft, Überschreiben standardmäßig aus, mit Bestätigung und Sicherung.
 - 5 Sprachen, helles und dunkles Design. Nur Python-Standardbibliothek und FFmpeg.
 
 ### Voraussetzungen
@@ -332,7 +352,7 @@ Gedacht für Konzertvideos, DVD-Rips und Musiksammlungen auf einem Heimserver (N
    cp docker-compose.example.yml docker-compose.yml
    ```
 3. `docker-compose.yml` bearbeiten und die drei `/path/to/...` durch deine Ordner ersetzen:
-   - `/path/to/your/media` → deine Bibliothek (**schreibgeschützt** eingebunden);
+   - `/path/to/your/movies`, `/path/to/your/concerts` → deine Bibliotheksordner (Zeilen nach Bedarf hinzufügen oder entfernen);
    - `/path/to/upmix51/output` → hier werden die konvertierten Dateien gespeichert;
    - `/path/to/upmix51/config` → Einstellungen, Voreinstellungen und Protokoll.
 4. Bauen und starten:
@@ -354,7 +374,7 @@ Gedacht für Konzertvideos, DVD-Rips und Musiksammlungen auf einem Heimserver (N
 
 | Variable | Standard | Beschreibung |
 |---|---|---|
-| `ROOTS` | `LIBRARY=/mnt/library:ro;OUTPUT=/mnt/output` | Angezeigte Ordner: `Name=/pfad[:ro]`, getrennt durch `;`. `:ro` = auch für das Programm schreibgeschützt. |
+| `ROOTS` | `LIBRARY=/mnt/library;OUTPUT=/mnt/output:out` | Angezeigte Ordner: `Name=/pfad[:ro\|:out]`, getrennt durch `;`. Ohne Suffix = Bibliotheksordner, gesperrt, bis er in den Einstellungen entsperrt wird; `:ro` = immer schreibgeschützt; `:out` = Ausgabeordner (der einzige mit Umbenennen/Kopieren/Verschieben/Löschen). |
 | `THREADS` | `2` | FFmpeg-Threads pro Konvertierung. |
 | `PASSWORD` | *(leer)* | Wenn gesetzt, fragt die Oberfläche danach (beliebiger Benutzername). Empfohlen. |
 | `UA_CONTACT` | *(Projekt-URL)* | URL oder E-Mail, die gemäß den Regeln von MusicBrainz zur Identifizierung der Anwendung mitgesendet wird. |
@@ -363,7 +383,12 @@ Gedacht für Konzertvideos, DVD-Rips und Musiksammlungen auf einem Heimserver (N
 | `PORT` | `8765` | HTTP-Port. |
 
 ### Deine Bibliothek schützen
-Binde die Bibliothek mit `:ro` ein und lass Upmix51 nur in den Ausgabeordner schreiben: Dann blockiert das Betriebssystem jeden Schreibzugriff auf die Bibliothek. Für das Überschreiben an Ort und Stelle binde **nur den benötigten Ordner** beschreibbar als eigene Wurzel ein und aktiviere *Überschreiben erlauben* in den Einstellungen (⚙). **Stelle Upmix51 nicht ins Internet**; setze `PASSWORD`, wenn andere dein Netzwerk nutzen.
+- Jeder Bibliotheksordner ist **standardmäßig gesperrt**. In den Einstellungen (⚙) hat jeder Ordner einen eigenen Schalter: Das Entsperren muss bestätigt werden und erlaubt dem Ordner, Dateien zu **empfangen** (Konvertierungen, aus dem Ausgabeordner kopierte oder verschobene Dateien). Du kannst ihn jederzeit wieder sperren.
+- **Umbenennen, Kopieren, Verschieben und Löschen (⋮-Menü) gibt es nur im Ausgabeordner**: Dateien der Bibliothek können in Upmix51 nie umbenannt oder gelöscht werden.
+- Für den stärksten, vom Betriebssystem garantierten Schutz binde einen Ordner mit `:ro` ein (in `volumes` und in `ROOTS`): Dann kann er nie entsperrt werden.
+- Das Ersetzen vorhandener Dateien ist ein eigener Schalter, standardmäßig aus, mit Bestätigung und Sicherung in `upmix_originali`.
+
+**Stelle Upmix51 nicht ins Internet**; setze `PASSWORD`, wenn andere dein Netzwerk nutzen.
 
 ### Rechtliches
 Lizenz [MIT](LICENSE) · Marken, Cover, Online-Dienste: [LEGAL.md](LEGAL.md) · Software von Drittanbietern (FFmpeg steht im gebauten Image unter GPL): [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Verwende Upmix51 nur für Inhalte, die du bearbeiten darfst; verwende Cover nur für deine private Sammlung.

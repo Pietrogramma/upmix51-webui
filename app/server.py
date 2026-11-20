@@ -2,8 +2,10 @@
 """Upmix 5.1 - interfaccia web per l'upmix stereo -> Dolby Digital 5.1 con ffmpeg.
 
 Solo libreria standard di Python. Configurazione tramite variabili d'ambiente:
-  ROOTS        cartelle esplorabili: "Nome=/percorso:ro;Nome2=/percorso2"
-               (":ro" = sola lettura anche per il programma)
+  ROOTS        cartelle esplorabili: "Nome=/percorso[:ro|:out];..."
+               ":out" = cartella di uscita, ":ro" = sola lettura imposta,
+               nessun suffisso = cartella della libreria, bloccata finche' non
+               viene sbloccata nelle impostazioni
   PORT         porta HTTP (predefinita 8765)
   DATA         cartella per impostazioni, preset, anteprime, copertine e log (/config)
   THREADS      thread ffmpeg per le conversioni (predefinito 2)
@@ -35,7 +37,7 @@ from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, quote, urlparse
 
-VERSION = "1.3.1"
+VERSION = "1.4"
 HERE = os.path.dirname(os.path.abspath(__file__))
 STATIC = os.path.join(HERE, "static")
 PORT = int(os.environ.get("PORT", "8765"))
@@ -85,24 +87,45 @@ def log(msg):
 
 # ================================================================ cartelle
 def _parse_roots():
-    raw = os.environ.get("ROOTS", "LIBRARY=/mnt/library:ro;OUTPUT=/mnt/output")
+    """ROOTS="Nome=/percorso[:ro|:out];...".
+      :out  cartella di uscita (es. CONVERTITI): sempre scrivibile, l'unica con le
+            azioni rinomina/copia/sposta/cancella
+      :ro   sola lettura imposta: non si puo' sbloccare dalle impostazioni
+      (nulla) cartella della libreria: BLOCCATA di default, sbloccabile nelle
+            impostazioni (protezione gestita dal programma)
+    """
+    raw = os.environ.get("ROOTS", "LIBRARY=/mnt/library;OUTPUT=/mnt/output:out")
     roots = []
     for part in raw.split(";"):
         if "=" in part:
             name, path = part.split("=", 1)
-            path = path.strip()
-            ro = path.lower().endswith(":ro")
-            if ro:
-                path = path[:-3]
+            path, kind = path.strip(), "lib"
+            for flag in (":ro", ":out"):
+                if path.lower().endswith(flag):
+                    path, kind = path[:-len(flag)], flag[1:]
             path = os.path.realpath(path)
             if os.path.isdir(path):
-                # access(2) restituisce EROFS sui montaggi :ro; nessun file viene creato
-                writable = (not ro) and os.access(path, os.W_OK)
-                roots.append({"name": name.strip(), "path": path, "writable": writable})
+                # access(2) restituisce EROFS sui montaggi :ro di Docker; nessun file viene creato
+                sys_w = kind != "ro" and os.access(path, os.W_OK)
+                roots.append({"name": name.strip(), "path": path, "kind": kind,
+                              "sys_writable": sys_w, "writable": False})
     return roots
 
 
 ROOTS = _parse_roots()
+
+
+def apply_locks(settings=None):
+    """Calcola quali cartelle sono scrivibili: l'uscita sempre, la libreria solo se
+    sbloccata nelle impostazioni, mai quelle in sola lettura."""
+    unlocked = set((settings or load_settings()).get("unlocked", []))
+    for r in ROOTS:
+        r["writable"] = r["sys_writable"] and (r["kind"] == "out" or (r["kind"] == "lib" and r["name"] in unlocked))
+
+
+def public_root(r):
+    return {"name": r["name"], "path": fwd(r["path"]), "kind": r["kind"],
+            "sys_writable": r["sys_writable"], "writable": r["writable"]}
 
 VIDEO_EXT = {"mkv", "mp4", "m4v", "mov", "avi", "ts", "m2ts", "mts", "mpg", "mpeg", "vob", "wmv", "webm"}
 AUDIO_EXT = {"flac", "wav", "mp3", "m4a", "aac", "ogg", "opus", "wma", "ac3", "dts", "mka", "aiff", "aif"}
@@ -140,12 +163,19 @@ def assert_writable(path):
         raise ApiError("readonly")
 
 
+def assert_output(path):
+    """Rinomina, cancellazione e origine degli spostamenti: solo nella cartella di uscita."""
+    r = root_info(os.path.realpath(path))
+    if not r or r["kind"] != "out" or not r["writable"]:
+        raise ApiError("not_output")
+
+
 def ext_of(name):
     return name.rsplit(".", 1)[-1].lower() if "." in name else ""
 
 
 # ================================================================ impostazioni
-SETTINGS_DEFAULT = {"allow_overwrite": False}
+SETTINGS_DEFAULT = {"allow_overwrite": False, "unlocked": []}
 
 
 def load_settings():
@@ -162,9 +192,20 @@ def save_settings(new):
     s = load_settings()
     if "allow_overwrite" in new:
         s["allow_overwrite"] = bool(new["allow_overwrite"])
+        log(f"Impostazioni: sostituzione file {'ATTIVATA' if s['allow_overwrite'] else 'disattivata'}")
+    if "unlock" in new:                     # {"unlock": "nome cartella", "value": true/false}
+        name = str(new.get("unlock"))
+        lib = {r["name"] for r in ROOTS if r["kind"] == "lib" and r["sys_writable"]}
+        if name not in lib:
+            raise ApiError("bad_dir")
+        u = [x for x in s.get("unlocked", []) if x in lib and x != name]
+        if new.get("value"):
+            u.append(name)
+        s["unlocked"] = sorted(u)
+        log(f"Impostazioni: cartella {name} {'SBLOCCATA' if new.get('value') else 'bloccata'}")
     with open(SETTINGS_FILE, "w", encoding="utf-8") as f:
         json.dump(s, f, indent=2)
-    log(f"Impostazioni: sovrascrittura {'ATTIVATA' if s['allow_overwrite'] else 'disattivata'}")
+    apply_locks(s)
     return s
 
 
@@ -787,12 +828,12 @@ def _file_in_use(*paths):
     return False
 
 
-def _source_file(path, need_writable):
+def _source_file(path, need_output):
     src = safe_path(path)
     if not os.path.isfile(src):
         raise ApiError("not_file")
-    if need_writable:
-        assert_writable(src)
+    if need_output:
+        assert_output(src)
     if _file_in_use(src):
         raise ApiError("busy")
     return src
@@ -827,7 +868,7 @@ def file_delete(path):
 
 
 def file_copy_move(path, destdir, newname, move):
-    src = _source_file(path, move)          # la copia puo' partire anche da una cartella protetta
+    src = _source_file(path, move)          # la copia puo' partire da qualsiasi cartella (sola lettura)
     dst = _target(destdir, newname or os.path.basename(src))
     if move:
         try:                                # stesso disco: istantaneo
@@ -998,8 +1039,7 @@ class Handler(BaseHTTPRequestHandler):
             if u.path in ("/", "/index.html"):
                 return self._file(os.path.join(STATIC, "index.html"), "text/html; charset=utf-8")
             if u.path == "/api/roots":
-                return self._json([{"name": r["name"], "path": fwd(r["path"]), "writable": r["writable"]}
-                                   for r in ROOTS])
+                return self._json([public_root(r) for r in ROOTS])
             if u.path == "/api/list":
                 return self._json(self.list_dir(q.get("path", ""), q.get("dirs") == "1"))
             if u.path == "/api/info":
@@ -1032,7 +1072,7 @@ class Handler(BaseHTTPRequestHandler):
     def list_dir(self, path, dirs_only):
         if not path:
             return {"path": "", "parent": None, "writable": False,
-                    "entries": [{"name": r["name"], "path": fwd(r["path"]), "type": "dir", "writable": r["writable"]}
+                    "entries": [dict(public_root(r), type="dir")
                                 for r in ROOTS if r["writable"] or not dirs_only]}
         p = safe_path(path)
         if dirs_only and not root_info(p)["writable"]:
@@ -1055,7 +1095,9 @@ class Handler(BaseHTTPRequestHandler):
                     continue
         entries.sort(key=lambda e: (e["type"] != "dir", e["name"].lower()))
         parent = "" if any(p == r["path"] for r in ROOTS) else fwd(os.path.dirname(p))
-        return {"path": fwd(p), "parent": parent, "entries": entries, "writable": root_info(p)["writable"]}
+        ri = root_info(p)
+        return {"path": fwd(p), "parent": parent, "entries": entries, "writable": ri["writable"],
+                "output": ri["kind"] == "out" and ri["writable"]}
 
     # ---------------- POST
     def do_POST(self):
@@ -1156,9 +1198,10 @@ class Handler(BaseHTTPRequestHandler):
 def main():
     if not ROOTS:
         raise SystemExit("Nessuna cartella valida in ROOTS")
+    apply_locks()
     threading.Thread(target=worker, daemon=True).start()
     log(f"Upmix 5.1 v{VERSION} in ascolto sulla porta {PORT} - cartelle: "
-        + ", ".join(f"{r['name']}={r['path']}{'' if r['writable'] else ' (sola lettura)'}" for r in ROOTS))
+        + ", ".join(f"{r['name']}={r['path']} [{r['kind']}{', scrivibile' if r['writable'] else ', bloccata'}]" for r in ROOTS))
     ThreadingHTTPServer(("0.0.0.0", PORT), Handler).serve_forever()
 
 

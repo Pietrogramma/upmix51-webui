@@ -168,6 +168,10 @@ dialog footer{display:flex;gap:8px;justify-content:flex-end;padding:12px 16px;bo
 .rootrow b{min-width:0;overflow:hidden;text-overflow:ellipsis}
 .rootrow span{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
 .rootrow.rw span{color:var(--ok)}
+.rootrow .switch{margin-left:auto;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.rootrow .switch input{margin-top:0}
+.rootrow.rw .switch{color:var(--ok)}
+#rootList{max-height:300px;overflow:auto}
 #setDlg{max-height:calc(100vh - 32px)}
 #setDlg .body{max-height:calc(100vh - 170px);overflow:auto}
 .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;opacity:0;transition:opacity .25s;pointer-events:none;max-width:calc(100vw - 32px);z-index:10}
@@ -372,6 +376,22 @@ dialog footer{display:flex;gap:8px;justify-content:flex-end;padding:12px 16px;bo
   <footer><button class="btn" id="owOnCancel" data-i18n="btn.cancel"></button><button class="btn danger" id="owOnOk">OK</button></footer>
 </dialog>
 
+<!-- avviso allo sblocco di una cartella -->
+<dialog id="unlockDlg">
+  <p class="dh"><span style="color:var(--err)">&#9888;</span> <span id="unlockTitle"></span></p>
+  <div class="body">
+    <p style="margin-top:0" data-i18n="unlock.intro"></p>
+    <ul style="margin:0 0 10px;padding-left:20px;line-height:1.5">
+      <li data-i18n="unlock.r1"></li>
+      <li data-i18n="unlock.r2"></li>
+      <li data-i18n="unlock.r3"></li>
+    </ul>
+    <p class="note" data-i18n="unlock.safe"></p>
+    <p style="margin-bottom:0"><b data-i18n="unlock.ask"></b></p>
+  </div>
+  <footer><button class="btn" id="unlockCancel" data-i18n="btn.cancel"></button><button class="btn danger" id="unlockOk">OK</button></footer>
+</dialog>
+
 <!-- impostazioni -->
 <dialog id="setDlg">
   <p class="dh" data-i18n="set.title"></p>
@@ -407,7 +427,7 @@ it: {
  'app.sub':'Da stereo a Dolby Digital 5.1','sec.source':'Sorgente','sec.file':'File','sec.channels':'Canali','sec.preview':'Anteprima',
  'sec.advanced':'Regolazioni avanzate','sec.cover':'Copertina','sec.dest':'Destinazione','sec.jobs':'Lavori',
  'pick.file':'Scegli un file a sinistra per iniziare.','crumb.root':'Cartelle','list.empty':'Nessun file audio o video qui.',
- 'root.rw':'scrivibile','root.ro':'🔒 sola lettura','warn.noWritable':'Nessuna cartella scrivibile configurata: si possono fare anteprime ma non salvare conversioni.',
+ 'root.rw':'scrivibile','root.ro':'🔒 protetta','warn.noWritable':'Nessuna cartella scrivibile configurata: si possono fare anteprime ma non salvare conversioni.',
  'info.name':'Nome','info.duration':'Durata','info.video':'Video','info.subs':'Sottotitoli','info.none':'nessuno','info.cover':'Copertina',
  'info.yes':'presente','info.no':'assente','info.analyzing':'Analisi','info.error':'Errore',
  'track.label':'Traccia audio da convertire','track.channels':'{n} canali','track.notStereo':'non stereo',
@@ -488,13 +508,25 @@ it: {
  'cover.legal':'Le copertine sono protette dal diritto d’autore dei rispettivi titolari: usale solo per la tua collezione personale e non ridistribuirle.',
  'set.legal':'Software libero con licenza MIT, fornito «così com’è», senza alcuna garanzia: tieni sempre una copia dei tuoi file. Dolby e Dolby Digital sono marchi di Dolby Laboratories; questo progetto non è affiliato a Dolby, Apple, Deezer, MetaBrainz o TMDB.',
  'set.folders':'Cartelle','set.rootRo':'sola lettura (protetta dal sistema)','set.rootRw':'scrivibile',
- 'set.foldersNote':'Per rendere scrivibile una cartella protetta modifica il compose di Docker: aggiungila senza «:ro» (vedi il README).'
+ 'set.foldersNote':'Le cartelle sbloccate possono ricevere file (conversioni, copie, spostamenti) e, se attivata, la sostituzione dei file con backup. Rinomina e cancella sono disponibili solo nella cartella di uscita.',
+ 'set.rootOut':'cartella di uscita (sempre scrivibile)',
+ 'set.rootLocked':'bloccata',
+ 'unlock.title':'Sbloccare la cartella «{name}»?',
+ 'unlock.intro':'Upmix51 potrà scrivere in questa cartella. Tieni presente che:',
+ 'unlock.r1':'potrà ricevere conversioni e file copiati o spostati da CONVERTITI;',
+ 'unlock.r2':'con la sostituzione attivata, potrà sostituire file esistenti (l’originale va nella cartella di backup <code>upmix_originali</code>);',
+ 'unlock.r3':'la protezione di questa cartella sarà garantita solo dal programma, non più dal sistema.',
+ 'unlock.safe':'Rinominare o cancellare file resta impossibile in questa cartella: il menu ⋮ esiste solo nella cartella di uscita. Puoi bloccarla di nuovo in qualsiasi momento.',
+ 'unlock.ask':'Vuoi davvero sbloccare questa cartella?',
+ 'toast.unlocked':'Cartella {name} sbloccata',
+ 'toast.locked':'Cartella {name} bloccata',
+ 'err.not_output':'Operazione consentita solo nella cartella di uscita (CONVERTITI).'
 },
 en: {
  'app.sub':'From stereo to Dolby Digital 5.1','sec.source':'Source','sec.file':'File','sec.channels':'Channels','sec.preview':'Preview',
  'sec.advanced':'Advanced settings','sec.cover':'Cover art','sec.dest':'Destination','sec.jobs':'Jobs',
  'pick.file':'Pick a file on the left to start.','crumb.root':'Folders','list.empty':'No audio or video files here.',
- 'root.rw':'writable','root.ro':'🔒 read-only','warn.noWritable':'No writable folder configured: previews work, but conversions cannot be saved.',
+ 'root.rw':'writable','root.ro':'🔒 protected','warn.noWritable':'No writable folder configured: previews work, but conversions cannot be saved.',
  'info.name':'Name','info.duration':'Duration','info.video':'Video','info.subs':'Subtitles','info.none':'none','info.cover':'Cover',
  'info.yes':'present','info.no':'none','info.analyzing':'Analysing','info.error':'Error',
  'track.label':'Audio track to convert','track.channels':'{n} channels','track.notStereo':'not stereo',
@@ -575,13 +607,25 @@ en: {
  'cover.legal':'Cover art is protected by the copyright of its respective owners: use it only for your personal collection and do not redistribute it.',
  'set.legal':'Free software under the MIT licence, provided “as is”, without any warranty: always keep a copy of your files. Dolby and Dolby Digital are trademarks of Dolby Laboratories; this project is not affiliated with Dolby, Apple, Deezer, MetaBrainz or TMDB.',
  'set.folders':'Folders','set.rootRo':'read-only (protected by the system)','set.rootRw':'writable',
- 'set.foldersNote':'To make a protected folder writable, edit the Docker compose file: add it without “:ro” (see the README).'
+ 'set.foldersNote':'Unlocked folders can receive files (conversions, copies, moves) and, if enabled, file replacement with backup. Rename and delete are available only in the output folder.',
+ 'set.rootOut':'output folder (always writable)',
+ 'set.rootLocked':'locked',
+ 'unlock.title':'Unlock the folder “{name}”?',
+ 'unlock.intro':'Upmix51 will be able to write to this folder. Keep in mind that:',
+ 'unlock.r1':'it can receive conversions and files copied or moved from the output folder;',
+ 'unlock.r2':'with replacement enabled, existing files can be replaced (the original goes to the <code>upmix_originali</code> backup folder);',
+ 'unlock.r3':'this folder will be protected only by the program, no longer by the system.',
+ 'unlock.safe':'Renaming or deleting files stays impossible in this folder: the ⋮ menu exists only in the output folder. You can lock it again at any time.',
+ 'unlock.ask':'Do you really want to unlock this folder?',
+ 'toast.unlocked':'Folder {name} unlocked',
+ 'toast.locked':'Folder {name} locked',
+ 'err.not_output':'This operation is allowed only in the output folder.'
 },
 fr: {
  'app.sub':'Du stéréo au Dolby Digital 5.1','sec.source':'Source','sec.file':'Fichier','sec.channels':'Canaux','sec.preview':'Aperçu',
  'sec.advanced':'Réglages avancés','sec.cover':'Pochette','sec.dest':'Destination','sec.jobs':'Tâches',
  'pick.file':'Choisissez un fichier à gauche pour commencer.','crumb.root':'Dossiers','list.empty':'Aucun fichier audio ou vidéo ici.',
- 'root.rw':'modifiable','root.ro':'🔒 lecture seule','warn.noWritable':'Aucun dossier modifiable configuré : les aperçus fonctionnent, mais les conversions ne peuvent pas être enregistrées.',
+ 'root.rw':'modifiable','root.ro':'🔒 protégé','warn.noWritable':'Aucun dossier modifiable configuré : les aperçus fonctionnent, mais les conversions ne peuvent pas être enregistrées.',
  'info.name':'Nom','info.duration':'Durée','info.video':'Vidéo','info.subs':'Sous-titres','info.none':'aucun','info.cover':'Pochette',
  'info.yes':'présente','info.no':'absente','info.analyzing':'Analyse','info.error':'Erreur',
  'track.label':'Piste audio à convertir','track.channels':'{n} canaux','track.notStereo':'non stéréo',
@@ -662,13 +706,25 @@ fr: {
  'cover.legal':'Les pochettes sont protégées par le droit d’auteur de leurs titulaires : utilisez-les uniquement pour votre collection personnelle et ne les redistribuez pas.',
  'set.legal':'Logiciel libre sous licence MIT, fourni « tel quel », sans aucune garantie : conservez toujours une copie de vos fichiers. Dolby et Dolby Digital sont des marques de Dolby Laboratories ; ce projet n’est pas affilié à Dolby, Apple, Deezer, MetaBrainz ou TMDB.',
  'set.folders':'Dossiers','set.rootRo':'lecture seule (protégé par le système)','set.rootRw':'modifiable',
- 'set.foldersNote':'Pour rendre un dossier protégé modifiable, modifiez le fichier compose de Docker : ajoutez-le sans « :ro » (voir le README).'
+ 'set.foldersNote':'Les dossiers déverrouillés peuvent recevoir des fichiers (conversions, copies, déplacements) et, si activé, le remplacement de fichiers avec sauvegarde. Renommer et supprimer ne sont possibles que dans le dossier de sortie.',
+ 'set.rootOut':'dossier de sortie (toujours modifiable)',
+ 'set.rootLocked':'verrouillé',
+ 'unlock.title':'Déverrouiller le dossier « {name} » ?',
+ 'unlock.intro':'Upmix51 pourra écrire dans ce dossier. Notez que :',
+ 'unlock.r1':'il pourra recevoir des conversions et des fichiers copiés ou déplacés depuis le dossier de sortie ;',
+ 'unlock.r2':'avec le remplacement activé, des fichiers existants pourront être remplacés (l’original va dans le dossier de sauvegarde <code>upmix_originali</code>) ;',
+ 'unlock.r3':'ce dossier ne sera plus protégé par le système, mais seulement par le programme.',
+ 'unlock.safe':'Renommer ou supprimer des fichiers reste impossible dans ce dossier : le menu ⋮ n’existe que dans le dossier de sortie. Vous pouvez le verrouiller à nouveau à tout moment.',
+ 'unlock.ask':'Voulez-vous vraiment déverrouiller ce dossier ?',
+ 'toast.unlocked':'Dossier {name} déverrouillé',
+ 'toast.locked':'Dossier {name} verrouillé',
+ 'err.not_output':'Opération autorisée uniquement dans le dossier de sortie.'
 },
 es: {
  'app.sub':'De estéreo a Dolby Digital 5.1','sec.source':'Origen','sec.file':'Archivo','sec.channels':'Canales','sec.preview':'Vista previa',
  'sec.advanced':'Ajustes avanzados','sec.cover':'Carátula','sec.dest':'Destino','sec.jobs':'Tareas',
  'pick.file':'Elige un archivo a la izquierda para empezar.','crumb.root':'Carpetas','list.empty':'No hay archivos de audio ni vídeo aquí.',
- 'root.rw':'escribible','root.ro':'🔒 solo lectura','warn.noWritable':'No hay ninguna carpeta escribible configurada: se pueden crear vistas previas, pero no guardar conversiones.',
+ 'root.rw':'escribible','root.ro':'🔒 protegida','warn.noWritable':'No hay ninguna carpeta escribible configurada: se pueden crear vistas previas, pero no guardar conversiones.',
  'info.name':'Nombre','info.duration':'Duración','info.video':'Vídeo','info.subs':'Subtítulos','info.none':'ninguno','info.cover':'Carátula',
  'info.yes':'presente','info.no':'ausente','info.analyzing':'Analizando','info.error':'Error',
  'track.label':'Pista de audio a convertir','track.channels':'{n} canales','track.notStereo':'no estéreo',
@@ -749,13 +805,25 @@ es: {
  'cover.legal':'Las carátulas están protegidas por los derechos de autor de sus titulares: úsalas solo para tu colección personal y no las redistribuyas.',
  'set.legal':'Software libre con licencia MIT, proporcionado «tal cual», sin ninguna garantía: guarda siempre una copia de tus archivos. Dolby y Dolby Digital son marcas de Dolby Laboratories; este proyecto no está afiliado a Dolby, Apple, Deezer, MetaBrainz ni TMDB.',
  'set.folders':'Carpetas','set.rootRo':'solo lectura (protegida por el sistema)','set.rootRw':'escribible',
- 'set.foldersNote':'Para que una carpeta protegida sea escribible, edita el archivo compose de Docker: añádela sin «:ro» (consulta el README).'
+ 'set.foldersNote':'Las carpetas desbloqueadas pueden recibir archivos (conversiones, copias, traslados) y, si está activada, la sustitución de archivos con copia de seguridad. Renombrar y eliminar solo están disponibles en la carpeta de salida.',
+ 'set.rootOut':'carpeta de salida (siempre escribible)',
+ 'set.rootLocked':'bloqueada',
+ 'unlock.title':'¿Desbloquear la carpeta «{name}»?',
+ 'unlock.intro':'Upmix51 podrá escribir en esta carpeta. Ten en cuenta que:',
+ 'unlock.r1':'podrá recibir conversiones y archivos copiados o movidos desde la carpeta de salida;',
+ 'unlock.r2':'con la sustitución activada, se podrán sustituir archivos existentes (el original va a la carpeta de copia de seguridad <code>upmix_originali</code>);',
+ 'unlock.r3':'esta carpeta ya no estará protegida por el sistema, solo por el programa.',
+ 'unlock.safe':'Renombrar o eliminar archivos sigue siendo imposible en esta carpeta: el menú ⋮ solo existe en la carpeta de salida. Puedes volver a bloquearla en cualquier momento.',
+ 'unlock.ask':'¿De verdad quieres desbloquear esta carpeta?',
+ 'toast.unlocked':'Carpeta {name} desbloqueada',
+ 'toast.locked':'Carpeta {name} bloqueada',
+ 'err.not_output':'Operación permitida solo en la carpeta de salida.'
 },
 de: {
  'app.sub':'Von Stereo zu Dolby Digital 5.1','sec.source':'Quelle','sec.file':'Datei','sec.channels':'Kanäle','sec.preview':'Vorschau',
  'sec.advanced':'Erweiterte Einstellungen','sec.cover':'Cover','sec.dest':'Ziel','sec.jobs':'Aufträge',
  'pick.file':'Wähle links eine Datei aus, um zu beginnen.','crumb.root':'Ordner','list.empty':'Keine Audio- oder Videodateien hier.',
- 'root.rw':'beschreibbar','root.ro':'🔒 schreibgeschützt','warn.noWritable':'Kein beschreibbarer Ordner konfiguriert: Vorschauen sind möglich, Konvertierungen können aber nicht gespeichert werden.',
+ 'root.rw':'beschreibbar','root.ro':'🔒 geschützt','warn.noWritable':'Kein beschreibbarer Ordner konfiguriert: Vorschauen sind möglich, Konvertierungen können aber nicht gespeichert werden.',
  'info.name':'Name','info.duration':'Dauer','info.video':'Video','info.subs':'Untertitel','info.none':'keine','info.cover':'Cover',
  'info.yes':'vorhanden','info.no':'keines','info.analyzing':'Analyse','info.error':'Fehler',
  'track.label':'Zu konvertierende Audiospur','track.channels':'{n} Kanäle','track.notStereo':'nicht Stereo',
@@ -836,7 +904,19 @@ de: {
  'cover.legal':'Cover sind urheberrechtlich geschützt (Rechteinhaber): verwende sie nur für deine private Sammlung und verbreite sie nicht weiter.',
  'set.legal':'Freie Software unter MIT-Lizenz, bereitgestellt „wie besehen“, ohne jede Gewährleistung: bewahre immer eine Kopie deiner Dateien auf. Dolby und Dolby Digital sind Marken von Dolby Laboratories; dieses Projekt ist nicht mit Dolby, Apple, Deezer, MetaBrainz oder TMDB verbunden.',
  'set.folders':'Ordner','set.rootRo':'schreibgeschützt (vom System geschützt)','set.rootRw':'beschreibbar',
- 'set.foldersNote':'Um einen geschützten Ordner beschreibbar zu machen, bearbeite die Docker-Compose-Datei: füge ihn ohne „:ro“ hinzu (siehe README).'
+ 'set.foldersNote':'Entsperrte Ordner können Dateien empfangen (Konvertierungen, Kopien, Verschiebungen) und, falls aktiviert, Dateien mit Sicherung ersetzen. Umbenennen und Löschen gibt es nur im Ausgabeordner.',
+ 'set.rootOut':'Ausgabeordner (immer beschreibbar)',
+ 'set.rootLocked':'gesperrt',
+ 'unlock.title':'Ordner „{name}“ entsperren?',
+ 'unlock.intro':'Upmix51 kann dann in diesen Ordner schreiben. Beachte:',
+ 'unlock.r1':'er kann Konvertierungen sowie aus dem Ausgabeordner kopierte oder verschobene Dateien empfangen;',
+ 'unlock.r2':'bei aktiviertem Ersetzen können vorhandene Dateien ersetzt werden (das Original kommt in den Sicherungsordner <code>upmix_originali</code>);',
+ 'unlock.r3':'dieser Ordner ist dann nicht mehr vom System geschützt, sondern nur noch vom Programm.',
+ 'unlock.safe':'Umbenennen oder Löschen bleibt in diesem Ordner unmöglich: das ⋮-Menü gibt es nur im Ausgabeordner. Du kannst ihn jederzeit wieder sperren.',
+ 'unlock.ask':'Möchtest du diesen Ordner wirklich entsperren?',
+ 'toast.unlocked':'Ordner {name} entsperrt',
+ 'toast.locked':'Ordner {name} gesperrt',
+ 'err.not_output':'Dieser Vorgang ist nur im Ausgabeordner erlaubt.'
 }};
 
 const $ = s => document.querySelector(s);
@@ -899,8 +979,48 @@ $('#gearBtn').onclick = () => {
 $('#setClose').onclick = () => $('#setDlg').close();
 function renderRootList(){
   const L = $('#rootList'); if (!L) return;
-  L.innerHTML = ROOTS.map(r => `<div class="rootrow ${r.writable ? 'rw' : 'ro'}">${r.writable ? '\u270F\uFE0F' : '\uD83D\uDD12'}
-    <b title="${esc(r.name)}">${esc(r.name)}</b><span>${esc(t(r.writable ? 'set.rootRw' : 'set.rootRo'))}</span></div>`).join('');
+  L.innerHTML = '';
+  for (const r of ROOTS){
+    const row = document.createElement('div');
+    row.className = 'rootrow ' + (r.writable ? 'rw' : 'ro');
+    const icon = r.writable ? '\u270F\uFE0F' : '\uD83D\uDD12';
+    if (r.kind === 'lib' && r.sys_writable){
+      row.innerHTML = `${icon} <b title="${esc(r.name)}">${esc(r.name)}</b>
+        <label class="switch"><span>${esc(t(r.writable ? 'set.rootRw' : 'set.rootLocked'))}</span><input type="checkbox" ${r.writable ? 'checked' : ''}></label>`;
+      const sw = row.querySelector('input');
+      sw.onchange = () => toggleRoot(r, sw);
+    } else {
+      const st = r.kind === 'out' ? 'set.rootOut' : 'set.rootRo';
+      row.innerHTML = `${icon} <b title="${esc(r.name)}">${esc(r.name)}</b><span>${esc(t(st))}</span>`;
+    }
+    L.append(row);
+  }
+}
+function confirmUnlock(name){
+  return new Promise(res => {
+    const dlg = $('#unlockDlg');
+    $('#unlockTitle').textContent = t('unlock.title', {name});
+    const done = v => { dlg.close(); $('#unlockOk').onclick = $('#unlockCancel').onclick = null; dlg.oncancel = null; res(v); };
+    $('#unlockOk').onclick = () => done(true); $('#unlockCancel').onclick = () => done(false);
+    dlg.oncancel = e => { e.preventDefault(); done(false); };
+    dlg.showModal(); $('#unlockCancel').focus();
+  });
+}
+async function toggleRoot(r, sw){
+  const want = sw.checked;
+  if (want && !(await confirmUnlock(r.name))){ sw.checked = false; return; }
+  try {
+    S.settings = await api('/api/settings', {body:{unlock: r.name, value: want}});
+    ROOTS = await api('/api/roots');
+    toast(t(want ? 'toast.unlocked' : 'toast.locked', {name: r.name}));
+  } catch(e){ toast(e.message); }
+  renderRootList(); loadDir(S.dir);
+  if (S.file){
+    const srcDir = S.file.path.slice(0, S.file.path.lastIndexOf('/'));
+    $('#roNote').hidden = inWritable(srcDir);
+    if (!inWritable($('#outdir').value)){ const wr = writableRoots(); $('#outdir').value = wr[0] ? wr[0].path : ''; }
+    checkDest();
+  }
 }
 document.querySelectorAll('#themeSeg button').forEach(b => b.onclick = () => { store.set('theme', b.dataset.v); applyTheme(); });
 $('#langSel').onchange = () => { LANG = $('#langSel').value; store.set('lang', LANG); rerender(); };
@@ -940,7 +1060,7 @@ async function loadDir(path){
   for (const e of d.entries){
     const tag = !d.path ? t(e.writable ? 'root.rw' : 'root.ro') : (e.size ? fmtSize(e.size) : '');
     const r = row(e.type, e.name, tag, () => e.type === 'dir' ? loadDir(e.path) : selectFile(e, r),
-                  (d.writable && e.type !== 'dir') ? e : null);
+                  (d.output && e.type !== 'dir') ? e : null);
     if (S.file && S.file.path === e.path) r.classList.add('sel');
     L.append(r);
   }

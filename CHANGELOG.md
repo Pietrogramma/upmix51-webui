@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4
+- Library folders are now **locked by default** and can be unlocked one by one from the settings, with a warning dialog (protection managed by the program; `:ro` still available for system-level protection).
+- New `:out` flag in `ROOTS` for the output folder.
+- The ⋮ menu (rename, copy, move, delete) is available only in the output folder; library files can never be renamed or deleted from Upmix51. Unlocked folders can only receive files.
+
 ## 1.3.1
 - Settings: clearer wording for the "replace existing files" switch (it never unlocks protected folders).
 - Settings: list of folders with their real status (read-only / writable) and how to make a folder writable.

@@ -11,22 +11,26 @@ services:
       - 8765:8765
     environment:
       - TZ=Europe/Rome
-      # Folders shown in the web interface: Name=/path/inside/container[:ro];...
-      # ":ro" also makes the folder read-only for the program.
-      - ROOTS=LIBRARY=/mnt/library:ro;OUTPUT=/mnt/output
+      # Folders shown in the web interface: Name=/path/inside/container[:ro|:out];...
+      #   (no suffix) library folder: LOCKED by default, can be unlocked one by one in
+      #               the settings (protection managed by the program)
+      #   :ro         read-only, cannot be unlocked (use it together with a ":ro" volume
+      #               for protection enforced by the operating system)
+      #   :out        output folder: always writable, the only one with rename/copy/move/delete
+      - ROOTS=MOVIES=/mnt/movies;CONCERTS=/mnt/concerts;OUTPUT=/mnt/output:out
       # ffmpeg threads used by conversions
       - THREADS=2
       # Optional password for the web interface (any user name). STRONGLY recommended
       # if other people use your network. Never expose Upmix51 directly to the internet.
       - PASSWORD=
-      # Optional: your project URL or e-mail, sent to MusicBrainz in the User-Agent
-      - UA_CONTACT=
       # Optional: your free themoviedb.org API key, to also search film posters
       - TMDB_API_KEY=
     volumes:
-      # Your media library, READ-ONLY: the kernel prevents any write to it.
-      - /path/to/your/media:/mnt/library:ro
-      # The only writable folder: converted files are saved here.
+      # Library folders. Mount each one separately so you can unlock them one by one.
+      # Add ":ro" at the end of a line (and of its ROOTS entry) to make it read-only at system level.
+      - /path/to/your/movies:/mnt/movies
+      - /path/to/your/concerts:/mnt/concerts
+      # Output folder: converted files are saved here.
       - /path/to/upmix51/output:/mnt/output
       # Settings, presets, log and temporary files
       - /path/to/upmix51/config:/config
