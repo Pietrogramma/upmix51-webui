@@ -35,7 +35,7 @@ from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, quote, urlparse
 
-VERSION = "1.2"
+VERSION = "1.3"
 HERE = os.path.dirname(os.path.abspath(__file__))
 STATIC = os.path.join(HERE, "static")
 PORT = int(os.environ.get("PORT", "8765"))
@@ -764,6 +764,132 @@ def _rm(p):
         pass
 
 
+# ================================================================ operazioni sui file
+# Consentite solo nelle cartelle scrivibili (le radici ":ro" restano intoccabili).
+# Nessuna operazione sovrascrive un file esistente; i file usati da un lavoro in
+# corso sono bloccati. Copia e spostamento compaiono nella lista dei lavori.
+
+def _valid_name(name):
+    name = (name or "").strip()
+    if not name or name in (".", "..") or "/" in name or "\\" in name or name.startswith(".") \
+            or name.endswith(".upmixtmp") or len(name) > 255 or any(ord(c) < 32 for c in name):
+        raise ApiError("bad_name")
+    return name
+
+
+def _file_in_use(*paths):
+    with JOB_LOCK:
+        for j in JOBS.values():
+            if j["state"] in ("queued", "running"):
+                for p in paths:
+                    if p in (j.get("src"), j.get("dst")):
+                        return True
+    return False
+
+
+def _source_file(path, need_writable):
+    src = safe_path(path)
+    if not os.path.isfile(src):
+        raise ApiError("not_file")
+    if need_writable:
+        assert_writable(src)
+    if _file_in_use(src):
+        raise ApiError("busy")
+    return src
+
+
+def _target(destdir, name):
+    d = safe_path(destdir)
+    if not os.path.isdir(d):
+        raise ApiError("bad_dir")
+    assert_writable(d)
+    dst = safe_path(os.path.join(d, _valid_name(name)), must_exist=False)
+    if os.path.exists(dst):
+        raise ApiError("dest_exists")
+    if _file_in_use(dst):
+        raise ApiError("busy")
+    return dst
+
+
+def file_rename(path, newname):
+    src = _source_file(path, True)
+    dst = _target(os.path.dirname(src), newname)
+    os.rename(src, dst)
+    log(f"Rinominato: {src} -> {os.path.basename(dst)}")
+    return {"ok": True, "path": fwd(dst)}
+
+
+def file_delete(path):
+    src = _source_file(path, True)
+    os.remove(src)
+    log(f"Cancellato: {src}")
+    return {"ok": True}
+
+
+def file_copy_move(path, destdir, newname, move):
+    src = _source_file(path, move)          # la copia puo' partire anche da una cartella protetta
+    dst = _target(destdir, newname or os.path.basename(src))
+    if move:
+        try:                                # stesso disco: istantaneo
+            os.rename(src, dst)
+            log(f"Spostato: {src} -> {dst}")
+            return {"ok": True, "instant": True, "path": fwd(dst)}
+        except OSError:
+            pass                            # dischi diversi: copia e poi cancella
+    jid = uuid.uuid4().hex[:10]
+    job = {"id": jid, "kind": "move" if move else "copy", "state": "running", "progress": 0.0,
+           "msgs": [], "error": None, "created": time.time(), "proc": None,
+           "src": src, "dst": dst, "name": os.path.basename(src), "outname": os.path.basename(dst)}
+    with JOB_LOCK:
+        JOBS[jid] = job
+        JOB_ORDER.append(jid)
+    threading.Thread(target=_copy_worker, args=(job, move), daemon=True).start()
+    return {"ok": True, "job": public_job(job)}
+
+
+def _copy_worker(job, move):
+    src, dst = job["src"], job["dst"]
+    tmp = dst + ".upmixtmp"
+    try:
+        total = os.path.getsize(src) or 1
+        done = 0
+        with open(src, "rb") as fi, open(tmp, "wb") as fo:
+            while True:
+                if job.get("cancel"):
+                    raise InterruptedError
+                chunk = fi.read(8 * 1024 * 1024)
+                if not chunk:
+                    break
+                fo.write(chunk)
+                done += len(chunk)
+                job["progress"] = min(99.0, done / total * 100)
+        if os.path.getsize(tmp) != os.path.getsize(src):
+            raise ApiError("verify", reason="size")
+        shutil.copystat(src, tmp)
+        try:
+            st = os.stat(src)
+            if hasattr(os, "chown"):
+                os.chown(tmp, st.st_uid, st.st_gid)
+        except OSError:
+            pass
+        if os.path.exists(dst):
+            raise ApiError("dest_exists")
+        os.replace(tmp, dst)
+        if move:
+            os.remove(src)
+        job["progress"], job["state"] = 100.0, "done"
+        log(f"{'Spostato' if move else 'Copiato'}: {src} -> {dst}")
+    except InterruptedError:
+        _rm(tmp)
+        job["state"] = "cancelled"
+    except ApiError as e:
+        _rm(tmp)
+        job["state"], job["error"] = "error", {"code": e.code, "params": e.params}
+    except OSError as e:
+        _rm(tmp)
+        job["state"], job["error"] = "error", {"code": "internal", "params": {"detail": str(e)}}
+
+
 # ================================================================ preset
 def load_presets():
     user = {}
@@ -947,6 +1073,13 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json(cover_fetch(b.get("id", "")))
             if u.path == "/api/jobs":
                 return self._json(public_job(self.create_job(b)))
+            if u.path == "/api/file/rename":
+                return self._json(file_rename(b.get("path"), b.get("name")))
+            if u.path == "/api/file/delete":
+                return self._json(file_delete(b.get("path")))
+            if u.path in ("/api/file/copy", "/api/file/move"):
+                return self._json(file_copy_move(b.get("path"), b.get("destdir"), b.get("name"),
+                                                 u.path.endswith("move")))
             m = re.fullmatch(r"/api/jobs/([0-9a-f]+)/(cancel|remove)", u.path)
             if m:
                 with JOB_LOCK:

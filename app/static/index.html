@@ -53,6 +53,13 @@ main{display:grid;grid-template-columns:minmax(260px,340px) 1fr;gap:16px;padding
 .item .ic{width:20px;text-align:center;opacity:.8;flex:none}
 .item .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .item .sz{color:var(--muted);font-size:12px;flex:none}
+.item .more{flex:none;width:28px;height:28px;border-radius:7px;border:1px solid transparent;background:none;cursor:pointer;color:var(--muted);font-size:18px;line-height:1;display:grid;place-items:center}
+.item .more:hover,.item .more.on{border-color:var(--line);background:var(--panel);color:var(--ink)}
+.fmenu{position:fixed;z-index:20;min-width:190px;background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 28px rgba(0,0,0,.22);padding:5px}
+.fmenu button{display:flex;gap:10px;align-items:center;width:100%;text-align:left;border:0;background:none;padding:8px 10px;border-radius:7px;cursor:pointer;font-size:14px}
+.fmenu button:hover{background:var(--panel2)}
+.fmenu button.del{color:var(--err)}
+.fmenu hr{border:0;border-top:1px solid var(--line);margin:4px 0}
 .empty{padding:24px;text-align:center;color:var(--muted);font-size:14px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media (max-width:1200px){.grid2{grid-template-columns:1fr}}
@@ -304,6 +311,33 @@ dialog footer{display:flex;gap:8px;justify-content:flex-end;padding:12px 16px;bo
   <footer><button class="btn" id="dCancel" data-i18n="btn.cancel"></button><button class="btn pri" id="dOk" data-i18n="dlg.dir.ok"></button></footer>
 </dialog>
 
+<!-- menu dei file -->
+<div class="fmenu" id="fmenu" hidden>
+  <button data-a="rename">&#9999;&#65039; <span data-i18n="fop.rename"></span></button>
+  <button data-a="copy">&#128196; <span data-i18n="fop.copy"></span></button>
+  <button data-a="move">&#128230; <span data-i18n="fop.move"></span></button>
+  <hr>
+  <button data-a="delete" class="del">&#128465;&#65039; <span data-i18n="fop.delete"></span></button>
+</div>
+
+<!-- dialogo operazioni sui file -->
+<dialog id="fopDlg">
+  <p class="dh" id="fopTitle"></p>
+  <div class="body">
+    <div id="fopDirRow">
+      <label class="f" style="margin-top:0" data-i18n="fop.folder"></label>
+      <div class="row"><input type="text" id="fopDir" readonly><button class="btn" id="fopBrowse" data-i18n="dest.browse"></button></div>
+    </div>
+    <div id="fopNameRow">
+      <label class="f" for="fopName" data-i18n="fop.name"></label>
+      <input type="text" id="fopName">
+    </div>
+    <p id="fopText" style="margin:0"></p>
+    <p class="note err" id="fopErr"></p>
+  </div>
+  <footer><button class="btn" id="fopCancel" data-i18n="btn.cancel"></button><button class="btn pri" id="fopOk">OK</button></footer>
+</dialog>
+
 <!-- conferma sovrascrittura -->
 <dialog id="owDlg">
   <p class="dh"><span style="color:var(--warn)">⚠</span> <span data-i18n="ow.title"></span></p>
@@ -423,6 +457,24 @@ it: {
  'owon.safe':'Le cartelle protette (🔒) restano comunque in sola lettura: questa impostazione non può modificarle. A ogni sovrascrittura ti verrà chiesta conferma.',
  'owon.ask':'Vuoi davvero consentire la sovrascrittura dei file?',
  'room.listener':'Posizione d’ascolto',
+ 'fop.actions':'Azioni sul file',
+ 'fop.rename':'Rinomina',
+ 'fop.copy':'Copia',
+ 'fop.move':'Sposta',
+ 'fop.delete':'Cancella',
+ 'fop.folder':'Cartella di destinazione',
+ 'fop.name':'Nome del file',
+ 'fop.delText':'Cancellare definitivamente «{name}»? L’operazione non può essere annullata.',
+ 'toast.rename':'File rinominato',
+ 'toast.copy':'File copiato',
+ 'toast.move':'File spostato',
+ 'toast.delete':'File cancellato',
+ 'toast.fopStarted':'Operazione avviata: segui l’avanzamento in Lavori',
+ 'job.kind.copy':'Copia',
+ 'job.kind.move':'Spostamento',
+ 'err.not_file':'Non è un file.',
+ 'err.busy':'Il file è usato da un lavoro in corso.',
+ 'reason.size':'dimensione diversa',
  'cover.legal':'Le copertine sono protette dal diritto d’autore dei rispettivi titolari: usale solo per la tua collezione personale e non ridistribuirle.',
  'set.legal':'Software libero con licenza MIT, fornito «così com’è», senza alcuna garanzia: tieni sempre una copia dei tuoi file. Dolby e Dolby Digital sono marchi di Dolby Laboratories; questo progetto non è affiliato a Dolby, Apple, Deezer, MetaBrainz o TMDB.'
 },
@@ -490,6 +542,24 @@ en: {
  'owon.safe':'Protected folders (🔒) stay read-only regardless: this setting cannot change them. Every overwrite will still ask for confirmation.',
  'owon.ask':'Do you really want to allow files to be overwritten?',
  'room.listener':'Listening position',
+ 'fop.actions':'File actions',
+ 'fop.rename':'Rename',
+ 'fop.copy':'Copy',
+ 'fop.move':'Move',
+ 'fop.delete':'Delete',
+ 'fop.folder':'Destination folder',
+ 'fop.name':'File name',
+ 'fop.delText':'Permanently delete “{name}”? This cannot be undone.',
+ 'toast.rename':'File renamed',
+ 'toast.copy':'File copied',
+ 'toast.move':'File moved',
+ 'toast.delete':'File deleted',
+ 'toast.fopStarted':'Operation started: follow its progress in Jobs',
+ 'job.kind.copy':'Copy',
+ 'job.kind.move':'Move',
+ 'err.not_file':'Not a file.',
+ 'err.busy':'The file is used by a running job.',
+ 'reason.size':'different size',
  'cover.legal':'Cover art is protected by the copyright of its respective owners: use it only for your personal collection and do not redistribute it.',
  'set.legal':'Free software under the MIT licence, provided “as is”, without any warranty: always keep a copy of your files. Dolby and Dolby Digital are trademarks of Dolby Laboratories; this project is not affiliated with Dolby, Apple, Deezer, MetaBrainz or TMDB.'
 },
@@ -557,6 +627,24 @@ fr: {
  'owon.safe':'Les dossiers protégés (🔒) restent en lecture seule dans tous les cas : ce paramètre ne peut pas les modifier. Chaque écrasement demandera toujours une confirmation.',
  'owon.ask':'Voulez-vous vraiment autoriser l’écrasement des fichiers ?',
  'room.listener':'Position d’écoute',
+ 'fop.actions':'Actions sur le fichier',
+ 'fop.rename':'Renommer',
+ 'fop.copy':'Copier',
+ 'fop.move':'Déplacer',
+ 'fop.delete':'Supprimer',
+ 'fop.folder':'Dossier de destination',
+ 'fop.name':'Nom du fichier',
+ 'fop.delText':'Supprimer définitivement « {name} » ? Cette opération est irréversible.',
+ 'toast.rename':'Fichier renommé',
+ 'toast.copy':'Fichier copié',
+ 'toast.move':'Fichier déplacé',
+ 'toast.delete':'Fichier supprimé',
+ 'toast.fopStarted':'Opération lancée : suivez sa progression dans Tâches',
+ 'job.kind.copy':'Copie',
+ 'job.kind.move':'Déplacement',
+ 'err.not_file':'Ce n’est pas un fichier.',
+ 'err.busy':'Le fichier est utilisé par une tâche en cours.',
+ 'reason.size':'taille différente',
  'cover.legal':'Les pochettes sont protégées par le droit d’auteur de leurs titulaires : utilisez-les uniquement pour votre collection personnelle et ne les redistribuez pas.',
  'set.legal':'Logiciel libre sous licence MIT, fourni « tel quel », sans aucune garantie : conservez toujours une copie de vos fichiers. Dolby et Dolby Digital sont des marques de Dolby Laboratories ; ce projet n’est pas affilié à Dolby, Apple, Deezer, MetaBrainz ou TMDB.'
 },
@@ -624,6 +712,24 @@ es: {
  'owon.safe':'Las carpetas protegidas (🔒) siguen siendo de solo lectura en cualquier caso: este ajuste no puede modificarlas. Cada sobrescritura seguirá pidiendo confirmación.',
  'owon.ask':'¿De verdad quieres permitir que se sobrescriban archivos?',
  'room.listener':'Posición de escucha',
+ 'fop.actions':'Acciones del archivo',
+ 'fop.rename':'Renombrar',
+ 'fop.copy':'Copiar',
+ 'fop.move':'Mover',
+ 'fop.delete':'Eliminar',
+ 'fop.folder':'Carpeta de destino',
+ 'fop.name':'Nombre del archivo',
+ 'fop.delText':'¿Eliminar definitivamente «{name}»? La operación no se puede deshacer.',
+ 'toast.rename':'Archivo renombrado',
+ 'toast.copy':'Archivo copiado',
+ 'toast.move':'Archivo movido',
+ 'toast.delete':'Archivo eliminado',
+ 'toast.fopStarted':'Operación iniciada: sigue el progreso en Tareas',
+ 'job.kind.copy':'Copia',
+ 'job.kind.move':'Traslado',
+ 'err.not_file':'No es un archivo.',
+ 'err.busy':'El archivo lo está usando una tarea en curso.',
+ 'reason.size':'tamaño distinto',
  'cover.legal':'Las carátulas están protegidas por los derechos de autor de sus titulares: úsalas solo para tu colección personal y no las redistribuyas.',
  'set.legal':'Software libre con licencia MIT, proporcionado «tal cual», sin ninguna garantía: guarda siempre una copia de tus archivos. Dolby y Dolby Digital son marcas de Dolby Laboratories; este proyecto no está afiliado a Dolby, Apple, Deezer, MetaBrainz ni TMDB.'
 },
@@ -691,6 +797,24 @@ de: {
  'owon.safe':'Geschützte Ordner (🔒) bleiben in jedem Fall schreibgeschützt: diese Einstellung kann sie nicht ändern. Jedes Überschreiben muss weiterhin bestätigt werden.',
  'owon.ask':'Möchtest du das Überschreiben von Dateien wirklich erlauben?',
  'room.listener':'Hörposition',
+ 'fop.actions':'Dateiaktionen',
+ 'fop.rename':'Umbenennen',
+ 'fop.copy':'Kopieren',
+ 'fop.move':'Verschieben',
+ 'fop.delete':'Löschen',
+ 'fop.folder':'Zielordner',
+ 'fop.name':'Dateiname',
+ 'fop.delText':'„{name}“ endgültig löschen? Dies kann nicht rückgängig gemacht werden.',
+ 'toast.rename':'Datei umbenannt',
+ 'toast.copy':'Datei kopiert',
+ 'toast.move':'Datei verschoben',
+ 'toast.delete':'Datei gelöscht',
+ 'toast.fopStarted':'Vorgang gestartet: Fortschritt unter Aufträge',
+ 'job.kind.copy':'Kopie',
+ 'job.kind.move':'Verschieben',
+ 'err.not_file':'Keine Datei.',
+ 'err.busy':'Die Datei wird von einem laufenden Auftrag verwendet.',
+ 'reason.size':'abweichende Größe',
  'cover.legal':'Cover sind urheberrechtlich geschützt (Rechteinhaber): verwende sie nur für deine private Sammlung und verbreite sie nicht weiter.',
  'set.legal':'Freie Software unter MIT-Lizenz, bereitgestellt „wie besehen“, ohne jede Gewährleistung: bewahre immer eine Kopie deiner Dateien auf. Dolby und Dolby Digital sind Marken von Dolby Laboratories; dieses Projekt ist nicht mit Dolby, Apple, Deezer, MetaBrainz oder TMDB verbunden.'
 }};
@@ -789,15 +913,23 @@ async function loadDir(path){
   if (!d.entries.length) L.insertAdjacentHTML('beforeend', `<div class="empty">${t('list.empty')}</div>`);
   for (const e of d.entries){
     const tag = !d.path ? t(e.writable ? 'root.rw' : 'root.ro') : (e.size ? fmtSize(e.size) : '');
-    const r = row(e.type, e.name, tag, () => e.type === 'dir' ? loadDir(e.path) : selectFile(e, r));
+    const r = row(e.type, e.name, tag, () => e.type === 'dir' ? loadDir(e.path) : selectFile(e, r),
+                  (d.writable && e.type !== 'dir') ? e : null);
     if (S.file && S.file.path === e.path) r.classList.add('sel');
     L.append(r);
   }
 }
-function row(type, name, size, onclick){
+function row(type, name, size, onclick, entry){
   const r = document.createElement('div'); r.className = 'item';
   r.innerHTML = `<span class="ic">${type==='dir'?'📁':type==='video'?'🎬':'🎵'}</span><span class="nm" title="${esc(name)}">${esc(name)}</span><span class="sz">${esc(size)}</span>`;
-  r.onclick = onclick; return r;
+  r.onclick = onclick;
+  if (entry){
+    const b = document.createElement('button'); b.className = 'more'; b.type = 'button'; b.textContent = '\u22EE';
+    b.title = t('fop.actions'); b.setAttribute('aria-label', t('fop.actions'));
+    b.onclick = ev => { ev.stopPropagation(); openFileMenu(b, entry); };
+    r.append(b);
+  }
+  return r;
 }
 function renderCrumbs(el, path, go){
   el.innerHTML = '';
@@ -1146,9 +1278,11 @@ $('#coverRemove').onclick = () => { S.cover = null; document.querySelectorAll('.
 
 /* ===================================================== destinazione */
 let dSel = '';
-$('#pickDir').onclick = () => { dSel = $('#outdir').value; loadDDir(dSel); $('#dirDlg').showModal(); };
+let dirCb = null;
+function openDirPicker(start, cb){ dirCb = cb; dSel = start; loadDDir(start); $('#dirDlg').showModal(); }
+$('#pickDir').onclick = () => openDirPicker($('#outdir').value, v => { $('#outdir').value = v; store.set('outdir', v); checkDest(); });
 $('#dCancel').onclick = () => $('#dirDlg').close();
-$('#dOk').onclick = () => { if (!dSel){ toast(t('toast.pickDir')); return; } $('#outdir').value = dSel; store.set('outdir', dSel); $('#dirDlg').close(); checkDest(); };
+$('#dOk').onclick = () => { if (!dSel){ toast(t('toast.pickDir')); return; } $('#dirDlg').close(); if (dirCb) dirCb(dSel); };
 async function loadDDir(path){
   let d; try { d = await api('/api/list?dirs=1&path='+encodeURIComponent(path)); } catch(e){ if (path) return loadDDir(''); toast(e.message); return; }
   dSel = d.path; renderCrumbs($('#dCrumbs'), d.path, loadDDir);
@@ -1157,6 +1291,54 @@ async function loadDDir(path){
   for (const e of d.entries) L.append(row('dir', e.name, '', () => loadDDir(e.path)));
   if (!d.entries.length) L.insertAdjacentHTML('beforeend', `<div class="empty">${t('dlg.dir.empty')}</div>`);
 }
+
+/* ===================================================== operazioni sui file */
+let menuEntry = null, menuBtn = null;
+function openFileMenu(btn, entry){
+  const m = $('#fmenu');
+  if (menuBtn === btn && !m.hidden){ closeFileMenu(); return; }
+  closeFileMenu(); menuEntry = entry; menuBtn = btn; btn.classList.add('on');
+  m.hidden = false;
+  const r = btn.getBoundingClientRect(), w = m.offsetWidth, h = m.offsetHeight;
+  m.style.left = Math.max(8, Math.min(innerWidth - w - 8, r.right - w)) + 'px';
+  m.style.top = (r.bottom + h + 8 > innerHeight ? r.top - h - 4 : r.bottom + 4) + 'px';
+}
+function closeFileMenu(){ $('#fmenu').hidden = true; if (menuBtn) menuBtn.classList.remove('on'); menuBtn = null; }
+document.addEventListener('click', e => { if (!e.target.closest('#fmenu') && !e.target.closest('.more')) closeFileMenu(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFileMenu(); });
+window.addEventListener('scroll', closeFileMenu, true);
+window.addEventListener('resize', closeFileMenu);
+document.querySelectorAll('#fmenu button').forEach(b => b.onclick = () => { const e = menuEntry; closeFileMenu(); fileAction(b.dataset.a, e); });
+
+function fileAction(kind, e){
+  const dlg = $('#fopDlg'), dir = e.path.slice(0, e.path.lastIndexOf('/'));
+  $('#fopTitle').textContent = t('fop.'+kind) + ' \u2014 ' + e.name;
+  $('#fopDirRow').hidden = !(kind === 'copy' || kind === 'move');
+  $('#fopNameRow').hidden = kind === 'delete';
+  $('#fopDir').value = dir;
+  $('#fopName').value = e.name;
+  $('#fopText').innerHTML = kind === 'delete' ? `<span class="err">${esc(t('fop.delText', {name: e.name}))}</span>` : '';
+  $('#fopErr').textContent = '';
+  $('#fopOk').className = 'btn ' + (kind === 'delete' ? 'danger' : 'pri');
+  $('#fopBrowse').onclick = () => openDirPicker($('#fopDir').value, v => { $('#fopDir').value = v; });
+  $('#fopCancel').onclick = () => dlg.close();
+  $('#fopOk').onclick = async () => {
+    const body = {path: e.path, name: $('#fopName').value.trim(), destdir: $('#fopDir').value};
+    $('#fopOk').disabled = true; $('#fopErr').textContent = '';
+    try {
+      const r = await api('/api/file/' + kind, {body});
+      dlg.close();
+      toast(t(r.job ? 'toast.fopStarted' : 'toast.'+kind));
+      if (S.file && S.file.path === e.path && kind !== 'copy') resetPanel();
+      loadDir(S.dir); refreshJobs(); lastActive = true;
+    } catch(err){ $('#fopErr').textContent = err.message; }
+    $('#fopOk').disabled = false;
+  };
+  dlg.showModal();
+  if (kind !== 'delete'){ const n = $('#fopName'); n.focus(); const dot = n.value.lastIndexOf('.'); n.setSelectionRange(0, dot > 0 ? dot : n.value.length); }
+  else $('#fopCancel').focus();
+}
+function resetPanel(){ S.file = null; S.info = null; $('#panel').hidden = true; $('#noFile').hidden = false; }
 
 /* ===================================================== avvio conversione */
 function confirmOverwrite(name, same, backup){
@@ -1196,7 +1378,8 @@ async function refreshJobs(){
     if (j.backup_path) lines.push(t('job.backup', {p: esc(j.backup_path)}));
     for (const m of (j.msgs || [])) lines.push(t('msg.'+m));
     if (j.error) lines.push(`<span class="err">${esc(errText({error:j.error.code, params:j.error.params}))}</span>`);
-    return `<div class="job"><div class="t"><span class="nm" title="${esc(j.src)}">${esc(j.name)}</span>
+    const label = j.kind ? `${t('job.kind.'+j.kind)}: ${esc(j.name)}` : esc(j.name);
+    return `<div class="job"><div class="t"><span class="nm" title="${esc(j.src)}">${label}</span>
       <span class="badge ${j.state}">${t('state.'+j.state)}${j.state==='running'?' · '+j.progress.toFixed(0)+'%':''}</span>
       ${active ? `<button class="btn sm" data-c="${j.id}">${t('job.cancel')}</button>` : `<button class="btn sm" data-r="${j.id}" title="${esc(t('job.remove'))}">✕</button>`}</div>
       <div class="pb"><div style="width:${j.state==='done'?100:j.progress}%"></div></div>

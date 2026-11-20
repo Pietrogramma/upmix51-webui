@@ -23,6 +23,7 @@ Built for concert videos, DVD rips and music collections on a home server (NAS, 
 - Spatial upmix with FFmpeg's `surround` filter: clearly located sounds stay in front; reverb and applause go to the surrounds.
 - Per-channel sliders (L, C, R, SL, SR, LFE), presets, advanced settings, and a top-down room view with live levels and a video frame on the TV.
 - 30-second preview with real per-channel level meters.
+- File actions (rename, copy, move, delete) in writable folders.
 - Cover art search (iTunes, Deezer, MusicBrainz, optional TMDB) or upload; embedded in MKV/MP4.
 - Safe by design: read-only library, every result verified, overwriting off by default with confirmation and backup.
 - 5 languages, light and dark theme. Only Python standard library + FFmpeg.
@@ -94,6 +95,7 @@ Pensata per video di concerti, rip di DVD e collezioni musicali su un server dom
 - Upmix spaziale con il filtro `surround` di FFmpeg: i suoni localizzati restano davanti, riverbero e applausi vanno ai surround.
 - Slider per ogni canale (L, C, R, SL, SR, LFE), preset, regolazioni avanzate e pianta della stanza con i livelli in tempo reale e un fotogramma del video sulla TV.
 - Anteprima di 30 secondi con indicatori di livello reali per ogni canale.
+- Azioni sui file (rinomina, copia, sposta, cancella) nelle cartelle scrivibili.
 - Ricerca copertine (iTunes, Deezer, MusicBrainz, TMDB facoltativo) o caricamento dal PC; inserite nei file MKV/MP4.
 - Sicuro per costruzione: libreria in sola lettura, verifica di ogni risultato, sovrascrittura disattivata di default, con conferma e backup.
 - 5 lingue, tema chiaro e scuro. Solo libreria standard di Python e FFmpeg.
@@ -165,6 +167,7 @@ Conçue pour les vidéos de concerts, les rips de DVD et les collections musical
 - Upmix spatial avec le filtre `surround` de FFmpeg : les sons bien localisés restent devant ; la réverbération et les applaudissements vont aux surround.
 - Curseurs par canal (L, C, R, SL, SR, LFE), préréglages, réglages avancés et plan de la pièce avec les niveaux en temps réel et une image de la vidéo sur la TV.
 - Aperçu de 30 secondes avec de vrais indicateurs de niveau par canal.
+- Actions sur les fichiers (renommer, copier, déplacer, supprimer) dans les dossiers modifiables.
 - Recherche de pochettes (iTunes, Deezer, MusicBrainz, TMDB en option) ou import ; intégrées aux fichiers MKV/MP4.
 - Sûr par conception : bibliothèque en lecture seule, vérification de chaque résultat, écrasement désactivé par défaut, avec confirmation et sauvegarde.
 - 5 langues, thème clair et sombre. Uniquement la bibliothèque standard de Python et FFmpeg.
@@ -236,6 +239,7 @@ Pensada para vídeos de conciertos, copias de DVD y colecciones musicales en un 
 - Upmix espacial con el filtro `surround` de FFmpeg: los sonidos bien localizados se quedan delante; la reverberación y los aplausos van a los surround.
 - Deslizadores por canal (L, C, R, SL, SR, LFE), preajustes, ajustes avanzados y plano de la sala con los niveles en tiempo real y un fotograma del vídeo en la TV.
 - Vista previa de 30 segundos con medidores de nivel reales por canal.
+- Acciones de archivo (renombrar, copiar, mover, eliminar) en las carpetas escribibles.
 - Búsqueda de carátulas (iTunes, Deezer, MusicBrainz, TMDB opcional) o subida desde el ordenador; incrustadas en archivos MKV/MP4.
 - Seguro por diseño: biblioteca de solo lectura, cada resultado se verifica, sobrescritura desactivada por defecto, con confirmación y copia de seguridad.
 - 5 idiomas, tema claro y oscuro. Solo la biblioteca estándar de Python y FFmpeg.
@@ -307,6 +311,7 @@ Gedacht für Konzertvideos, DVD-Rips und Musiksammlungen auf einem Heimserver (N
 - Räumliches Upmix mit dem FFmpeg-Filter `surround`: klar ortbare Klänge bleiben vorne, Nachhall und Applaus gehen auf die Surround-Kanäle.
 - Regler pro Kanal (L, C, R, SL, SR, LFE), Voreinstellungen, erweiterte Einstellungen und ein Raumplan mit Live-Pegeln und einem Videobild auf dem Fernseher.
 - 30-Sekunden-Vorschau mit echten Pegelanzeigen pro Kanal.
+- Dateiaktionen (umbenennen, kopieren, verschieben, löschen) in beschreibbaren Ordnern.
 - Cover-Suche (iTunes, Deezer, MusicBrainz, optional TMDB) oder eigenes Bild hochladen; eingebettet in MKV/MP4.
 - Sicher durch Konzept: schreibgeschützte Bibliothek, jedes Ergebnis wird geprüft, Überschreiben standardmäßig aus, mit Bestätigung und Sicherung.
 - 5 Sprachen, helles und dunkles Design. Nur Python-Standardbibliothek und FFmpeg.

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3
+- File actions menu (⋮) in writable folders: rename, copy, move, delete.
+- Copy and move run in the background with progress in the job list; nothing is ever overwritten.
+- Read-only folders stay untouchable: no actions are shown there and the server refuses any change.
+
 ## 1.2
 - Legal notices in the interface (cover art copyright, licence, trademarks).
 - `UA_CONTACT` setting to identify the application to MusicBrainz.
