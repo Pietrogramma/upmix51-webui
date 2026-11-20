@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1
+- Copy and move from the ⋮ menu can now replace an existing file when "Allow replacing existing files" is on, after a confirmation dialog.
+- Replaced files are always backed up, now inside the output folder (`<output>/upmix_originali/<folder>/...`) so that media servers never see duplicates in the library. This also applies to conversions.
+
 ## 1.4
 - Library folders are now **locked by default** and can be unlocked one by one from the settings, with a warning dialog (protection managed by the program; `:ro` still available for system-level protection).
 - New `:out` flag in `ROOTS` for the output folder.

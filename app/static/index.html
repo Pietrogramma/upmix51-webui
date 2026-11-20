@@ -458,7 +458,7 @@ it: {
  'dest.backup':'Sposta prima il file esistente nella cartella di backup <code>upmix_originali</code> (consigliato)','dest.go':'Avvia conversione',
  'dlg.dir.title':'Scegli la cartella di destinazione','dlg.dir.ok':'Usa questa cartella','dlg.dir.empty':'Nessuna sottocartella.','toast.pickDir':'Scegli una cartella',
  'ow.title':'Sovrascrittura del file','ow.replace':'Stai sovrascrivendo il file originale «{name}» con la versione convertita.',
- 'ow.other':'Stai sovrascrivendo il file esistente «{name}».','ow.bkOn':'Il file attuale verrà prima spostato nella cartella di backup upmix_originali.',
+ 'ow.other':'Stai sovrascrivendo il file esistente «{name}».','ow.bkOn':'Il file attuale verrà prima messo al sicuro nella cartella di backup upmix_originali, dentro la cartella di uscita.',
  'ow.bkOff':'Nessuna copia di backup: l’operazione non potrà essere annullata.',
  'jobs.empty':'Nessun lavoro.','jobs.clear':'Pulisci completati','job.cancel':'Annulla','job.remove':'Togli dall’elenco','job.speed':'velocità {v}',
  'job.backup':'File precedente salvato in {p}','job.cover':'con copertina','toast.queued':'Conversione aggiunta alla coda',
@@ -520,7 +520,8 @@ it: {
  'unlock.ask':'Vuoi davvero sbloccare questa cartella?',
  'toast.unlocked':'Cartella {name} sbloccata',
  'toast.locked':'Cartella {name} bloccata',
- 'err.not_output':'Operazione consentita solo nella cartella di uscita (CONVERTITI).'
+ 'err.not_output':'Operazione consentita solo nella cartella di uscita (CONVERTITI).',
+ 'fop.owHint':'Per sostituirlo attiva «Consenti di sostituire file già esistenti» nelle impostazioni ⚙.'
 },
 en: {
  'app.sub':'From stereo to Dolby Digital 5.1','sec.source':'Source','sec.file':'File','sec.channels':'Channels','sec.preview':'Preview',
@@ -557,7 +558,7 @@ en: {
  'dest.backup':'First move the existing file to the backup folder <code>upmix_originali</code> (recommended)','dest.go':'Start conversion',
  'dlg.dir.title':'Choose the destination folder','dlg.dir.ok':'Use this folder','dlg.dir.empty':'No subfolders.','toast.pickDir':'Choose a folder',
  'ow.title':'Overwrite file','ow.replace':'You are overwriting the original file “{name}” with the converted version.',
- 'ow.other':'You are overwriting the existing file “{name}”.','ow.bkOn':'The current file will first be moved to the upmix_originali backup folder.',
+ 'ow.other':'You are overwriting the existing file “{name}”.','ow.bkOn':'The current file will first be saved to the upmix_originali backup folder, inside the output folder.',
  'ow.bkOff':'No backup copy: this cannot be undone.',
  'jobs.empty':'No jobs.','jobs.clear':'Clear finished','job.cancel':'Cancel','job.remove':'Remove from list','job.speed':'speed {v}',
  'job.backup':'Previous file saved to {p}','job.cover':'with cover','toast.queued':'Conversion added to the queue',
@@ -619,7 +620,8 @@ en: {
  'unlock.ask':'Do you really want to unlock this folder?',
  'toast.unlocked':'Folder {name} unlocked',
  'toast.locked':'Folder {name} locked',
- 'err.not_output':'This operation is allowed only in the output folder.'
+ 'err.not_output':'This operation is allowed only in the output folder.',
+ 'fop.owHint':'To replace it, enable “Allow replacing existing files” in the settings ⚙.'
 },
 fr: {
  'app.sub':'Du stéréo au Dolby Digital 5.1','sec.source':'Source','sec.file':'Fichier','sec.channels':'Canaux','sec.preview':'Aperçu',
@@ -656,7 +658,7 @@ fr: {
  'dest.backup':'Déplacer d’abord le fichier existant dans le dossier de sauvegarde <code>upmix_originali</code> (recommandé)','dest.go':'Lancer la conversion',
  'dlg.dir.title':'Choisir le dossier de destination','dlg.dir.ok':'Utiliser ce dossier','dlg.dir.empty':'Aucun sous-dossier.','toast.pickDir':'Choisissez un dossier',
  'ow.title':'Écraser le fichier','ow.replace':'Vous allez écraser le fichier d’origine « {name} » avec la version convertie.',
- 'ow.other':'Vous allez écraser le fichier existant « {name} ».','ow.bkOn':'Le fichier actuel sera d’abord déplacé dans le dossier de sauvegarde upmix_originali.',
+ 'ow.other':'Vous allez écraser le fichier existant « {name} ».','ow.bkOn':'Le fichier actuel sera d’abord mis en sécurité dans le dossier de sauvegarde upmix_originali, dans le dossier de sortie.',
  'ow.bkOff':'Aucune copie de sauvegarde : l’opération sera irréversible.',
  'jobs.empty':'Aucune tâche.','jobs.clear':'Effacer les terminées','job.cancel':'Annuler','job.remove':'Retirer de la liste','job.speed':'vitesse {v}',
  'job.backup':'Fichier précédent enregistré dans {p}','job.cover':'avec pochette','toast.queued':'Conversion ajoutée à la file',
@@ -718,7 +720,8 @@ fr: {
  'unlock.ask':'Voulez-vous vraiment déverrouiller ce dossier ?',
  'toast.unlocked':'Dossier {name} déverrouillé',
  'toast.locked':'Dossier {name} verrouillé',
- 'err.not_output':'Opération autorisée uniquement dans le dossier de sortie.'
+ 'err.not_output':'Opération autorisée uniquement dans le dossier de sortie.',
+ 'fop.owHint':'Pour le remplacer, activez « Autoriser le remplacement de fichiers existants » dans les paramètres ⚙.'
 },
 es: {
  'app.sub':'De estéreo a Dolby Digital 5.1','sec.source':'Origen','sec.file':'Archivo','sec.channels':'Canales','sec.preview':'Vista previa',
@@ -755,7 +758,7 @@ es: {
  'dest.backup':'Mover antes el archivo existente a la carpeta de copia de seguridad <code>upmix_originali</code> (recomendado)','dest.go':'Iniciar conversión',
  'dlg.dir.title':'Elige la carpeta de destino','dlg.dir.ok':'Usar esta carpeta','dlg.dir.empty':'No hay subcarpetas.','toast.pickDir':'Elige una carpeta',
  'ow.title':'Sobrescribir archivo','ow.replace':'Vas a sobrescribir el archivo original «{name}» con la versión convertida.',
- 'ow.other':'Vas a sobrescribir el archivo existente «{name}».','ow.bkOn':'Antes, el archivo actual se moverá a la carpeta de copia de seguridad upmix_originali.',
+ 'ow.other':'Vas a sobrescribir el archivo existente «{name}».','ow.bkOn':'El archivo actual se guardará primero en la carpeta de copia de seguridad upmix_originali, dentro de la carpeta de salida.',
  'ow.bkOff':'Sin copia de seguridad: la operación no se podrá deshacer.',
  'jobs.empty':'No hay tareas.','jobs.clear':'Limpiar terminadas','job.cancel':'Cancelar','job.remove':'Quitar de la lista','job.speed':'velocidad {v}',
  'job.backup':'Archivo anterior guardado en {p}','job.cover':'con carátula','toast.queued':'Conversión añadida a la cola',
@@ -817,7 +820,8 @@ es: {
  'unlock.ask':'¿De verdad quieres desbloquear esta carpeta?',
  'toast.unlocked':'Carpeta {name} desbloqueada',
  'toast.locked':'Carpeta {name} bloqueada',
- 'err.not_output':'Operación permitida solo en la carpeta de salida.'
+ 'err.not_output':'Operación permitida solo en la carpeta de salida.',
+ 'fop.owHint':'Para sustituirlo, activa «Permitir sustituir archivos existentes» en los ajustes ⚙.'
 },
 de: {
  'app.sub':'Von Stereo zu Dolby Digital 5.1','sec.source':'Quelle','sec.file':'Datei','sec.channels':'Kanäle','sec.preview':'Vorschau',
@@ -854,7 +858,7 @@ de: {
  'dest.backup':'Vorhandene Datei zuerst in den Sicherungsordner <code>upmix_originali</code> verschieben (empfohlen)','dest.go':'Konvertierung starten',
  'dlg.dir.title':'Zielordner wählen','dlg.dir.ok':'Diesen Ordner verwenden','dlg.dir.empty':'Keine Unterordner.','toast.pickDir':'Wähle einen Ordner',
  'ow.title':'Datei überschreiben','ow.replace':'Du überschreibst die Originaldatei „{name}“ mit der konvertierten Version.',
- 'ow.other':'Du überschreibst die vorhandene Datei „{name}“.','ow.bkOn':'Die aktuelle Datei wird zuerst in den Sicherungsordner upmix_originali verschoben.',
+ 'ow.other':'Du überschreibst die vorhandene Datei „{name}“.','ow.bkOn':'Die aktuelle Datei wird zuerst im Sicherungsordner upmix_originali innerhalb des Ausgabeordners gesichert.',
  'ow.bkOff':'Keine Sicherungskopie: Der Vorgang kann nicht rückgängig gemacht werden.',
  'jobs.empty':'Keine Aufträge.','jobs.clear':'Abgeschlossene entfernen','job.cancel':'Abbrechen','job.remove':'Aus der Liste entfernen','job.speed':'Geschwindigkeit {v}',
  'job.backup':'Vorherige Datei gespeichert unter {p}','job.cover':'mit Cover','toast.queued':'Konvertierung zur Warteschlange hinzugefügt',
@@ -916,7 +920,8 @@ de: {
  'unlock.ask':'Möchtest du diesen Ordner wirklich entsperren?',
  'toast.unlocked':'Ordner {name} entsperrt',
  'toast.locked':'Ordner {name} gesperrt',
- 'err.not_output':'Dieser Vorgang ist nur im Ausgabeordner erlaubt.'
+ 'err.not_output':'Dieser Vorgang ist nur im Ausgabeordner erlaubt.',
+ 'fop.owHint':'Um sie zu ersetzen, aktiviere „Ersetzen vorhandener Dateien erlauben“ in den Einstellungen ⚙.'
 }};
 
 const $ = s => document.querySelector(s);
@@ -940,7 +945,7 @@ function applyI18n(){
 }
 
 /* ===================================================== utilità */
-class ApiErr extends Error { constructor(j){ super(errText(j)); this.code = j && j.error; } }
+class ApiErr extends Error { constructor(j){ super(errText(j)); this.code = j && j.error; this.params = (j && j.params) || {}; } }
 const api = async (url, opt) => {
   const init = opt && opt.body !== undefined ? {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(opt.body)} : opt;
   const r = await fetch(url, init);
@@ -1472,7 +1477,18 @@ function fileAction(kind, e){
     const body = {path: e.path, name: $('#fopName').value.trim(), destdir: $('#fopDir').value};
     $('#fopOk').disabled = true; $('#fopErr').textContent = '';
     try {
-      const r = await api('/api/file/' + kind, {body});
+      let r;
+      try { r = await api('/api/file/' + kind, {body}); }
+      catch(err){
+        // destinazione gia' esistente: con l'impostazione attiva si chiede conferma
+        if (err.code !== 'dest_exists' || !(kind === 'copy' || kind === 'move')) throw err;
+        if (!err.params.can_overwrite){
+          $('#fopErr').textContent = err.message + ' ' + (S.settings.allow_overwrite ? '' : t('fop.owHint'));
+          $('#fopOk').disabled = false; return;
+        }
+        if (!await confirmOverwrite(body.name, false, true)){ $('#fopOk').disabled = false; return; }
+        r = await api('/api/file/' + kind, {body: {...body, overwrite: true}});
+      }
       dlg.close();
       toast(t(r.job ? 'toast.fopStarted' : 'toast.'+kind));
       if (S.file && S.file.path === e.path && kind !== 'copy') resetPanel();

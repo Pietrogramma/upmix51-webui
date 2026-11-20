@@ -37,7 +37,7 @@ from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, quote, urlparse
 
-VERSION = "1.4"
+VERSION = "1.4.1"
 HERE = os.path.dirname(os.path.abspath(__file__))
 STATIC = os.path.join(HERE, "static")
 PORT = int(os.environ.get("PORT", "8765"))
@@ -784,12 +784,7 @@ def _run_and_replace(job, src, dst, fmt, tmp):
             _rm(tmp)
             raise ApiError("overwrite_disabled")
         if job.get("backup", True):
-            root = root_info(os.path.realpath(dst))["path"]
-            bk = os.path.join(root, BACKUP_NAME, os.path.relpath(dst, root))
-            if os.path.exists(bk):
-                base, ext = os.path.splitext(bk)
-                bk = f"{base}.{time.strftime('%Y%m%d-%H%M%S')}{ext}"
-            os.makedirs(os.path.dirname(bk), exist_ok=True)
+            bk = backup_path(dst)
             shutil.move(dst, bk)
             job["backup_path"] = bk
     os.replace(tmp, dst)
@@ -805,10 +800,27 @@ def _rm(p):
         pass
 
 
+def backup_path(dst):
+    """Dove salvare un file prima di sostituirlo: nella cartella di uscita
+    (<uscita>/upmix_originali/<cartella>/<percorso>), cosi' i server multimediali
+    non vedono doppioni nella libreria. Senza cartella di uscita: nella radice."""
+    dst = os.path.realpath(dst)
+    r = root_info(dst)
+    outs = [x for x in ROOTS if x["kind"] == "out" and x["writable"]]
+    base = os.path.join(outs[0]["path"], BACKUP_NAME, r["name"]) if outs else os.path.join(r["path"], BACKUP_NAME)
+    bk = os.path.join(base, os.path.relpath(dst, r["path"]))
+    if os.path.exists(bk):
+        stem, ext = os.path.splitext(bk)
+        bk = f"{stem}.{time.strftime('%Y%m%d-%H%M%S')}{ext}"
+    os.makedirs(os.path.dirname(bk), exist_ok=True)
+    return bk
+
+
 # ================================================================ operazioni sui file
-# Consentite solo nelle cartelle scrivibili (le radici ":ro" restano intoccabili).
-# Nessuna operazione sovrascrive un file esistente; i file usati da un lavoro in
-# corso sono bloccati. Copia e spostamento compaiono nella lista dei lavori.
+# Rinomina, cancellazione e origine degli spostamenti: solo nella cartella di uscita.
+# Copia e spostamento possono sostituire un file esistente solo con l'impostazione
+# attiva e la conferma dell'utente; il file sostituito va sempre nel backup.
+# I file usati da un lavoro in corso sono bloccati.
 
 def _valid_name(name):
     name = (name or "").strip()
@@ -839,14 +851,19 @@ def _source_file(path, need_output):
     return src
 
 
-def _target(destdir, name):
+def _target(destdir, name, overwrite=False):
     d = safe_path(destdir)
     if not os.path.isdir(d):
         raise ApiError("bad_dir")
     assert_writable(d)
     dst = safe_path(os.path.join(d, _valid_name(name)), must_exist=False)
     if os.path.exists(dst):
-        raise ApiError("dest_exists")
+        if not os.path.isfile(dst):
+            raise ApiError("bad_name")
+        if not load_settings()["allow_overwrite"]:
+            raise ApiError("dest_exists", can_overwrite=False)
+        if not overwrite:                   # serve la conferma esplicita dell'utente
+            raise ApiError("dest_exists", can_overwrite=True)
     if _file_in_use(dst):
         raise ApiError("busy")
     return dst
@@ -867,10 +884,13 @@ def file_delete(path):
     return {"ok": True}
 
 
-def file_copy_move(path, destdir, newname, move):
+def file_copy_move(path, destdir, newname, move, overwrite=False):
     src = _source_file(path, move)          # la copia puo' partire da qualsiasi cartella (sola lettura)
-    dst = _target(destdir, newname or os.path.basename(src))
-    if move:
+    dst = _target(destdir, newname or os.path.basename(src), overwrite)
+    if os.path.realpath(dst) == os.path.realpath(src):
+        raise ApiError("dest_exists", can_overwrite=False)
+    replace = os.path.exists(dst)
+    if move and not replace:
         try:                                # stesso disco: istantaneo
             os.rename(src, dst)
             log(f"Spostato: {src} -> {dst}")
@@ -880,7 +900,8 @@ def file_copy_move(path, destdir, newname, move):
     jid = uuid.uuid4().hex[:10]
     job = {"id": jid, "kind": "move" if move else "copy", "state": "running", "progress": 0.0,
            "msgs": [], "error": None, "created": time.time(), "proc": None,
-           "src": src, "dst": dst, "name": os.path.basename(src), "outname": os.path.basename(dst)}
+           "src": src, "dst": dst, "name": os.path.basename(src), "outname": os.path.basename(dst),
+           "replace": replace}
     with JOB_LOCK:
         JOBS[jid] = job
         JOB_ORDER.append(jid)
@@ -891,35 +912,26 @@ def file_copy_move(path, destdir, newname, move):
 def _copy_worker(job, move):
     src, dst = job["src"], job["dst"]
     tmp = dst + ".upmixtmp"
+    same_disk = move and os.stat(src).st_dev == os.stat(os.path.dirname(dst)).st_dev
     try:
-        total = os.path.getsize(src) or 1
-        done = 0
-        with open(src, "rb") as fi, open(tmp, "wb") as fo:
-            while True:
-                if job.get("cancel"):
-                    raise InterruptedError
-                chunk = fi.read(8 * 1024 * 1024)
-                if not chunk:
-                    break
-                fo.write(chunk)
-                done += len(chunk)
-                job["progress"] = min(99.0, done / total * 100)
-        if os.path.getsize(tmp) != os.path.getsize(src):
-            raise ApiError("verify", reason="size")
-        shutil.copystat(src, tmp)
-        try:
-            st = os.stat(src)
-            if hasattr(os, "chown"):
-                os.chown(tmp, st.st_uid, st.st_gid)
-        except OSError:
-            pass
+        if not same_disk:
+            _copy_to_tmp(job, src, tmp)
         if os.path.exists(dst):
-            raise ApiError("dest_exists")
-        os.replace(tmp, dst)
-        if move:
-            os.remove(src)
+            # sostituzione: ricontrolla l'impostazione e salva il file esistente
+            if not (job.get("replace") and load_settings()["allow_overwrite"]):
+                raise ApiError("dest_exists", can_overwrite=False)
+            bk = backup_path(dst)
+            shutil.move(dst, bk)
+            job["backup_path"] = bk
+        if same_disk:
+            os.rename(src, dst)
+        else:
+            os.replace(tmp, dst)
+            if move:
+                os.remove(src)
         job["progress"], job["state"] = 100.0, "done"
-        log(f"{'Spostato' if move else 'Copiato'}: {src} -> {dst}")
+        log(f"{'Spostato' if move else 'Copiato'}: {src} -> {dst}"
+            + (f" (precedente in {job['backup_path']})" if job.get("backup_path") else ""))
     except InterruptedError:
         _rm(tmp)
         job["state"] = "cancelled"
@@ -929,6 +941,30 @@ def _copy_worker(job, move):
     except OSError as e:
         _rm(tmp)
         job["state"], job["error"] = "error", {"code": "internal", "params": {"detail": str(e)}}
+
+
+def _copy_to_tmp(job, src, tmp):
+    total = os.path.getsize(src) or 1
+    done = 0
+    with open(src, "rb") as fi, open(tmp, "wb") as fo:
+        while True:
+            if job.get("cancel"):
+                raise InterruptedError
+            chunk = fi.read(8 * 1024 * 1024)
+            if not chunk:
+                break
+            fo.write(chunk)
+            done += len(chunk)
+            job["progress"] = min(99.0, done / total * 100)
+    if os.path.getsize(tmp) != os.path.getsize(src):
+        raise ApiError("verify", reason="size")
+    shutil.copystat(src, tmp)
+    try:
+        st = os.stat(src)
+        if hasattr(os, "chown"):
+            os.chown(tmp, st.st_uid, st.st_gid)
+    except OSError:
+        pass
 
 
 # ================================================================ preset
@@ -1121,7 +1157,7 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json(file_delete(b.get("path")))
             if u.path in ("/api/file/copy", "/api/file/move"):
                 return self._json(file_copy_move(b.get("path"), b.get("destdir"), b.get("name"),
-                                                 u.path.endswith("move")))
+                                                 u.path.endswith("move"), bool(b.get("overwrite"))))
             m = re.fullmatch(r"/api/jobs/([0-9a-f]+)/(cancel|remove)", u.path)
             if m:
                 with JOB_LOCK:
