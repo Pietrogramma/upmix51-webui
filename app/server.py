@@ -37,7 +37,7 @@ from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, quote, urlparse
 
-VERSION = "1.4.1"
+VERSION = "1.4.2"
 HERE = os.path.dirname(os.path.abspath(__file__))
 STATIC = os.path.join(HERE, "static")
 PORT = int(os.environ.get("PORT", "8765"))
@@ -610,7 +610,11 @@ def worker():
             job = pending[0]
             job["state"] = "running"
         try:
-            run_job(job)
+            # una sola operazione pesante alla volta: conversioni, copie e spostamenti
+            if job.get("kind") in ("copy", "move"):
+                _copy_worker(job, job["kind"] == "move")
+            else:
+                run_job(job)
         except ApiError as e:
             job["state"], job["error"] = "error", {"code": e.code, "params": e.params}
             log(f"ERRORE {job['src']}: {e.code} {e.params}")
@@ -898,14 +902,14 @@ def file_copy_move(path, destdir, newname, move, overwrite=False):
         except OSError:
             pass                            # dischi diversi: copia e poi cancella
     jid = uuid.uuid4().hex[:10]
-    job = {"id": jid, "kind": "move" if move else "copy", "state": "running", "progress": 0.0,
+    job = {"id": jid, "kind": "move" if move else "copy", "state": "queued", "progress": 0.0,
            "msgs": [], "error": None, "created": time.time(), "proc": None,
            "src": src, "dst": dst, "name": os.path.basename(src), "outname": os.path.basename(dst),
            "replace": replace}
     with JOB_LOCK:
         JOBS[jid] = job
         JOB_ORDER.append(jid)
-    threading.Thread(target=_copy_worker, args=(job, move), daemon=True).start()
+    JOB_EVENT.set()                         # entra nella coda unica (vedi worker)
     return {"ok": True, "job": public_job(job)}
 
 

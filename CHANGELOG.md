@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.4.2
+- Copy and move operations now share the same queue as conversions: only one heavy operation runs at a time, in the order requested, to keep the server responsive. Instant moves on the same disk are still immediate.
+
 ## 1.4.1
 - Copy and move from the ⋮ menu can now replace an existing file when "Allow replacing existing files" is on, after a confirmation dialog.
 - Replaced files are always backed up, now inside the output folder (`<output>/upmix_originali/<folder>/...`) so that media servers never see duplicates in the library. This also applies to conversions.
